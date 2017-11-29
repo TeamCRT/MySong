@@ -45,3 +45,7 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES) -->
 ## Contributing
 
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
+
+[<img src="https://thesis-deploy.visualstudio.com/_apis/public/build/definitions/5dbcffa5-bf92-4053-913c-be257c6a383e/1/badge"/>](https://thesis-deploy.visualstudio.com/MyFirstProject/_build/index?definitionId=1)
+
+
