@@ -14,9 +14,9 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 console.log('Process/MongoDBUri', process.env.MONGODB_URI);
-
-mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true})
-
+/* we do not have access to process.env.MONGODB_URI without
+ require('dotenv').config({path:'../env.env'}) listed above */
+mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true});
 //creates an express session that stores its session data into the mLab MongoDB endpoint
 //go to https://www.npmjs.com/package/connect-mongo for more information
 app.use(session({
@@ -30,9 +30,8 @@ app.use(passport.initialize());
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('Database connected!')
+  console.log('Database connected!');
 });
 
 const port = process.env.PORT || 3001;
-console.log('Running on ', port)
-app.listen(port);
+app.listen(port, () => {console.log('Running on ', port);});
