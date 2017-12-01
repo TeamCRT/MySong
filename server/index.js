@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
+const api = require('./api');
 require('dotenv').config({path:'../env.env'});
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -32,6 +33,9 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Database connected!');
 });
+
+app.use('/api', api);
+
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {console.log('Running on ', port);});
