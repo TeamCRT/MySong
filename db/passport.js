@@ -28,6 +28,7 @@ module.exports = (passport) => {
           }
           return done(null, newUser);
         });
+<<<<<<< HEAD
         return true;
       });
     },
@@ -63,3 +64,33 @@ module.exports = (passport) => {
 //   localSignup,
 //   // localLogin,
 // };
+=======
+      });
+    }
+  )),
+  // Local Login strategy
+  localLogin = passport.use('local-login', new LocalStrategy(
+    { // http://www.passportjs.org/docs/login/ for more info
+      usernameField: 'username',// I don't think this field is necessary
+      passwordField: 'password',// I don't think this field is necessary
+      passReqToCallback: true,// req will be passed as the first argument to the verify callback
+  },
+  function(req, username, password, done) {
+    User.findOne({ 'username': username }, function(err, user) {
+      if (err) {
+        return done(err);
+      }
+      // If user is not found:
+      if (!user) {
+        return done('username not found.');
+      }
+      // If user is found but the provided password is incorrect:
+      if (!user.validPassword(password)) {
+        return done('loginMessage', 'Incorrect username/password.');
+      }
+      // If username and password are corret, return successfully
+      return done(null, user);
+    })
+  }))
+}
+>>>>>>> Still setting up passport
