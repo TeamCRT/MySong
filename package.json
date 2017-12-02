@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/TeamCRT/thesis#readme",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.1",
     "concurrently": "^3.5.1",
     "connect-mongo": "^1.3.2",
