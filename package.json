@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/TeamCRT/thesis#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.1",
     "concurrently": "^3.5.1",
