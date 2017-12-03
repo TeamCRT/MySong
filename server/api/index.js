@@ -9,9 +9,6 @@ router.get('/users', (req, res) => {
     res.send({ users });
   });
 });
-
-var test = 0;
-
 // add new user
 /* Example POST data
 {
@@ -27,7 +24,8 @@ router.post('/signup', (req, res) => {
       req.session.user_id = user._id;
       // user.email = req.body.email
       // create a default list for the new user
-  })(req, res);
+    }
+  });
 });
 
 
