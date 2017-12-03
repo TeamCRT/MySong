@@ -31,7 +31,6 @@ router.get('/me', (req, res) => {
 }
 */
 router.post('/signup', (req, res) => {
-<<<<<<< HEAD
   console.log('Inside server/api post signup: ', req.body);
   passport.authenticate('local-signup', (err, user) => {
     console.log('Passport authenticate user: ', user);
@@ -45,15 +44,9 @@ router.post('/signup', (req, res) => {
   });
   console.log('after passport authenticate');
 =======
-  passport.authenticate('local-signup', (err, user) => {
-    if (err) {
-      res.status(401).send({ err });
-    } else {
-      req.session.user_id = user._id;
-      // user.email = req.body.email
-      // create a default list for the new user
-  })(req, res);
->>>>>>> Still setting up passport
+    }
+  });
+>>>>>>> Starts the process of testing passport config, install axios as a dependency
 });
 
 

@@ -64,21 +64,14 @@ module.exports = (passport) => {
 //   localSignup,
 //   // localLogin,
 // };
-=======
-      });
-    }
-  )),
-  // Local Login strategy
-  localLogin = passport.use('local-login', new LocalStrategy(
-    { // http://www.passportjs.org/docs/login/ for more info
-      usernameField: 'username',// I don't think this field is necessary
-      passwordField: 'password',// I don't think this field is necessary
-      passReqToCallback: true,// req will be passed as the first argument to the verify callback
   },
-  function(req, username, password, done) {
-    User.findOne({ 'username': username }, function(err, user) {
+  (username, password, done) => { // this is the verify callback mentioned in line 10
+    // Check to see if there is already a user with provided username
+    User.findOne({ username }, (err, user) => {
       if (err) {
         return done(err);
+      } else if (user) {
+        return done('username is already taken');
       }
       // If user is not found:
       if (!user) {
