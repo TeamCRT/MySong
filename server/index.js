@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-// const http = require('http');
+const http = require('http');
 const mongoose = require('mongoose');
 const api = require('./api');
 const bodyParser = require('body-parser');
@@ -25,12 +25,16 @@ app.use(session({
   saveUninitialized: false,
 }));
 /* bodyParser makes form data available in req.body,
-https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90 */
-app.use(bodyParser());
+https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90
+ it is deprecated in Express v4 so instead of just app.use(bodyParser)
+ the two following statements are needed */
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(bodyParser.json());
+require('../db/passport.js')(passport);
 // initialize Passport for use
 app.use(passport.initialize());
-require('../db/passport.js')(passport);
-
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {

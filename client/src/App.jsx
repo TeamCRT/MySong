@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       username: 'Ross',
-      password: 'Ross',
+      password: 'RossPsw',
     };
     this.handleRegisterSubmit = (e) => {
       console.log('HandleRegisterSubmit called');
@@ -19,7 +19,7 @@ class App extends Component {
         password: this.state.password,
       })
         .then((response) => {
-          console.log('api/signup response: ', response);
+          console.log('api/signup response: ', response.data);
         // if(response.data) {
         //   this.props.setCurrentUser(response.data);
         //   this.setState({open: false});
@@ -36,7 +36,7 @@ class App extends Component {
     this.getLoggedInUser = () => {
       axios.get('/api/me')
         .then(() => {
-          alert('GOT ME');
+          console.log('successful axios call to /api/me');
           // this.setState({
           //   currentUser: user.data
           // })

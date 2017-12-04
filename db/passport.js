@@ -9,7 +9,7 @@ module.exports = (passport) => {
       passwordField: 'password', // I don't think this field is necessary
       passReqToCallback: true, // req will be passed as the first argument to the verify callback
     },
-    (username, password, done) => { // this is the verify callback mentioned above
+    (req, username, password, done) => { // this is the verify callback mentioned above
       // Check to see if there is already a user with provided username
       User.findOne({ username }, (err, user) => {
         if (err) {
@@ -30,10 +30,32 @@ module.exports = (passport) => {
         });
 <<<<<<< HEAD
 <<<<<<< HEAD
-=======
->>>>>>> Establishes two basic routes from the front end to the serve
         return true;
       });
+=======
+      console.log('Username: ', username, ' Password: ', password);
+      return done(null, password);
+      // User.findOne({ username }, (err, user) => {
+      //   console.log('Inside db/passport.js User.findOne');
+      //   if (err) {
+      //     return done(err);
+      //   } else if (user) {
+      //     return done('username is already taken');
+      //   }
+      //   const newUser = new User();
+      //   // Set the user's local credentials
+      //   newUser.username = username;
+      //   newUser.password = newUser.generateHash(password);
+      //   // Save the user
+      //   newUser.save((err1) => {
+      //     if (err1) {
+      //       throw err1;
+      //     }
+      //     return done(null, newUser);
+      //   });
+      //   return true;
+      // });
+>>>>>>> Local sign up is being passed through passport correctly
     },
   ));
 };
