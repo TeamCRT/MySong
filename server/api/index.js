@@ -43,8 +43,11 @@ router.post('/signup', (req, res) => {
     // create a default list for the new user
   });
   console.log('after passport authenticate');
-=======
     }
+    res.send('This is a response from server/api/index.js .post /signup: ', user);
+    // req.session.user_id = user._id;
+    // user.email = req.body.email
+    // create a default list for the new user
   });
 >>>>>>> Starts the process of testing passport config, install axios as a dependency
 });

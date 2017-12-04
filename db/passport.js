@@ -29,6 +29,9 @@ module.exports = (passport) => {
           return done(null, newUser);
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Establishes two basic routes from the front end to the serve
         return true;
       });
     },
