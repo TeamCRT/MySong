@@ -24,6 +24,11 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
 }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 /* bodyParser makes form data available in req.body,
 https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90
  it is deprecated in Express v4 so instead of just app.use(bodyParser)

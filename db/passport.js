@@ -1,5 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
+const SpotifyStrategy = require('passport-spotify').Strategy;
 const User = require('./model/user.js');
+require('dotenv').config({ path: '../env.env' });
+
 
 module.exports = (passport) => {
   // Local Signup Strategy
@@ -56,6 +59,21 @@ module.exports = (passport) => {
       //   return true;
       // });
 >>>>>>> Local sign up is being passed through passport correctly
+    },
+  ));
+  passport.use(new SpotifyStrategy(
+    {
+      clientID: process.env.SPOTIFY_CLIENT_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      callbackURL: 'http://localhost:3001/auth/spotify/callback',
+    },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOrCreate(
+        { spotifyId: profile.id },
+        (err, user) => {
+          return done(err, user);
+        },
+      );
     },
   ));
 };
