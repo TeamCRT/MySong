@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const http = require('http');
+// const http = require('http');
 const mongoose = require('mongoose');
 const api = require('./api');
 const bodyParser = require('body-parser');
@@ -10,7 +10,7 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 
 const app = express();
-app.use(app.router);
+// app.use(app.router);
 app.use(express.static(path.join(__dirname, '../client/build')));
 console.log('Process/MongoDBUri', process.env.MONGODB_URI);
 /* we do not have access to process.env.MONGODB_URI without
@@ -26,9 +26,11 @@ app.use(session({
 }));
 /* bodyParser makes form data available in req.body,
 https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90 */
-app.use(express.bodyParser());
+app.use(bodyParser());
 // initialize Passport for use
 app.use(passport.initialize());
+require('../db/passport.js')(passport);
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
