@@ -14,21 +14,9 @@ class App extends Component {
       console.log('HandleRegisterSubmit called');
       e.preventDefault();
       // Axios post handled in server/api/index.js
-      axios.post('api/signup', {
-        username: this.state.username,
-        password: this.state.password,
-      })
+      axios.get('/api/auth/spotify')
         .then((response) => {
           console.log('api/signup response: ', response.data);
-        // if(response.data) {
-        //   this.props.setCurrentUser(response.data);
-        //   this.setState({open: false});
-        //   if (this.props.history.location.pathname === '/'){
-        //     this.props.history.push('/'+this.state.username)
-        //   }
-        // } else {
-        //   console.log(response);
-        // }
         })
         .catch(error => console.log('handleRegisterSubmitError: ', error));
     };

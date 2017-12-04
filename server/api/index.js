@@ -14,6 +14,25 @@ router.get('/me', (req, res) => {
   console.log('Getting me');
   res.send({});
 });
+// see https://github.com/jmperez/passport-spotify#readme for passport
+// spotify OAuth strategy
+router.get(
+  '/auth/spotify',
+  passport.authenticate('spotify', { showDialog: true }),
+  (req, res) => {
+    // The request will be redirected to spotify for authentication, so this
+    // function will not be called.
+  },
+);
+
+router.get(
+  '/auth/spotify/callback',
+  passport.authenticate('spotify', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  },
+);
 
 // add new user
 /* Example POST data
