@@ -61,13 +61,14 @@ module.exports = (passport) => {
 >>>>>>> Local sign up is being passed through passport correctly
     },
   ));
-  passport.use(new SpotifyStrategy(
+  passport.use('spotify', new SpotifyStrategy(
     {
       clientID: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
       callbackURL: 'http://localhost:3001/auth/spotify/callback',
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log('SpotifyStrategy check');
       User.findOrCreate(
         { spotifyId: profile.id },
         (err, user) => {
