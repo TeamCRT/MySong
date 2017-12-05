@@ -13,7 +13,7 @@ class App extends Component {
       username: 'Ross',
       password: 'RossPsw',
     };
-    this.handleRegisterSubmit = (e) => {
+    this.handleSignup = (e) => {
       console.log('HandleRegisterSubmit called');
       e.preventDefault();
       // Axios post handled in server/api/index.js
@@ -53,7 +53,10 @@ class App extends Component {
               redirect_uri: 'http://localhost:3001/api/callback',
               state: '013747suhqlxJA73'
             })} >Go to http://3001/api/me </a> */}
-          <a href="http://localhost:3000/api/auth/spotify" > Spotify OAuth </a>
+          <a href="http://127.0.0.1:3000/api/auth/spotify" > Spotify OAuth </a>
+          <button onClick={this.handleSignup}>
+            Using handleSignup to call /api/auth/spotify
+          </button>
         </div>
         <p className="App-intro">
           This is a test.

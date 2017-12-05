@@ -32,33 +32,10 @@ module.exports = (passport) => {
           return done(null, newUser);
         });
 <<<<<<< HEAD
-<<<<<<< HEAD
         return true;
       });
 =======
-      console.log('Username: ', username, ' Password: ', password);
-      return done(null, password);
-      // User.findOne({ username }, (err, user) => {
-      //   console.log('Inside db/passport.js User.findOne');
-      //   if (err) {
-      //     return done(err);
-      //   } else if (user) {
-      //     return done('username is already taken');
-      //   }
-      //   const newUser = new User();
-      //   // Set the user's local credentials
-      //   newUser.username = username;
-      //   newUser.password = newUser.generateHash(password);
-      //   // Save the user
-      //   newUser.save((err1) => {
-      //     if (err1) {
-      //       throw err1;
-      //     }
-      //     return done(null, newUser);
-      //   });
-      //   return true;
-      // });
->>>>>>> Local sign up is being passed through passport correctly
+>>>>>>> Adds methodOverride as a dependency
     },
   ));
   passport.use('spotify', new SpotifyStrategy(
