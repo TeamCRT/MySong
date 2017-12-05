@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const User = require('./model/user.js');
-require('dotenv').config({ path: '../env.env' });
+require('dotenv').config({ path: '../../env.env' });
 
 
 module.exports = (passport) => {

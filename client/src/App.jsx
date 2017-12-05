@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
+// var querystring = require('querystring');
+// require('dotenv').config({ path: '../env.env' });
+
 
 class App extends Component {
   constructor(props) {
@@ -43,10 +46,17 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div>
-          <button onClick={this.handleRegisterSubmit} > Make a call to /api/signup </button>
+          {/* <a href={'https://accounts.spotify.com/authorize?' + querystring.stringify({
+              response_type: 'code',
+              client_id: 'b566bb55b1154c989dd684b0b32d0359',
+              scope: 'user-read-private user-read-email',
+              redirect_uri: 'http://localhost:3001/api/callback',
+              state: '013747suhqlxJA73'
+            })} >Go to http://3001/api/me </a> */}
+          <a href="http://localhost:3000/api/auth/spotify" > Spotify OAuth </a>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          This is a test.
         </p>
       </div>
     );
