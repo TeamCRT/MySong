@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../images/logo.svg';
+import ButtonExampleColored from './RedButton.jsx';
+import ButtonExampleCircular from './ButtonExampleCircular';
+import ButtonExampleGroupLabeledIcon from './ButtonExampleGroupLabeledIcon';
+
+
+import '../styles/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -58,7 +63,11 @@ class App extends Component {
           <button onClick={this.handleRegisterSubmit} > Make a call to /api/signup </button>
         </div>
         <p className="App-intro">
+          <ButtonExampleColored/>
+          <ButtonExampleCircular/>
+          <ButtonExampleGroupLabeledIcon />
           To get started, edit <code>src/App.js</code> and save to reload.
+          }
         </p>
       </div>
     );
