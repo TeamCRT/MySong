@@ -9,12 +9,12 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
-// const cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 
 // app.use(cors);
-// app.use(app.router);
+// app.use(app.router // deprecated in Express 4
 app.use(express.static(path.join(__dirname, '../client/build'))).use(cookieParser());
 console.log('Process/MongoDBUri', process.env.MONGODB_URI);
 /* we do not have access to process.env.MONGODB_URI without
