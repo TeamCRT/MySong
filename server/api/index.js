@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const cors = require('cors')
 const User = require('../../db/model/user.js');
 // const helpers = require('./helpers.js');
 
@@ -27,6 +28,7 @@ router.get(
 
 router.get(
   '/auth/spotify/callback',
+  cors(),
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication, redirect home.

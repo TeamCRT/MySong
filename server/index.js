@@ -8,10 +8,14 @@ require('dotenv').config({ path: '../env.env' });
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
+// const cors = require('cors');
 
 const app = express();
+
+// app.use(cors);
 // app.use(app.router);
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../client/build'))).use(cookieParser());
 console.log('Process/MongoDBUri', process.env.MONGODB_URI);
 /* we do not have access to process.env.MONGODB_URI without
  require('dotenv').config({path:'../env.env'}) listed above */
@@ -24,11 +28,7 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
 }));
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
 /* bodyParser makes form data available in req.body,
 https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90
  it is deprecated in Express v4 so instead of just app.use(bodyParser)
@@ -48,6 +48,10 @@ db.once('open', () => {
 
 app.use('/api', api);
 
+app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => { console.log('Running on ', port); });
