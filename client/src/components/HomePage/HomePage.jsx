@@ -3,7 +3,7 @@ import { Container, Divider, Grid, Header } from 'semantic-ui-react';
 import PlaylistsContainer from '../Playlists/PlaylistsContainer';
 import MainContainer from '../Main/MainContainer';
 import FollowingContainer from '../Following/FollowingContainer';
-import BottomPlayer from '../BottomPlayer/BottomPlayer';
+import BottomPlayer from './BottomPlayer';
 
 
 const HomePage = () => (
