@@ -1,12 +1,12 @@
 const api = require('./api');
 const express = require('express');
 const path = require('path');
-const http = require('http');
+// const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const methodOverride = require('method-override');
+// const methodOverride = require('method-override');
 const passport = require('passport');
 
 // dotenv used to store our spoitfy client_id and secret on process.env
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.use(methodOverride());
+// app.use(methodOverride());
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
