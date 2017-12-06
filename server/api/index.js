@@ -23,7 +23,7 @@ router.get(
   passport.authenticate('spotify',
     {
       scope: ['user-read-email', 'user-read-private'],
-      showDialog: true,
+      showDialog: false,
       successRedirect: '/',
       failureRedirect: '/login',
     },
