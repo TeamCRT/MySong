@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const cors = require('cors');
 const User = require('../../db/model/user.js');
 require('dotenv').config({ path: '../../env.env' });
 // const helpers = require('./helpers.js');
@@ -23,7 +22,7 @@ router.get(
   passport.authenticate(
     'spotify',
     {
-      scope: ['user-read-email', 'user-read-private'],
+      scope: ['user-read-email', 'user-read-private', 'user-follow-read'],
       showDialog: true,
       successRedirect: '/',
       failureRedirect: '/login',
@@ -33,16 +32,26 @@ router.get(
 // spotify OAuth callback for authorization process
 router.get(
   '/auth/spotify/callback',
-  passport.authenticate('spotify',
+  passport.authenticate(
+    'spotify',
     {
-      scope: ['user-read-email', 'user-read-private'],
+      scope: [
+        'user-read-email',
+        'user-read-private',
+        'user-follow-read',
+        'user-modify-playback-state',
+        'user-read-playback-state',
+        'playlist-modify-public',
+        'playlist-modify-private',
+      ],
       showDialog: true,
       failureRedirect: '/login',
       // successRedirect: '/',
     },
   ),
   (req, res) => {
-    console.log('Inside /auth/spotify/callback: ', req.user);
+    // req.user contains the data sent back from db/passport.js SpotifyStrategy
+    // console.log('Inside /auth/spotify/callback: ', req.user);
     // Successful authentication, redirect home.
     res.redirect('http://localhost:3000');
   },
