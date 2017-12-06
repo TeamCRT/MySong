@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import logo from '../images/logo.svg';
-import NavBarContainer from './NavBar/NavBarContainer.jsx';
 import HomePage from './HomePage/HomePage';
 import LandingPage from './LandingPage/LandingPage';
-import MainContainer from './Main/MainContainer';
 import 'semantic-ui-css/semantic.min.css';
 // import logo from '../images/logo.svg';
 import NavBarContainer from './NavBar/NavBarContainer';
-import HomePage from './HomePage/HomePage';
 import '../styles/App.css';
 import {
   BrowserRouter as Router,
