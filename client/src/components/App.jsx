@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import logo from '../images/logo.svg';
-import ButtonExampleColored from './NavBar/RedButton.jsx';
 import NavBarContainer from './NavBar/NavBarContainer.jsx';
-import ButtonExampleCircular from './ButtonExampleCircular';
-import ButtonExampleGroupLabeledIcon from './ButtonExampleGroupLabeledIcon';
-
-
+import HomePage from './HomePage/HomePage';
+import 'semantic-ui-css/semantic.min.css';
 import '../styles/App.css';
 
 class App extends Component {
@@ -42,7 +39,7 @@ class App extends Component {
     this.getLoggedInUser = () => {
       axios.get('/api/me')
         .then(() => {
-          alert('GOT ME');
+          //alert('GOT ME');
           // this.setState({
           //   currentUser: user.data
           // })
@@ -58,14 +55,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header>
           <NavBarContainer />
-        </header>
-        <div>
-          <button onClick={this.handleRegisterSubmit} > Make a call to /api/signup </button>
-        </div>
-          <ButtonExampleColored/>
-          To get started, edit <code>src/App.js</code> and save to reload.
+          <HomePage />
       </div>
     );
   }
@@ -83,7 +74,7 @@ class App extends Component {
   //       </div>
   //       <p className="App-intro">
   //         <NavBarContainer />
-  //         <ButtonExampleColored/>
+  //         <HomePage/>
   //         To get started, edit <code>src/App.js</code> and save to reload.
   //       </p>
   //     </div>
