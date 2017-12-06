@@ -1,28 +1,27 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
 
 const userSchema = new mongoose.Schema({
 
-  id: {
+  spotifyId: {
     type: String,
     unique: true,
     required: true,
   },
 
-  username: {
+  spotifyUsername: {
     type: String,
     unique: true,
     required: true,
   },
 
-  displayName: String,
+  spotifyDisplayName: String,
 
   // password: {
   //   type: String,
   //   required: true,
   // },
 
-  email: {
+  spotifyEmail: {
     type: String,
     unique: true,
     required: true,
