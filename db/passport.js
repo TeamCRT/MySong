@@ -25,7 +25,7 @@ module.exports = (passport) => {
       console.log('Spotify refreshToken: ', refreshToken);
       console.log('Spotify profile: ', profile);
 
-      User.findOne({ id: profile.id }, (err, user) => { // eslint-disable-line
+      User.findOne({ spotifyId: profile.id }, (err, user) => { // eslint-disable-line
         if (err) {
           return done(err);
         }
