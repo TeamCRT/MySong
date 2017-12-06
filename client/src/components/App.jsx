@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import logo from '../images/logo.svg';
+import NavBarContainer from './NavBar/NavBarContainer.jsx';
+import HomePage from './HomePage/HomePage';
+import LandingPage from './LandingPage/LandingPage';
+import MainContainer from './Main/MainContainer';
 import 'semantic-ui-css/semantic.min.css';
 // import logo from '../images/logo.svg';
 import NavBarContainer from './NavBar/NavBarContainer';
@@ -22,8 +28,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/home" component={HomePage} />
           <Route exact path="/about" component={NavBarContainer} />
+          <Route exact path="/main" component={MainContainer} />
         </div>
       </Router>
     );
