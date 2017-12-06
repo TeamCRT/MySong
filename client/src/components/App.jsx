@@ -5,6 +5,12 @@ import NavBarContainer from './NavBar/NavBarContainer.jsx';
 import HomePage from './HomePage/HomePage';
 import 'semantic-ui-css/semantic.min.css';
 import '../styles/App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+
 
 class App extends Component {
   constructor(props) {
@@ -51,35 +57,18 @@ class App extends Component {
     this.getLoggedInUser();
   }
 
-  //new render method
+
   render() {
     return (
-      <div>
-          <NavBarContainer />
-          <HomePage />
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/about" component={NavBarContainer} />
+        </div>
+      </Router>
     );
   }
 
-  //old render method
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <header className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
-  //         <h1 className="App-title">Welcome to React</h1>
-  //       </header>
-  //       <div>
-  //         <button onClick={this.handleRegisterSubmit} > Make a call to /api/signup </button>
-  //       </div>
-  //       <p className="App-intro">
-  //         <NavBarContainer />
-  //         <HomePage/>
-  //         To get started, edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //     </div>
-  //   );
-  // }
 }
 
 export default App;
