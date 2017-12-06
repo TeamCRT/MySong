@@ -1,9 +1,8 @@
- import React from 'react'
-import { Button, Header } from 'semantic-ui-react'
-
+import React from 'react';
+import { Button } from 'semantic-ui-react';
 
 const Following = () => (
-  <Button color='red'>PersonXYZ</Button>
-)
+  <Button color="red">PersonXYZ</Button>
+);
 
-export default Following
+export default Following;
