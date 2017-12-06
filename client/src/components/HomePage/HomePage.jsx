@@ -1,48 +1,22 @@
-// import React from 'react';
-// import { Button } from 'semantic-ui-react';
-// import MyCurrentSongContainer from '../MyCurrentSong/MyCurrentSongContainer.jsx';
-import PlaylistsContainer from '../Playlists/PlaylistsContainer.jsx';
-import MainContainer from '../Main/MainContainer.jsx';
-import FollowingContainer from '../Following/FollowingContainer.jsx';
+import React from 'react';
+import { Container, Divider, Grid, Header } from 'semantic-ui-react';
+import PlaylistsContainer from '../Playlists/PlaylistsContainer';
+import MainContainer from '../Main/MainContainer';
+import FollowingContainer from '../Following/FollowingContainer';
+import BottomPlayer from '../BottomPlayer/BottomPlayer';
 
-// import { Container, Divider } from 'semantic-ui-react'
-
-// const HomePage = () => (
-// <Container>
-//     <MyCurrentSongContainer />
-//   <Container>
-//     <PlaylistsContainer />
-
-//     <Divider />
-
-//     <MainContainer />
-
-//     <Divider />
-
-//     <FollowingContainer />
-//   </Container>
-// </Container>
-// )
-
-// export default HomePage
-//    // <MyCurrentSongContainer />
-//    // <PlaylistsContainer />
-//    // <MainContainer />
-//    // <FollowingContainer />
-import React from 'react'
-import { Button, Container, Divider, Grid, Header, Image, Menu, Segment } from 'semantic-ui-react'
 
 const HomePage = () => (
-  <Container style={{ marginTop: '3em' }}>
-    <Header as='h1'>my song for the week is: Remember Me</Header>
+  <Container style={{ marginTop: '3em', width: '100%' }}>
+    <Header as="h1">my song for the week is: Remember Me</Header>
     <Divider />
     <Grid columns={3} stackable>
       <Grid.Column>
-        <PlaylistsContainer/>
+        <PlaylistsContainer />
       </Grid.Column>
 
       <Grid.Column>
-        <Header as='h1'>Main View</Header>
+        <Header as="h1">Main View</Header>
         <MainContainer />
       </Grid.Column>
 
@@ -51,8 +25,8 @@ const HomePage = () => (
       </Grid.Column>
 
     </Grid>
+    <BottomPlayer />
   </Container>
-)
+);
 
-export default HomePage
-
+export default HomePage;
