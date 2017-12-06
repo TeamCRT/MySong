@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../images/logo.svg';
+import NavBarContainer from './NavBar/NavBarContainer.jsx';
+import HomePage from './HomePage/HomePage';
+import 'semantic-ui-css/semantic.min.css';
+import '../styles/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -36,7 +39,7 @@ class App extends Component {
     this.getLoggedInUser = () => {
       axios.get('/api/me')
         .then(() => {
-          alert('GOT ME');
+          //alert('GOT ME');
           // this.setState({
           //   currentUser: user.data
           // })
@@ -47,22 +50,36 @@ class App extends Component {
   componentWillMount() {
     this.getLoggedInUser();
   }
+
+  //new render method
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <div>
-          <button onClick={this.handleRegisterSubmit} > Make a call to /api/signup </button>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+          <NavBarContainer />
+          <HomePage />
       </div>
     );
   }
+
+  //old render method
+  // render() {
+  //   return (
+  //     <div className="App">
+  //       <header className="App-header">
+  //         <img src={logo} className="App-logo" alt="logo" />
+  //         <h1 className="App-title">Welcome to React</h1>
+  //       </header>
+  //       <div>
+  //         <button onClick={this.handleRegisterSubmit} > Make a call to /api/signup </button>
+  //       </div>
+  //       <p className="App-intro">
+  //         <NavBarContainer />
+  //         <HomePage/>
+  //         To get started, edit <code>src/App.js</code> and save to reload.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 }
 
 export default App;
