@@ -31,11 +31,8 @@ module.exports = (passport) => {
           }
           return done(null, newUser);
         });
-<<<<<<< HEAD
         return true;
       });
-=======
->>>>>>> Adds methodOverride as a dependency
     },
   ));
   passport.use(new SpotifyStrategy(
@@ -45,65 +42,16 @@ module.exports = (passport) => {
       callbackURL: 'http://127.0.0.1:3001/api/auth/spotify/callback',
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log('SpotifyStrategy check');
+      console.log('Spotify accessToken: ', accessToken);
+      console.log('Spotify refreshToken: ', refreshToken);
+      console.log('Spotify profile: ', profile.id);
+
+
       // User.findOrCreate(
       //   { spotifyId: profile.id },
       //   (err, user) => done(err, user),
       // );
-      return done(accessToken)
+      return done(null, accessToken);
     },
   ));
 };
-
-// Local Login strategy
-// const localLogin = passport.use('local-login', new LocalStrategy(
-//   { // http://www.passportjs.org/docs/login/ for more info
-//     usernameField: 'username', // I don't think this field is necessary
-//     passwordField: 'password', // I don't think this field is necessary
-//     passReqToCallback: true, // req will be passed as the first argument to the verify callback
-//   },
-// function(req, username, password, done) {
-//   User.findOne({ 'username': username }, function(err, user) {
-//     if (err) {
-//       return done(err);
-//     }
-//     // If user is not found:
-//     if (!user) {
-//       return done('username not found.');
-//     }
-//     // If user is found but the provided password is incorrect:
-//     if (!user.validPassword(password)) {
-//       return done('loginMessage', 'Incorrect username/password.');
-//     }
-//     // If username and password are corret, return successfully
-//     return done(null, user);
-//   })
-// }));
-//
-// module.exports = {
-//   localSignup,
-//   // localLogin,
-// };
-  },
-  (username, password, done) => { // this is the verify callback mentioned in line 10
-    // Check to see if there is already a user with provided username
-    User.findOne({ username }, (err, user) => {
-      if (err) {
-        return done(err);
-      } else if (user) {
-        return done('username is already taken');
-      }
-      // If user is not found:
-      if (!user) {
-        return done('username not found.');
-      }
-      // If user is found but the provided password is incorrect:
-      if (!user.validPassword(password)) {
-        return done('loginMessage', 'Incorrect username/password.');
-      }
-      // If username and password are corret, return successfully
-      return done(null, user);
-    })
-  }))
-}
->>>>>>> Still setting up passport

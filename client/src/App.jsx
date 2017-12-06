@@ -45,19 +45,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <div>
-          {/* <a href={'https://accounts.spotify.com/authorize?' + querystring.stringify({
-              response_type: 'code',
-              client_id: 'b566bb55b1154c989dd684b0b32d0359',
-              scope: 'user-read-private user-read-email',
-              redirect_uri: 'http://localhost:3001/api/callback',
-              state: '013747suhqlxJA73'
-            })} >Go to http://3001/api/me </a> */}
           <a href="http://127.0.0.1:3001/api/auth/spotify/" > Spotify OAuth </a>
-          <button onClick={this.handleSignup}>
-            Using handleSignup to call /api/auth/spotify
-          </button>
-        </div>
         <p className="App-intro">
           This is a test.
         </p>

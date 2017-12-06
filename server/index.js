@@ -1,16 +1,18 @@
+const api = require('./api');
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
-const api = require('./api');
 const bodyParser = require('body-parser');
-require('dotenv').config({ path: '../env.env' });
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const passport = require('passport');
 const cookieParser = require('cookie-parser');
-// const cors = require('cors');
 const methodOverride = require('method-override');
+const passport = require('passport');
+
+require('dotenv').config({ path: '../env.env' });
+require('../db/passport.js')(passport);
+// const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
@@ -24,7 +26,6 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(bodyParser.json());
-require('../db/passport.js')(passport);
 
 app.use(methodOverride());
 
