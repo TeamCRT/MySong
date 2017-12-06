@@ -10,7 +10,7 @@ const CurrentPlaylist = () => (
     stackable
     stretched
     style={{ margin: '5.0em', width: 300 }}
-    textAlign="middle"
+    textAlign="center"
   >
     <Grid.Column color="grey" style={{ width: 400 }}>
        Current Playlist

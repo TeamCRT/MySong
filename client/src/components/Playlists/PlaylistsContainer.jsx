@@ -6,7 +6,7 @@ const PlaylistsContainer = () => (
 
   <div style={{ float: 'left' }}>
     <Button.Group vertical >
-      <Button disabled="true" >My Playlists</Button>
+      <Button disabled >My Playlists</Button>
       <Playlist />
       <Playlist />
       <Playlist />
