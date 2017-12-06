@@ -12,7 +12,6 @@ const BottomPlayer = () => (
     width="100%"
     height="80"
     frameBorder="0"
-    allowTransparency="true"
     style={{ position: 'absolute', bottom: 0 }}
   />
 

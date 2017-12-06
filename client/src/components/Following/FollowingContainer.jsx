@@ -6,7 +6,7 @@ import Following from './Following';
 const FollowingContainer = () => (
   <div style={{ float: 'right' }} >
     <Button.Group vertical >
-      <Button disabled="true" >Following</Button>
+      <Button disabled >Following</Button>
       <Following />
       <Following />
       <Following />
