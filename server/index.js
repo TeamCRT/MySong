@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const passport = require('passport');
 
@@ -16,8 +15,7 @@ require('dotenv').config({ path: '../env.env' });
 ** amount of code in this file, look to db/passport.js for the passport
 ** strategies being implemented(Spotify only), we must declare it this way
 ** so that the passport.authenticate() calls in server/api/index.js are able
-** to find our spotify strategy
-*/
+** to find our spotify strategy */
 require('../db/passport.js')(passport);
 
 const app = express();
@@ -41,16 +39,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(app.router // deprecated in Express 4
-app.use(express.static(path.join(__dirname, '../client/build'))).use(cookieParser());
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 console.log('Process/MongoDBUri', process.env.MONGODB_URI);
 
 /* we do not have access to process.env.MONGODB_URI without
  require('dotenv').config({path:'../env.env'}) listed above */
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
-/* creates an express session that stores its session data into the mLab MongoDB endpoint
-go to https://www.npmjs.com/package/connect-mongo for more information */
+/* creates an express session that stores its session data into the mLab
+** MongoDB endpoint go to https://www.npmjs.com/package/connect-mongo for
+** more information */
 app.use(session({
   secret: 'hratx30',
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
