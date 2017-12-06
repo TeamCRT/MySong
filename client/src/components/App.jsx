@@ -4,6 +4,12 @@ import 'semantic-ui-css/semantic.min.css';
 import NavBarContainer from './NavBar/NavBarContainer';
 import HomePage from './HomePage/HomePage';
 import '../styles/App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+
 
 class App extends Component {
   constructor(props) {
@@ -14,12 +20,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <NavBarContainer />
-        <HomePage />
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/about" component={NavBarContainer} />
+        </div>
+      </Router>
     );
   }
+
 }
 
 export default App;
