@@ -20,10 +20,14 @@ router.get('/me', (req, res) => {
 // spotify OAuth strategy
 router.get(
   '/auth/spotify',
-  (req, res, next) => {
-    console.log('inside /auth/spotify');
-    passport.authenticate('spotify', { showDialog: true })(req, res, next);
-  },
+  passport.authenticate('spotify',
+    {
+      scope: ['user-read-email', 'user-read-private'],
+      showDialog: true,
+      successRedirect: '/',
+      failureRedirect: '/login',
+    },
+  ),
   (req, res) => {
     // The request will be redirected to spotify for authentication, so this
     // function will not be called.
@@ -32,7 +36,14 @@ router.get(
 // spotify OAuth callback for authorization process
 router.get(
   '/auth/spotify/callback',
-  passport.authenticate('spotify', { failureRedirect: '/login' }),
+  passport.authenticate('spotify',
+    {
+      scope: ['user-read-email', 'user-read-private'],
+      showDialog: true,
+      successRedirect: '/',
+      failureRedirect: '/login',
+    },
+  ),
   (req, res) => {
     console.log('Inside /auth/spotify/callback');
     // Successful authentication, redirect home.

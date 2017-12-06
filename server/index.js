@@ -9,14 +9,37 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
+// const cors = require('cors');
+const methodOverride = require('method-override');
 
 const app = express();
+const server = http.createServer(app);
 
-// app.use(cors);
+app.use(passport.initialize());
+/* bodyParser makes form data available in req.body,
+https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90
+ it is deprecated in Express v4 so instead of just app.use(bodyParser)
+ the two following statements are needed */
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(bodyParser.json());
+require('../db/passport.js')(passport);
+
+app.use(methodOverride());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTION');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 // app.use(app.router // deprecated in Express 4
 app.use(express.static(path.join(__dirname, '../client/build'))).use(cookieParser());
+
 console.log('Process/MongoDBUri', process.env.MONGODB_URI);
+
 /* we do not have access to process.env.MONGODB_URI without
  require('dotenv').config({path:'../env.env'}) listed above */
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
@@ -29,17 +52,7 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-/* bodyParser makes form data available in req.body,
-https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90
- it is deprecated in Express v4 so instead of just app.use(bodyParser)
- the two following statements are needed */
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
-app.use(bodyParser.json());
-require('../db/passport.js')(passport);
 // initialize Passport for use
-app.use(passport.initialize());
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
@@ -48,10 +61,11 @@ db.once('open', () => {
 
 app.use('/api', api);
 
-app.all('/*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-});
+// most likely not needed
+// app.all('/*', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     next();
+// });
 
 const port = process.env.PORT || 3001;
-app.listen(port, () => { console.log('Running on ', port); });
+server.listen(port, () => { console.log('Running on ', port); });
