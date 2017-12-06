@@ -37,14 +37,14 @@ router.get(
     {
       scope: ['user-read-email', 'user-read-private'],
       showDialog: true,
-      successRedirect: '/',
       failureRedirect: '/login',
+      // successRedirect: '/',
     },
   ),
   (req, res) => {
-    console.log('Inside /auth/spotify/callback');
+    console.log('Inside /auth/spotify/callback: ', req.user);
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('http://localhost:3000');
   },
 );
 
