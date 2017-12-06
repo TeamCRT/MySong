@@ -12,36 +12,7 @@ module.exports = (passport) => {
   passport.deserializeUser((obj, done) => {
     done(null, obj);
   });
-  // Local Signup Strategy
-  passport.use('local-signup', new LocalStrategy(
-    { // http://www.passportjs.org/docs/login/ for more info
-      usernameField: 'username', // I don't think this field is necessary
-      passwordField: 'password', // I don't think this field is necessary
-      passReqToCallback: true, // req will be passed as the first argument to the verify callback
-    },
-    (req, username, password, done) => { // this is the verify callback mentioned above
-      // Check to see if there is already a user with provided username
-      User.findOne({ username }, (err, user) => {
-        if (err) {
-          return done(err);
-        } else if (user) {
-          return done('username is already taken');
-        }
-        const newUser = new User();
-        // Set the user's local credentials
-        newUser.username = username;
-        newUser.password = newUser.generateHash(password);
-        // Save the user
-        newUser.save((err1) => {
-          if (err1) {
-            throw err1;
-          }
-          return done(null, newUser);
-        });
-        return true;
-      });
-    },
-  ));
+
   passport.use(new SpotifyStrategy(
     {
       clientID: process.env.SPOTIFY_CLIENT_ID,
@@ -49,16 +20,33 @@ module.exports = (passport) => {
       callbackURL: 'http://127.0.0.1:3001/api/auth/spotify/callback',
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log('############################################################');
       console.log('Spotify accessToken: ', accessToken);
       console.log('Spotify refreshToken: ', refreshToken);
       console.log('Spotify profile: ', profile);
 
-
-      // User.findOrCreate(
-      //   { spotifyId: profile.id },
-      //   (err, user) => done(err, user),
-      // );
-      return done(null, profile);
+      User.findOne({ id: profile.id }, (err, user) => { // eslint-disable-line
+        if (err) {
+          return done(err);
+        }
+        // Check to see if there is already a user with provided username
+        if (user) {
+          return done(null, user);
+        }
+        const newUser = new User();
+        newUser.spotifyId = profile.id;
+        newUser.spotifyUsername = profile.username;
+        newUser.spotifyDisplayName = profile.displayName;
+        newUser.spotifyEmail = profile._json.email; // eslint-disable-line
+        newUser.spotifyToken = accessToken;
+        newUser.spotifyRefreshToken = refreshToken;
+        newUser.save((err1) => {
+          if (err1) {
+            throw err1;
+          }
+          return done(null, newUser);
+        });
+      });
     },
   ));
 };
