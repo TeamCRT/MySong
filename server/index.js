@@ -10,12 +10,17 @@ const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const passport = require('passport');
 
+// dotenv used to store our spoitfy client_id and secret on process.env
 require('dotenv').config({ path: '../env.env' });
+/* the below require('../db/passport.js')(passport) is used to reduce the
+** amount of code in this file, look to db/passport.js for the passport
+** strategies being implemented(Spotify only), we must declare it this way
+** so that the passport.authenticate() calls in server/api/index.js are able
+** to find our spotify strategy
+*/
 require('../db/passport.js')(passport);
-// const cors = require('cors');
 
 const app = express();
-const server = http.createServer(app);
 
 app.use(passport.initialize());
 /* bodyParser makes form data available in req.body,
@@ -69,4 +74,4 @@ app.use('/api', api);
 // });
 
 const port = process.env.PORT || 3001;
-server.listen(port, () => { console.log('Running on ', port); });
+app.listen(port, () => { console.log('Running on ', port); });
