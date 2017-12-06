@@ -8,7 +8,9 @@ import BottomPlayer from './BottomPlayer';
 
 const HomePage = () => (
   <Container style={{ marginTop: '3em', width: '100%' }}>
-    <Header as="h1">my song for the week is: Remember Me</Header>
+    <Header as="h1" style={{ textAlign: 'center' }}>
+      My Current Song: Remember Me
+    </Header>
     <Divider />
     <Grid columns={3} stackable>
       <Grid.Column>
