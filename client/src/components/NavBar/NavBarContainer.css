@@ -1,0 +1,9 @@
+a:link, a:visited {
+    background-color: #d01919;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    float: right;
+}
