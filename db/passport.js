@@ -44,7 +44,7 @@ module.exports = (passport) => {
     (accessToken, refreshToken, profile, done) => {
       console.log('Spotify accessToken: ', accessToken);
       console.log('Spotify refreshToken: ', refreshToken);
-      console.log('Spotify profile: ', profile.id);
+      console.log('Spotify profile: ', profile);
 
 
       // User.findOrCreate(
