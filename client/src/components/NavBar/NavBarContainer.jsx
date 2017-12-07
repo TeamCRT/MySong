@@ -10,7 +10,6 @@ const NavBarContainer = () => (
     </Menu.Item>
 
     <Header size="large" color="red" floated="right">mysong.io </Header>
-    <a href="http://127.0.0.1:3001/api/auth/spotify/" > Log In/Sign Up </a>
     <Menu.Item name="John Doe" position="right" />
   </Menu>
 );
