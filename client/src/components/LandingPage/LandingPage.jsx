@@ -34,18 +34,16 @@ const FixedMenu = () => (
 )
 
 export default class LandingPage extends Component {
-  state = {}
-
-  hideFixedMenu = () => this.setState({ visible: false })
-  showFixedMenu = () => this.setState({ visible: true })
+  constructor(props) {
+    super(props)
+    this.onClick = () => {
+      window.location.href = 'http://127.0.0.1:3001/api/auth/spotify/';// eslint-disable-line
+    }
+  }
 
   render() {
-    const { visible } = this.state
-
     return (
       <div>
-        { visible ? <FixedMenu /> : null }
-
         <Visibility
           onBottomPassed={this.showFixedMenu}
           onBottomVisible={this.hideFixedMenu}
@@ -63,7 +61,7 @@ export default class LandingPage extends Component {
                 <Menu.Item as='a'>About</Menu.Item>
                 <Menu.Item as='a'>Contact Us</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as='a' inverted>Log in with Spotify
+                  <Button as='a' inverted onClick={this.onClick}>Log in with Spotify
                     <Icon size='large' color='green' name='spotify' />
                   </Button>
                 </Menu.Item>
@@ -95,7 +93,7 @@ export default class LandingPage extends Component {
                 inverted
                 style={{ fontSize: '1.7em', fontWeight: 'normal' }}
               />
-              
+
             </Container>
           </Segment>
         </Visibility>
@@ -110,7 +108,7 @@ export default class LandingPage extends Component {
                 </p>
                 <Header as='h3' style={{ fontSize: '2em' }}>Listen To Favorite Songs</Header>
                 <p style={{ fontSize: '1.33em' }}>
-                  Create playlists of MySongs from the people in your life. Engage in deeper interaction and dialogue with those you know, and discover new music. 
+                  Create playlists of MySongs from the people in your life. Engage in deeper interaction and dialogue with those you know, and discover new music.
                 </p>
               </Grid.Column>
               <Grid.Column floated='right' width={6}>
