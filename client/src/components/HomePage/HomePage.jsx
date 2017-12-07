@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { Container, Divider, Grid, Header } from 'semantic-ui-react';
-import PlaylistsContainer from '../Playlists/PlaylistsContainer';
-import MainContainer from '../Main/MainContainer';
-import FollowingContainer from '../Following/FollowingContainer';
+import PlaylistContainer from './Playlists/PlaylistContainer';
+import MainContainer from './Main/MainContainer';
+import FollowingContainer from './Following/FollowingContainer';
 import BottomPlayer from './BottomPlayer';
 import NavBarContainer from '../NavBar/NavBarContainer';
 
@@ -37,7 +37,7 @@ class HomePage extends React.Component {
           <Divider />
           <Grid columns={3} stackable>
             <Grid.Column>
-              <PlaylistsContainer />
+              <PlaylistContainer />
             </Grid.Column>
 
             <Grid.Column>

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
-import Playlist from './Playlist';
+import PlaylistEntry from './PlaylistEntry';
 
 // testPlaylistArray is an array of objects, where
 // each object has properties spotifyID, URI, playlistName, and perhaps the songs
 
 
-class PlaylistsContainer extends React.Component {
+class PlaylistContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ class PlaylistsContainer extends React.Component {
     };
 
     this.mapFunction = playlistObj => (
-      <Playlist
+      <PlaylistEntry
         title={playlistObj.playlistName}
         key={playlistObj.spotifyID}
         // onClick={playlist click handler function written in homepage}
@@ -43,4 +43,4 @@ class PlaylistsContainer extends React.Component {
   }
 }
 
-export default PlaylistsContainer;
+export default PlaylistContainer;
