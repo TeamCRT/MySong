@@ -60,8 +60,9 @@ router.get(
   '/playlists',
   (req, res) => {
     console.log('GET received to /api/playlists');
-    User.getUserPlaylists();
-    res.send('hi');
+    User.getUserPlaylists('1234369600')
+      .then(result => res.send(result))
+      .catch(err => res.send(err));
   },
 );
 
