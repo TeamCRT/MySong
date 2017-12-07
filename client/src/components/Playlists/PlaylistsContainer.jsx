@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
+import axios from 'axios';
 import Playlist from './Playlist';
 
 // testPlaylistArray is an array of objects, where
@@ -36,6 +37,10 @@ class PlaylistsContainer extends React.Component {
         // onClick={playlist click handler function written in homepage}
       />
     );
+    // query the database for the names of user's playlists
+    axios.get('/api/playlists')
+      .then(response => console.log(response))
+      .catch(err => console.log(err));
   }
 
   render() {

@@ -59,4 +59,14 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('user', userSchema);
 
+const ID = '1234369600';
+
+User.getUserPlaylists = spotifyUserId => {
+  // this.find({ spotifyId: spotifyUserId }, { 'playlists.playlistName': 1 }).exec()
+  //   .then(response => console.log('response:', response))
+  //   .catch(err => console.log('err', err));
+};
+
+User.getUserPlaylists(ID);
+
 module.exports = User;
