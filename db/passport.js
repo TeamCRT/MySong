@@ -20,18 +20,16 @@ module.exports = (passport) => {
       callbackURL: 'http://127.0.0.1:3001/api/auth/spotify/callback',
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log('############################################################');
-      console.log('Spotify accessToken: ', accessToken);
-      console.log('Spotify refreshToken: ', refreshToken);
-      console.log('Spotify profile: ', profile);
-
+      // check to see if the user already exists in the db
       User.findOne({ spotifyId: profile.id }, (err, user) => { // eslint-disable-line
         if (err) {
           return done(err);
         }
-        // Check to see if there is already a user with provided username
+        // if user already exists then return their stored info
         if (user) {
-          return done(null, user);
+          const existingUser = Object.assign({}, user._doc);
+          existingUser.spotifyToken = accessToken;
+          return done(null, existingUser);
         }
         const newUser = new User();
         newUser.spotifyId = profile.id;
