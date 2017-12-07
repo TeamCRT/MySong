@@ -22,19 +22,6 @@ router.get(
   passport.authenticate(
     'spotify',
     {
-      scope: ['user-read-email', 'user-read-private', 'user-follow-read'],
-      showDialog: true,
-      successRedirect: '/',
-      failureRedirect: '/login',
-    },
-  ),
-);
-// spotify OAuth callback for authorization process
-router.get(
-  '/auth/spotify/callback',
-  passport.authenticate(
-    'spotify',
-    {
       scope: [
         'user-read-email',
         'user-read-private',
@@ -45,15 +32,20 @@ router.get(
         'playlist-modify-private',
       ],
       showDialog: true,
+      successRedirect: '/',
       failureRedirect: '/login',
-      // successRedirect: '/',
     },
   ),
+);
+// spotify OAuth callback for authorization process
+router.get(
+  '/auth/spotify/callback',
+  passport.authenticate('spotify'),
   (req, res) => {
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
-    // console.log('Inside /auth/spotify/callback: ', req.user);
+    console.log('TESTING ############', req.user);
     // Successful authentication, redirect home.
-    res.redirect('http://localhost:3000');
+    res.redirect('http://localhost:3000/home/'+req.user.spotifyId);
   },
 );
 
