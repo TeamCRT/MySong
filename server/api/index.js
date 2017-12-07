@@ -10,10 +10,10 @@ router.get('/users', (req, res) => {
     res.send({ users });
   });
 });
-// very simple test to verify router functionality
-router.get('/me', (req, res) => {
-  console.log('Getting me');
-  res.send({});
+// retrieve the current user from the session
+router.get('/getUser', (req, res) => {
+  console.log('Testing to see the current session', req.session);
+  res.send({/*req.session.passport.user*/});
 });
 // see https://github.com/jmperez/passport-spotify#readme for passport
 // spotify OAuth strategy
@@ -42,8 +42,15 @@ router.get(
   '/auth/spotify/callback',
   passport.authenticate('spotify'),
   (req, res) => {
+    req.session.save((err) => {
+      if (err) {
+        throw err;
+      }
+    });
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
-    console.log('TESTING ############', req.user);
+    // console.log('TESTING ############', req.user);
+    req.session.user_id = 'test'; // eslint-disable-line
+    // console.log('Session data: ', req.session.passport)
     // Successful authentication, redirect home.
     res.redirect('http://localhost:3000/home/'+req.user.spotifyId);
   },

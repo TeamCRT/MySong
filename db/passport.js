@@ -6,10 +6,12 @@ require('dotenv').config({ path: '../../env.env' });
 
 module.exports = (passport) => {
   passport.serializeUser((user, done) => {
+    console.log('INSIDE SERIALIZE USER ##################', user);
     done(null, user);
   });
 
   passport.deserializeUser((obj, done) => {
+    console.log('INSIDE DESERIALIZE USER: ', obj)
     done(null, obj);
   });
 
@@ -27,7 +29,7 @@ module.exports = (passport) => {
         }
         // if user already exists then return their stored info
         if (user) {
-          const existingUser = Object.assign({}, user._doc);
+          const existingUser = Object.assign({}, user._doc);// eslint-disable-line
           existingUser.spotifyToken = accessToken;
           return done(null, existingUser);
         }
