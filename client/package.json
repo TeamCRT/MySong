@@ -10,7 +10,15 @@
     "react-scripts": "1.0.17",
     "semantic-ui": "^2.2.13",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.77.0"
+    "semantic-ui-react": "^0.77.0",
+    "typeface-baloo": "0.0.44",
+    "typeface-bungee": "0.0.44",
+    "typeface-comfortaa": "0.0.45",
+    "typeface-heebo": "0.0.44",
+    "typeface-oxygen": "0.0.44",
+    "typeface-roboto": "0.0.45",
+    "typeface-rubik": "0.0.44",
+    "typeface-signika": "0.0.44"
   },
   "scripts": {
     "start": "react-scripts start",
