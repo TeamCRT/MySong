@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 
-const Playlist = () => (
-  <Button>Playlist XYZ123</Button>
-);
+// props received here from PlaylistContainer are:
+// title and key (the spotify URI)
+
+const Playlist = props => <Button>{props.title}</Button>;
 
 export default Playlist;
