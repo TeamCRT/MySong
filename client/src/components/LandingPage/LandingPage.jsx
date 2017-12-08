@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 import {
   Button,
   Container,
@@ -40,6 +41,7 @@ export default class LandingPage extends Component {
   constructor(props) {
     super(props)
     this.onClick = () => {
+      
       window.location.href = 'http://127.0.0.1:3001/api/auth/spotify/';// eslint-disable-line
     }
   }

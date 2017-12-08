@@ -7,6 +7,7 @@ require('dotenv').config({ path: '../../env.env' });
 module.exports = (passport) => {
   passport.serializeUser((user, done) => {
     console.log('INSIDE SERIALIZE USER ##################', user);
+    
     done(null, user);
   });
 
