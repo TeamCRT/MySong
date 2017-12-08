@@ -6,6 +6,7 @@ import MainContainer from './Main/MainContainer';
 import FollowingContainer from './Following/FollowingContainer';
 import BottomPlayer from './BottomPlayer';
 import NavBarContainer from '../NavBar/NavBarContainer';
+import MyCurrentSongContainer from './MyCurrentSong/MyCurrentSongContainer';
 
 
 
@@ -20,7 +21,9 @@ class HomePage extends React.Component {
       spotifyToken:'',
       spotifyUsername:'',
       currentPlaylist: null,
+      currentMySong:'Tiny Dancer by Elton John'
     };
+    this.handleMySongChange = this.handleMySongChange.bind(this);
   }
 
   componentWillMount() {
@@ -53,6 +56,9 @@ class HomePage extends React.Component {
 
   handleFollowingClick() {
     console.log('HANDLE FOLLOWING CLICK');
+
+  handleMySongChange(mySong) {
+    this.setState({ currentMySong: mySong });
   }
 
   render() {
@@ -61,7 +67,8 @@ class HomePage extends React.Component {
         <NavBarContainer />
         <Container style={{ marginTop: '3em', width: '100%' }}>
           <Header as="h1" style={{ textAlign: 'center' }}>
-            My Current Song: Remember Me
+            Current My Song is : {this.state.currentMySong}
+            <MyCurrentSongContainer onMySongChange={this.handleMySongChange}/>
           </Header>
           <Divider />
           <Grid columns={3} stackable>

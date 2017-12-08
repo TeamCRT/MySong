@@ -62,8 +62,8 @@ router.get(
     //res.status(200).json(token);
     // console.log('Session data: ', req.session.passport)
     // Successful authentication, redirect home.
-    //res.set({ 'authorization': token});
-    res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + '&token=' + token);
+    res.set({ 'authorization': token});
+    res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + 'token=' + token);
   },
 );
 
