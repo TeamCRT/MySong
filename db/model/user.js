@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('user', userSchema);
 
 User.getUserPlaylists = spotifyUserId => (
-  User.find({ spotifyId: spotifyUserId }, { 'playlists.playlistName': 1, 'playlists.spotifyID': 1 }).exec()
+  User.find({ spotifyId: spotifyUserId }, { 'playlists.playlistName': 1, 'playlists.spotifyPlaylistID': 1 }).exec()
     .then(response => response)
     .catch(err => err)
 );
