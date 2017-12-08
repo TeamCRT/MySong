@@ -14,14 +14,6 @@ class PlaylistContainer extends React.Component {
       playlists: [],
     };
 
-    this.mapFunction = playlistObj => (
-      <PlaylistEntry
-        title={playlistObj.playlistName}
-        key={playlistObj.spotifyID}
-        // onClick={playlist click handler function written in homepage}
-      />
-    );
-    // query the database for the names of user's playlists
     axios.get('/api/playlists')
       .then((response) => {
         this.setState({ playlists: response.data[0].playlists });
@@ -30,12 +22,23 @@ class PlaylistContainer extends React.Component {
       .catch(err => err);
   }
 
+  mapFunction(playlistObj) {
+    return (
+      <PlaylistEntry
+        title={playlistObj.playlistName}
+        key={playlistObj.spotifyID}
+        spotifyID={playlistObj.spotifyID}
+        clickHandler={this.props.clickHandler}
+      />
+    );
+  }
+
   render() {
     return (
       <div style={{ float: 'left' }}>
         <Button.Group vertical >
           <Button disabled >My Playlists</Button>
-          {this.state.playlists.map(this.mapFunction)}
+          {this.state.playlists.map(this.mapFunction.bind(this))}
           <Button color="red">Create</Button>
         </Button.Group>
       </div>

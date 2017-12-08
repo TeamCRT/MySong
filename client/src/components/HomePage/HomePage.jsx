@@ -13,17 +13,25 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       currentUser: {},
+      currentPlaylist: null,
     };
   }
 
   componentDidMount() {
     axios('/api/getUser')
       .then((user) => {
-        this.setState({currentUser:user});
+        this.setState({ currentUser: user });
       })
       .catch((err) => {
         throw err;
-      })
+      });
+  }
+
+  handlePlaylistEntryClick(playlistID) {
+    console.log('handlePlaylistEntryClick', 'input:', playlistID);
+    this.setState({
+      currentPlaylist: playlistID,
+    });
   }
 
   render() {
@@ -37,11 +45,11 @@ class HomePage extends React.Component {
           <Divider />
           <Grid columns={3} stackable>
             <Grid.Column>
-              <PlaylistContainer />
+              <PlaylistContainer clickHandler={this.handlePlaylistEntryClick.bind(this)} />
             </Grid.Column>
 
             <Grid.Column>
-              <Header as="h1">Main View</Header>
+              <Header as="h1">Current Playlist: {this.state.currentPlaylist}</Header>
               <MainContainer />
             </Grid.Column>
 
