@@ -1,47 +1,47 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 import {
   Button,
   Container,
-  Divider,
+  // Divider,
   Grid,
   Header,
   Icon,
   Image,
-  List,
+  // List,
   Menu,
   Segment,
   Visibility,
 } from 'semantic-ui-react'
 import piano from './playing-piano-wallpaper.jpg'
-import guitar from './guitar.jpg'
-import phone from './phone.jpg'
+// import guitar from './guitar.jpg'
+// import phone from './phone.jpg'
 import headphones from './headphones.jpg'
 
-const FixedMenu = () => (
-  <Menu fixed='top' size='large'>
-    <Container>
-      <Menu.Item as='a' active>Home</Menu.Item>
-      <Menu.Item as='a'>Work</Menu.Item>
-      <Menu.Item as='a'>Company</Menu.Item>
-      <Menu.Item as='a'>Careers</Menu.Item>
-      <Menu.Menu position='right'>
-        <Menu.Item className='item'>
-          <Button as='a'>Log in</Button>
-        </Menu.Item>
-        <Menu.Item>
-          <Button as='a' primary>Sign Up</Button>
-        </Menu.Item>
-      </Menu.Menu>
-    </Container>
-  </Menu>
-)
+// const FixedMenu = () => (
+//   <Menu fixed='top' size='large'>
+//     <Container>
+//       <Menu.Item as='a' active>Home</Menu.Item>
+//       <Menu.Item as='a'>Work</Menu.Item>
+//       <Menu.Item as='a'>Company</Menu.Item>
+//       <Menu.Item as='a'>Careers</Menu.Item>
+//       <Menu.Menu position='right'>
+//         <Menu.Item className='item'>
+//           <Button as='a'>Log in</Button>
+//         </Menu.Item>
+//         <Menu.Item>
+//           <Button as='a' primary>Sign Up</Button>
+//         </Menu.Item>
+//       </Menu.Menu>
+//     </Container>
+//   </Menu>
+// )
 
 export default class LandingPage extends Component {
   constructor(props) {
     super(props)
     this.onClick = () => {
-      
+
       window.location.href = 'http://127.0.0.1:3001/api/auth/spotify/';// eslint-disable-line
     }
   }
@@ -54,7 +54,7 @@ export default class LandingPage extends Component {
           onBottomVisible={this.hideFixedMenu}
           once={false}
         >
-          <Segment 
+          <Segment
             inverted
             textAlign='center'
             style={{ minHeight: 700, padding: '1em 0em', backgroundImage:`url(${headphones})`, backgroundSize:'cover' }}
@@ -113,7 +113,7 @@ export default class LandingPage extends Component {
                 </p>
                 <Header as='h3' style={{ fontFamily: 'Baloo', fontSize: '2em' }}>Listen To Favorite Songs</Header>
                 <p style={{ fontFamily: 'Oxygen', fontSize: '1.33em' }}>
-                  Create playlists of MySongs from the people in your life. Engage in deeper interaction and dialogue with those you know, and discover new music. 
+                  Create playlists of MySongs from the people in your life. Engage in deeper interaction and dialogue with those you know, and discover new music.
                 </p>
               </Grid.Column>
               <Grid.Column floated='right' width={6}>

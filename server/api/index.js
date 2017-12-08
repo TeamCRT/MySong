@@ -19,7 +19,7 @@ router.get('/getUser', (req, res) => {
 });
 
 router.get('/me', (req, res) => {
-  
+
   var token = req.headers.jwt;
   var decoded = jwt.decode(token, secret);
   console.log('user is ', decoded);
@@ -53,14 +53,8 @@ router.get(
   '/auth/spotify/callback',
   passport.authenticate('spotify'),
   (req, res) => {
-    req.session.save((err) => {
-      if (err) {
-        throw err;
-      }
-    });
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
     // console.log('TESTING ############', req.user);
-    req.session.user_id = 'test'; // eslint-disable-line
     console.log('the auth spotify callback endpoint is being called');
     var user = req.session.passport.user;
     var token = jwt.encode(user, secret);
@@ -68,7 +62,7 @@ router.get(
     // console.log('Session data: ', req.session.passport)
     // Successful authentication, redirect home.
     //res.set({ 'authorization': token});
-    res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + 'token=' + token);
+    res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + '&token=' + token);
   },
 );
 
