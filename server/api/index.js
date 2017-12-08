@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const User = require('../../db/model/user.js');
 require('dotenv').config({ path: '../../env.env' });
+var jwt = require('jwt-simple');
 // const helpers = require('./helpers.js');
 
 const passport = require('passport');/* http://www.passportjs.org/docs */
+var secret = 'myappisawesome';
 
 router.get('/users', (req, res) => {
   User.find().exec((err, users) => {
@@ -15,6 +17,15 @@ router.get('/getUser', (req, res) => {
   console.log('Testing to see the current session', req.session);
   res.send({/*req.session.passport.user*/});
 });
+
+router.get('/me', (req, res) => {
+  
+  var token = req.headers.jwt;
+  var decoded = jwt.decode(token, secret);
+  console.log('user is ', decoded);
+  res.status(200).json(decoded);
+});
+
 // see https://github.com/jmperez/passport-spotify#readme for passport
 // spotify OAuth strategy
 router.get(
@@ -50,9 +61,14 @@ router.get(
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
     // console.log('TESTING ############', req.user);
     req.session.user_id = 'test'; // eslint-disable-line
+    console.log('the auth spotify callback endpoint is being called');
+    var user = req.session.passport.user;
+    var token = jwt.encode(user, secret);
+    //res.status(200).json(token);
     // console.log('Session data: ', req.session.passport)
     // Successful authentication, redirect home.
-    res.redirect('http://localhost:3000/home/'+req.user.spotifyId);
+    //res.set({ 'authorization': token});
+    res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + 'token=' + token);
   },
 );
 
