@@ -38,20 +38,12 @@ mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 ** more information */
 const db = mongoose.connection;
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTION');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
-
-app.use(session({
-  secret: 'hratx30',
-  store: new MongoStore({ mongooseConnection: db }),
-  resave: true,
-  saveUninitialized: false,
-}));
+// app.use(session({
+//   secret: 'hratx30',
+//   store: new MongoStore({ mongooseConnection: db }),
+//   resave: true,
+//   saveUninitialized: false,
+// }));
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => { console.log('Database connected!'); });

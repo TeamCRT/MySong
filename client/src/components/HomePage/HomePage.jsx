@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Divider, Grid, Header, Button } from 'semantic-ui-react';
+import { Container, Divider, Grid, Header } from 'semantic-ui-react';
 import PlaylistContainer from './Playlists/PlaylistContainer';
 import MainContainer from './Main/MainContainer';
 import FollowingContainer from './Following/FollowingContainer';
@@ -13,7 +13,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: '', 
+      currentUser: '',
       spotifyDisplayName: '',
       spotifyId: '',
       spotifyRefreshToken: '',
@@ -23,12 +23,13 @@ class HomePage extends React.Component {
     };
   }
 
-   componentWillMount() {
-    window.localStorage.token = window.location.href.split('=')[1];
-    axios.defaults.headers.common.jwt = window.localStorage.token;
-    if (window.localStorage.token) {
+  componentWillMount() {
+    const token = window.location.href.split('=')[1]; // eslint-disable-line
+    window.localStorage.token = token; // eslint-disable-line
+    axios.defaults.headers.common.jwt = window.localStorage.token; // eslint-disable-line
+    if (window.localStorage.token) { // eslint-disable-line
       axios.get('/api/me')
-        .then(res => {
+        .then((res) => {
           this.setState({
             spotifyDisplayName: res.data.spotifyDisplayName,
             spotifyId: res.data.spotifyId,
@@ -51,12 +52,14 @@ class HomePage extends React.Component {
     });
   }
 
+  handleFollowingClick() {
+    console.log('HANDLE FOLLOWING CLICK');
+  }
+
   render() {
     return (
       <div>
         <NavBarContainer />
-        <Button onClick={this.handleClick}></Button>
-        <button onClick={this.handleClick2}></button>
         <Container style={{ marginTop: '3em', width: '100%' }}>
           <Header as="h1" style={{ textAlign: 'center' }}>
             My Current Song: Remember Me
@@ -73,7 +76,10 @@ class HomePage extends React.Component {
             </Grid.Column>
 
             <Grid.Column>
-              <FollowingContainer />
+              <FollowingContainer
+                handleFollowingClick={this.handleFollowingClick.bind(this)}
+                spotifyId={this.state.spotifyId}
+              />
             </Grid.Column>
 
           </Grid>
