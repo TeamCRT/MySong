@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button, Segment } from 'semantic-ui-react';
+import MySongModal from './MySongModal';
 
-const MyCurrentSongContainer = () => (
+const MyCurrentSongContainer = (props) => (
   <div>
-    <Button attached="top">MySong this week</Button>
-    <Segment attached />
+    <Segment attached="top">
+    	<MySongModal onMySongChange={props.onMySongChange}/>
+    </Segment>
   </div>
 );
 
