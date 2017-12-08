@@ -7,7 +7,7 @@ import { Button } from 'semantic-ui-react';
 const PlaylistEntry = props =>
   (
     <Button
-      onClick={() => props.clickHandler(props.spotifyID)}
+      onClick={() => props.clickHandler(props.spotifyPlaylistID)}
     >{props.title}
     </Button>
   );
