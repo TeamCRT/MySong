@@ -15,7 +15,7 @@ class HomePage extends React.Component {
     this.state = {
       currentUser: '',
       spotifyDisplayName: '',
-      spotifyId: '',
+      spotifyId: null,
       spotifyRefreshToken: '',
       spotifyToken:'',
       spotifyUsername:'',
@@ -37,7 +37,6 @@ class HomePage extends React.Component {
             spotifyToken:res.data.spotifyToken,
             spotifyUsername:res.data.spotifyUsername
           });
-          console.log('state is ', this.state);
         })
         .catch((err) => {
           console.log(err);
@@ -76,10 +75,10 @@ class HomePage extends React.Component {
             </Grid.Column>
 
             <Grid.Column>
-              <FollowingContainer
+              {this.state.spotifyId && ( <FollowingContainer
                 handleFollowingClick={this.handleFollowingClick.bind(this)}
                 spotifyId={this.state.spotifyId}
-              />
+              /> ) }
             </Grid.Column>
 
           </Grid>
