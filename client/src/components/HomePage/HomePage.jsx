@@ -64,7 +64,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <NavBarContainer />
+        <NavBarContainer username={this.state.spotifyUsername} />
         <Container style={{ marginTop: '3em', width: '100%' }}>
           <Header as="h1" style={{ textAlign: 'center' }}>
             Current My Song is : {this.state.currentMySong}
