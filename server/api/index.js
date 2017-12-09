@@ -35,6 +35,11 @@ router.get('/search', (req, res) => {
   res.status(200).json(decoded);
 });
 
+router.get('/baz', (req, res) => {
+  console.log('baz endpoint reached!!', req.headers);
+  res.status(200).json('yeah!!');
+});
+
 // see https://github.com/jmperez/passport-spotify#readme for passport
 // spotify OAuth strategy
 router.get(
