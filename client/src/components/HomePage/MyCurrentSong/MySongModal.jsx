@@ -9,12 +9,12 @@ class MySongModal extends Component {
     this.state = {
       open: false,
       formData:'', 
-      searchResult: []
+      searchResults: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
-    this.addSearchResult = this.addSearchResult.bind(this);
+    this.addSearchResults = this.addSearchResults.bind(this);
   }
   //state = { open: false }
 
@@ -22,18 +22,19 @@ class MySongModal extends Component {
     this.props.onMySongChange(e.target.value);
   }
 
-   addSearchResult(result) {
-    this.setState({searchResult: result});
+   addSearchResults(searchResults) {
+    this.setState({searchResults: searchResults});
   }
 
    handleFormSubmit(e) {
   	e.preventDefault();
   	console.log('Form was submitted!', this.state.formData);
+  	var query = this.state.formData.split(' ').join('+');
   	var context = this;
 
   	 	$.ajax({
 				type:'GET',
-				url:'https://api.spotify.com/v1/search?q=tiny+dancer&type=track&market=US&limit=5&offset=5',
+				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=5&offset=5`,
 				contentType:'application/json', 
 				headers: {
                 'Authorization': 'Bearer BQCl1bbbHh9dEN6k2Vp3xOrZWAgeCzGec8LfOYNcHXJw3nhXiQISpafRV-ek7UJxgkTZPQfAbIIyvenXdtMPyhO1Yhce2WYxRSHToxexapKIPKmpUuRYuIB2yUoZSZu1lt_Va_N1fZ0wuQiGoA'
@@ -50,7 +51,7 @@ class MySongModal extends Component {
 					  }
 					 searchResults.push(result);
 					}
-					context.addSearchResult(searchResults);
+					context.addSearchResults(searchResults);
 					console.log(context.state);
 				}
 			});
@@ -83,7 +84,7 @@ class MySongModal extends Component {
               </form>
             </Modal.Description>
             <div>
-    					{this.state.searchResult.map(result => (
+    					{this.state.searchResults.map(result => (
       					<Button>{result.track_summary}</Button>
     						))}
   					</div>
