@@ -1,12 +1,13 @@
 import React from 'react';
-import { Input, Menu, Header } from 'semantic-ui-react';
+import { Dropdown, Input, Menu, Header } from 'semantic-ui-react';
+import Search from './Search.jsx'
 import './NavBarContainer.css';
 
 
 const NavBarContainer = (props) => (
   <Menu>
     <Menu.Item>
-      <Input className="icon" icon="search" placeholder="Search for user" />
+      <Search />
     </Menu.Item>
 
     <Header size="large" color="red" floated="right">mysong.io </Header>
