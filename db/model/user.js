@@ -68,6 +68,24 @@ User.getUserPlaylists = spotifyUserId => (
     .catch(err => err)
 );
 
+User.createPlaylist = (spotifyUserId, newPlaylistName) => (
+  User.update(
+    { spotifyId: spotifyUserId },
+    {
+      $push:
+        {
+          playlists:
+            {
+              playlistName: newPlaylistName,
+              spotifyPlaylistID: 'test',
+              spotifyPlaylistURI: 'test',
+              songsArray: [],
+            }
+        }
+    }
+  )
+);
+
 User.getFollowing = spotifyId => (
   User.find({ spotifyId }).select('following').exec()
     .then(res => res)
