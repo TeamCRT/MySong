@@ -108,6 +108,7 @@ User.getFollowing = spotifyId => (
     .catch(err => err)
 );
 
+<<<<<<< HEAD
 User.getCurrentSong = (spotifyId) => (
   User.find({ spotifyId }).select('currentMySong').exec()
     .then(res => res)
@@ -117,7 +118,7 @@ User.getCurrentSong = (spotifyId) => (
 User.changeCurrentSong = (spotifyId, mySong) => {
   console.log('spotifyId is ', spotifyId);
   console.log('mySong is ', mySong);
-  
+
   return User.update(
     { spotifyId: spotifyId },
     {
@@ -136,4 +137,12 @@ User.changeCurrentSong = (spotifyId, mySong) => {
     })
 };
 
+=======
+User.search = query => (
+  User.find({}).select('mySongUsername').exec()
+    .then(users => users)
+    .catch(err => err)
+);
+
+>>>>>>> Search retrieves all users on hitting enter and displays them in dropdown
 module.exports = User;
