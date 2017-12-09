@@ -21,10 +21,10 @@ class HomePage extends React.Component {
       spotifyUsername:'',
       currentPlaylist: null,
       currentMySong:{
-        trackSummary:'Tiny Dancer by Elton John', 
-        trackID: '4BGJSbB5rAcg4pNzD4gfxU', 
-        note:'I love this song'
-      }
+        trackSummary: 'Tiny Dancer by Elton John',
+        trackID: '4BGJSbB5rAcg4pNzD4gfxU',
+        note: 'I love this song',
+      },
       currentPlaylistObj: {},
     };
     this.handleMySongChange = this.handleMySongChange.bind(this);
@@ -52,7 +52,6 @@ class HomePage extends React.Component {
   }
 
   handlePlaylistEntryClick(playlistID, playlistURI, title) {
-    console.log('handlePlaylistEntryClick', 'input:', arguments);
     this.setState({
       currentPlaylistObj: {
         playlistID,
@@ -64,6 +63,7 @@ class HomePage extends React.Component {
 
   handleFollowingClick() {
     console.log('HANDLE FOLLOWING CLICK');
+  }
 
   handleMySongChange(mySong) {
     this.setState({ currentMySong: mySong });
@@ -79,7 +79,10 @@ class HomePage extends React.Component {
           <div style={{fontSize:'15px'}}>
             Note: {this.state.currentMySong.note}
           </div>
-            <MyCurrentSongContainer spotifyToken={this.state.spotifyToken} onMySongChange={this.handleMySongChange}/>
+            <MyCurrentSongContainer
+              spotifyToken={this.state.spotifyToken}
+              onMySongChange={this.handleMySongChange}
+            />
           </Header>
           <Divider />
           <Grid columns={3} stackable>

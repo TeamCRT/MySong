@@ -23,7 +23,6 @@ class PlaylistContainer extends React.Component {
   }
 
   mapFunction(playlistObj) {
-    console.log('playlistObj', playlistObj)
     return (
       <PlaylistEntry
         title={playlistObj.playlistName}
