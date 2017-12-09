@@ -27,6 +27,14 @@ router.get('/me', (req, res) => {
   res.status(200).json(decoded);
 });
 
+router.get('/search', (req, res) => {
+  
+  var token = req.headers.jwt;
+  var decoded = jwt.decode(token, secret);
+  console.log('user is ', decoded);
+  res.status(200).json(decoded);
+});
+
 // see https://github.com/jmperez/passport-spotify#readme for passport
 // spotify OAuth strategy
 router.get(
