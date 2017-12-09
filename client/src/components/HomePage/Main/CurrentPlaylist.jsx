@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import CurrentPlaylistSong from './CurrentPlaylistSong';
 
-const CurrentPlaylist = (props) => (
+const CurrentPlaylist = props => (
   <div>
     <Grid
       centered
@@ -15,7 +15,6 @@ const CurrentPlaylist = (props) => (
     >
       <Grid.Column color="grey" style={{ width: 400 }}>
          Current Playlist: {props.currentPlaylistObj.title}
-         {console.log('props', props)}
       </Grid.Column>
       <CurrentPlaylistSong />
     </Grid>
