@@ -9,26 +9,28 @@ class MySongModal extends Component {
     this.state = {
       open: false,
       formData:'', 
-      searchResults: []
+      searchResults: [], 
+      showNote: false, 
+      trackSummary:'',
+      trackID:'',
+      noteData:'Write note here'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleNoteChange = this.handleNoteChange.bind(this);
     this.addSearchResults = this.addSearchResults.bind(this);
   }
-  //state = { open: false }
 
    handleChange(e) {
-    //this.props.onMySongChange(e.target.value);
     e.preventDefault();
     var $element = $(e.target);
     console.log('button pressed ', $element.text());
     console.log('value attr is ', $element.attr('trackID'))
-    var mySong = {
-    	trackSummary: $element.text(),
-    	trackID: $element.attr('trackID')
-    }
-    this.props.onMySongChange(mySong);
+    this.setState({
+      trackSummary: $element.text(),
+      trackID: $element.attr('trackID')
+    });
   }
 
    addSearchResults(searchResults) {
@@ -37,6 +39,7 @@ class MySongModal extends Component {
 
    handleFormSubmit(e) {
   	e.preventDefault();
+  	this.setState({showNote:true});
   	console.log('Form was submitted!', this.state.formData);
   	var query = this.state.formData.split(' ').join('+');
   	var context = this;
@@ -46,7 +49,7 @@ class MySongModal extends Component {
 				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=10&offset=5`,
 				contentType:'application/json', 
 				headers: {
-                'Authorization': 'Bearer BQCxowIgaA6Smg96lNMKFRcOTKodiVIpJDHU4_CsEdPhOQv7K6yrjZfuiPif5meYGM2o3_s6zesDPXhYaA8MdQq07KHp41-c31_5KYrCDUXfMyrG1RObLR0iNDqgKCVIg4Q_3mZEbQnDPjeAPQ'
+                'Authorization': 'Bearer BQA8wySKB1JtEUnSjp3eBJrEyaFmHjqZ3Rp1klWMr8HEdaWJJvqeW5YIUNg9M60rcj967IzyAmDMHWa6NVqVIYn684LtUfaD5-5VS1Ic9MBXIdYCaQb_OGV_jtlBoBgrAprY9ob_jK4d7ZuPwA'
             },
 				success:function(resp) {
 					console.log('GET request successful', resp.tracks.items[0].name);
@@ -71,8 +74,23 @@ class MySongModal extends Component {
   	this.setState({formData: e.target.value});
   }
 
+  handleNoteChange(e) {
+  	e.preventDefault();
+  	console.log('the note value is ', e.target.value);
+  	this.setState({noteData: e.target.value});
+  }
+
   show = dimmer => () => this.setState({ dimmer, open: true })
-  close = () => this.setState({ open: false })
+  close = () => {
+    this.setState({ open: false });
+     var mySong = {
+    	trackSummary: this.state.trackSummary,
+    	trackID: this.state.trackID,
+    	note: this.state.noteData
+    }
+    this.props.onMySongChange(mySong);
+
+  }
 
   render() {
     const { open, dimmer } = this.state
@@ -86,9 +104,16 @@ class MySongModal extends Component {
             <Modal.Description>
               <p>Pick a new MySong</p>
               <form onSubmit={this.handleFormSubmit} >
-                <input type='text' value={this.state.formData} onChange={this.handleFormChange} ></input>
+                <input type='text' value={this.state.formData} onChange={this.handleFormChange}></input>
               	<input type='submit'></input>
               </form>
+              {this.state.showNote &&
+              	<div> Add Song Note
+              	  <div>
+              	    <input style={{height:'100px'}} type='text' onChange={this.handleNoteChange} value={this.state.noteData}></input>
+              	  </div>
+              	</div>
+              }
             </Modal.Description>
             <div>
     					{this.state.searchResults.map((result, index) => (
