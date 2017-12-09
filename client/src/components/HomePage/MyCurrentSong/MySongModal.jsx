@@ -19,7 +19,11 @@ class MySongModal extends Component {
   //state = { open: false }
 
    handleChange(e) {
-    this.props.onMySongChange(e.target.value);
+    //this.props.onMySongChange(e.target.value);
+    e.preventDefault();
+    var $element = $(e.target);
+    console.log('button pressed ', $element.text());
+    this.props.onMySongChange($element.text());
   }
 
    addSearchResults(searchResults) {
@@ -37,7 +41,7 @@ class MySongModal extends Component {
 				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=5&offset=5`,
 				contentType:'application/json', 
 				headers: {
-                'Authorization': 'Bearer BQCl1bbbHh9dEN6k2Vp3xOrZWAgeCzGec8LfOYNcHXJw3nhXiQISpafRV-ek7UJxgkTZPQfAbIIyvenXdtMPyhO1Yhce2WYxRSHToxexapKIPKmpUuRYuIB2yUoZSZu1lt_Va_N1fZ0wuQiGoA'
+                'Authorization': 'Bearer BQCxowIgaA6Smg96lNMKFRcOTKodiVIpJDHU4_CsEdPhOQv7K6yrjZfuiPif5meYGM2o3_s6zesDPXhYaA8MdQq07KHp41-c31_5KYrCDUXfMyrG1RObLR0iNDqgKCVIg4Q_3mZEbQnDPjeAPQ'
             },
 				success:function(resp) {
 					console.log('GET request successful', resp.tracks.items[0].name);
@@ -77,7 +81,6 @@ class MySongModal extends Component {
             <Modal.Description>
               <Header>Select Your New MySong</Header>
               <p>Pick a new MySong</p>
-              <input onChange = {this.handleChange}></input>
               <form onSubmit={this.handleFormSubmit} >
                 <input type='text' value={this.state.formData} onChange={this.handleFormChange} ></input>
               	<input type='submit'></input>
@@ -85,7 +88,7 @@ class MySongModal extends Component {
             </Modal.Description>
             <div>
     					{this.state.searchResults.map(result => (
-      					<Button>{result.track_summary}</Button>
+      					<button onClick = {this.handleChange}>{result.track_summary}</button>
     						))}
   					</div>
           </Modal.Content>
