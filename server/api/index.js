@@ -112,7 +112,19 @@ router.post(
 
 router.post('/currentsong', (req, res) => {
   console.log('current song endpoint reached!!', req.body);
-  res.status(200).json('yeah!!');
+  var spotifyId = req.body.spotifyId;
+  var mySong = {
+    songSpotifyId: req.body.trackID,
+    note: req.body.note,
+    songTitle: req.body.trackName,
+    songArtist: req.body.trackArtist,
+    songAlbum: req.body.trackAlbum
+  };
+  console.log('spotifyId is ', spotifyId);
+  console.log('mySong is ', mySong);
+  User.updateCurrentSong(spotifyId, mySong)
+    .then(result => res.send('Database updated!'))
+    .catch(err => res.send(err));
 });
 
 module.exports = router;

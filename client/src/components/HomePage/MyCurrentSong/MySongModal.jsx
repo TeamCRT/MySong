@@ -97,9 +97,11 @@ class MySongModal extends Component {
       trackAlbum: this.state.trackAlbum,
       trackName: this.state.trackName,
       trackArtist: this.state.trackArtist,
-    	note: this.state.noteData
+    	note: this.state.noteData, 
+      spotifyId: this.props.spotifyId
     } 
     this.props.onMySongChange(mySong);
+
 
     axios.post('/api/currentsong', mySong)
       .then((response) => {
