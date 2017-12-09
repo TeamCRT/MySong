@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   },
 
   currentSong: {
-    songSpotifyId: String,
+    songSpotifyId: String, //spotifySongID
     note: String,
     songTitle: String,
     songArtist: String,

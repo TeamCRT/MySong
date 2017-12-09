@@ -23,7 +23,8 @@ class HomePage extends React.Component {
       currentPlaylist: null,
       currentMySong:{
         trackSummary:'Tiny Dancer by Elton John', 
-        trackID: '4BGJSbB5rAcg4pNzD4gfxU'
+        trackID: '4BGJSbB5rAcg4pNzD4gfxU', 
+        note:'I love this song'
       }
     };
     this.handleMySongChange = this.handleMySongChange.bind(this);
@@ -71,6 +72,9 @@ class HomePage extends React.Component {
         <Container style={{ marginTop: '3em', width: '100%' }}>
           <Header as="h1" style={{ textAlign: 'center' }}>
             Current My Song is : {this.state.currentMySong.trackSummary}
+          <div style={{fontSize:'15px'}}>
+            Note: {this.state.currentMySong.note}
+          </div>
             <MyCurrentSongContainer onMySongChange={this.handleMySongChange}/>
           </Header>
           <Divider />
