@@ -48,11 +48,14 @@ const userSchema = new mongoose.Schema({
   },
 
   following: {
-    // use format <user_id>: {}
+    type: Array,
   },
 
   playlists: {
-    // use format <playlistName>: [user_id, user_id]
+    type: Array,
+  },
+  mySongUsername: {
+    type: String,
   },
 
 });
