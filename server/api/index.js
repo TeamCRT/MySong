@@ -80,8 +80,7 @@ router.get(
 router.post(
   '/following',
   (req, res) => {
-    console.log('inside /playlists POST: ', req.body);
-    User.getUserFollowing(req.body.spotifyId)
+    User.getFollowing(req.body.spotifyId)
       .then(result => res.send(result))
       .catch(err => res.send(err));
     // res.send('sent from /playlists POST');

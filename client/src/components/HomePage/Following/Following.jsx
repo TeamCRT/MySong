@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 class Following extends React.Component {
   constructor(props) {

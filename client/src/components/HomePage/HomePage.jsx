@@ -76,7 +76,6 @@ class HomePage extends React.Component {
 
             <Grid.Column>
               {this.state.spotifyId && ( <FollowingContainer
-                handleFollowingClick={this.handleFollowingClick.bind(this)}
                 spotifyId={this.state.spotifyId}
               /> ) }
             </Grid.Column>
