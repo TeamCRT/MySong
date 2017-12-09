@@ -5,7 +5,7 @@ import MySongModal from './MySongModal';
 const MyCurrentSongContainer = (props) => (
   <div>
     <Segment attached="top">
-    	<MySongModal onMySongChange={props.onMySongChange}/>
+    	<MySongModal spotifyToken={props.spotifyToken} onMySongChange={props.onMySongChange}/>
     </Segment>
   </div>
 );

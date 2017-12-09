@@ -43,13 +43,14 @@ class MySongModal extends Component {
   	console.log('Form was submitted!', this.state.formData);
   	var query = this.state.formData.split(' ').join('+');
   	var context = this;
+    var spotifyToken = this.props.spotifyToken;
 
   	 	$.ajax({
 				type:'GET',
 				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=10&offset=5`,
 				contentType:'application/json', 
 				headers: {
-                'Authorization': 'Bearer BQA8wySKB1JtEUnSjp3eBJrEyaFmHjqZ3Rp1klWMr8HEdaWJJvqeW5YIUNg9M60rcj967IzyAmDMHWa6NVqVIYn684LtUfaD5-5VS1Ic9MBXIdYCaQb_OGV_jtlBoBgrAprY9ob_jK4d7ZuPwA'
+                'Authorization': 'Bearer' + ' ' + spotifyToken
             },
 				success:function(resp) {
 					console.log('GET request successful', resp.tracks.items[0].name);
