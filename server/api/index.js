@@ -28,7 +28,7 @@ router.get('/me', (req, res) => {
 });
 
 router.get('/search', (req, res) => {
-  
+
   var token = req.headers.jwt;
   var decoded = jwt.decode(token, secret);
   console.log('\n\nuser is ', decoded);
@@ -57,19 +57,17 @@ router.get(
         'playlist-modify-private',
       ],
       showDialog: true,
-      successRedirect: '/',
-      failureRedirect: '/login',
+      failureRedirect: 'http://127.0.0.1:3000',
     },
   ),
 );
 // spotify OAuth callback for authorization process
 router.get(
   '/auth/spotify/callback',
-  passport.authenticate('spotify'),
+  passport.authenticate('spotify',{ failureRedirect: 'http://127.0.0.1:3000'}),
   (req, res) => {
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
     // console.log('TESTING ############', req.user);
-    console.log('the auth spotify callback endpoint is being called');
     var user = req.session.passport.user;
     var token = jwt.encode(user, secret);
     //res.status(200).json(token);
@@ -110,6 +108,7 @@ router.post(
   },
 );
 
+
 router.get('/currentmysong/:spotifyId', (req, res) => {
   console.log('GET request to /currentmysong recieved!');
   console.log('the req.params.spotifyId is ', req.params.spotifyId);
@@ -125,10 +124,22 @@ router.post('/currentmysong', (req, res) => {
   console.log('req.body is ', req.body);
   var spotifyId = req.body.spotifyId;
   var mySong = req.body.mySong;
- 
+
   User.changeCurrentSong(spotifyId, mySong)
     .then(result => res.status(200).json(result))
     .catch(err => res.send(err));
 });
+
+router.post(
+  '/searchUsers',
+  (req, res) => {
+    User.search(req.body.query)
+      .then((users) => {
+        res.send(users);
+      })
+      .catch(err => res.send(err));
+  },
+);
+
 
 module.exports = router;
