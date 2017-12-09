@@ -1,13 +1,16 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import Following from './Following';
+import axios from 'axios';
+
 
 
 class FollowingContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      following: {},
+      following: null,
+      spotifyId: null,
     };
   }
 
@@ -15,17 +18,46 @@ class FollowingContainer extends React.Component {
     this.getFollowing();
   }
 
-  getFollowing() {
-    console.log('Current user spotifyID: ', this.props.spotifyId);
-    return true;
+  getFollowing(spotifyId) {
+    if (spotifyId && spotifyId !== this.state.spotifyId) {
+      console.log('SPOTIFY ID: ', spotifyId);
+      axios.post('/api/following', { spotifyId })
+        .then((response) => {
+          if (response.data[0]) {
+            console.log('User: ', spotifyId, 'following: ', response.data[0].following);
+            this.setState({
+              spotifyId,
+              following: response.data[0].following,
+            });
+          }
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
+  }
+  mapFollowing(follow) {
+    console.log('FOLLOW INFO: ', follow);
+    return (
+      <Following
+        follow={follow}
+        onClick={this.props.handleFollowingClick}
+        key={follow.username}
+      />
+    );
   }
   render() {
-    console.log('FOLLOWING CONTAINER MOUNTED');
+    // if we have recieved a spotifyId and it is not the current user load following
+    if (this.props.spotifyId && this.state.spotifyId !== this.props.spotifyId) {
+      this.getFollowing(this.props.spotifyId);
+    }
     return (
       <div style={{ float: 'right' }} >
         <Button.Group vertical >
-          <Button disabled style={{color:'black'}}>Following</Button>
-          <Following onClick={this.props.handleFollowingClick}/>
+          <Button disabled >Following</Button>
+          {this.state.following &&
+           this.state.following.map(this.mapFollowing.bind(this))
+          }
         </Button.Group>
       </div>
     );

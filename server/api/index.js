@@ -12,6 +12,7 @@ router.get('/users', (req, res) => {
     res.send({ users });
   });
 });
+
 // retrieve the current user from the session
 router.get('/getUser', (req, res) => {
   console.log('Testing to see the current session', req.session);
@@ -73,6 +74,17 @@ router.get(
     User.getUserPlaylists('1234369600')
       .then(result => res.send(result))
       .catch(err => res.send(err));
+  },
+);
+
+router.post(
+  '/following',
+  (req, res) => {
+    console.log('inside /playlists POST: ', req.body);
+    User.getUserFollowing(req.body.spotifyId)
+      .then(result => res.send(result))
+      .catch(err => res.send(err));
+    // res.send('sent from /playlists POST');
   },
 );
 
