@@ -43,7 +43,7 @@ class MySongModal extends Component {
 
   	 	$.ajax({
 				type:'GET',
-				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=5&offset=5`,
+				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=10&offset=5`,
 				contentType:'application/json', 
 				headers: {
                 'Authorization': 'Bearer BQCxowIgaA6Smg96lNMKFRcOTKodiVIpJDHU4_CsEdPhOQv7K6yrjZfuiPif5meYGM2o3_s6zesDPXhYaA8MdQq07KHp41-c31_5KYrCDUXfMyrG1RObLR0iNDqgKCVIg4Q_3mZEbQnDPjeAPQ'
