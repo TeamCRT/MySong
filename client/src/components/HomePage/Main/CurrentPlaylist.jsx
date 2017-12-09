@@ -10,7 +10,7 @@ const CurrentPlaylist = props => (
       padded
       stackable
       stretched
-      style={{ margin: '5.0em', width: 300 }}
+      style={{ margin: '5.0em' }}
       textAlign="center"
     >
       <Grid.Column color="grey" style={{ width: 400 }}>
@@ -23,6 +23,7 @@ const CurrentPlaylist = props => (
       src={`https://open.spotify.com/embed?uri=${props.currentPlaylistObj.playlistURI}`}
       frameBorder="0"
       height="400"
+      width="100%"
     />
   </div>
 );
