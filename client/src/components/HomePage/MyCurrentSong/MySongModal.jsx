@@ -92,8 +92,10 @@ class MySongModal extends Component {
               </form>
             </Modal.Description>
             <div>
-    					{this.state.searchResults.map(result => (
+    					{this.state.searchResults.map((result, index) => (
+    					 <div>{index+1 + '. '}
       					<button onClick = {this.handleChange} trackID={result.track_id}>{result.track_summary}</button>
+      				 </div>
     						))}
   					</div>
           </Modal.Content>
