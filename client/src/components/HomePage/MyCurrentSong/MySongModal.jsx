@@ -13,6 +13,9 @@ class MySongModal extends Component {
       showNote: false, 
       trackSummary:'',
       trackID:'',
+      trackAlbum:'',
+      trackArist: '',
+      trackName: '',
       noteData:'Write note here'
     };
     this.handleChange = this.handleChange.bind(this);
@@ -29,7 +32,10 @@ class MySongModal extends Component {
     console.log('value attr is ', $element.attr('trackID'))
     this.setState({
       trackSummary: $element.text(),
-      trackID: $element.attr('trackID')
+      trackID: $element.attr('trackID'),
+      trackAlbum: $element.attr('trackAlbum'),
+      trackArtist: $element.attr('trackArtist'),
+      trackName: $element.attr('trackName')
     });
   }
 
@@ -60,6 +66,7 @@ class MySongModal extends Component {
 							track_name: resp.tracks.items[i].name, 
 							track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
 							track_artist: resp.tracks.items[i].artists[0].name, 
+              track_album: resp.tracks.items[i].album.name,
 							track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
 					  }
 					 searchResults.push(result);
@@ -87,10 +94,20 @@ class MySongModal extends Component {
      var mySong = {
     	trackSummary: this.state.trackSummary,
     	trackID: this.state.trackID,
+      trackAlbum: this.state.trackAlbum,
+      trackName: this.state.trackName,
+      trackArtist: this.state.trackArtist,
     	note: this.state.noteData
-    }
+    } 
     this.props.onMySongChange(mySong);
 
+    axios.post('/api/currentsong', mySong)
+      .then((response) => {
+          console.log('Successfully updated current song in database!');
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 
   render() {
@@ -119,7 +136,7 @@ class MySongModal extends Component {
             <div>
     					{this.state.searchResults.map((result, index) => (
     					 <div>{index+1 + '. '}
-      					<button onClick = {this.handleChange} trackID={result.track_id}>{result.track_summary}</button>
+      					<button onClick = {this.handleChange} trackID={result.track_id} trackAlbum={result.track_album} trackArtist={result.track_artist} trackName={result.track_name} >{result.track_summary}</button>
       				 </div>
     						))}
   					</div>

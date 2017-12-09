@@ -102,4 +102,10 @@ User.getFollowing = spotifyId => (
     .catch(err => err)
 );
 
+User.updateCurrentSong = (spotifyId, currentSong) => (
+  User.findOneAndUpdate({ spotifyId }, { currentSong }).select('currentSong').exec()
+    .then(res => res)
+    .catch(err => err)
+);
+
 module.exports = User;

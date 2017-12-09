@@ -21,9 +21,12 @@ class HomePage extends React.Component {
       spotifyUsername:'',
       currentPlaylist: null,
       currentMySong:{
-        trackSummary: 'Tiny Dancer by Elton John',
-        trackID: '4BGJSbB5rAcg4pNzD4gfxU',
-        note: 'I love this song',
+        trackSummary:'', 
+        trackID: '', 
+        trackAlbum: '',
+        trackName:'',
+        trackArtist:'',
+        note:'',
       },
       currentPlaylistObj: {},
     };

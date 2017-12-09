@@ -110,4 +110,9 @@ router.post(
   },
 );
 
+router.post('/currentsong', (req, res) => {
+  console.log('current song endpoint reached!!', req.body);
+  res.status(200).json('yeah!!');
+});
+
 module.exports = router;
