@@ -1,9 +1,11 @@
 import React from 'react';
 import CurrentPlaylist from './CurrentPlaylist';
 
-const MainContainer = () => (
+const MainContainer = props => (
   <div>
-    <CurrentPlaylist />
+    <CurrentPlaylist
+      currentPlaylistObj={props.currentPlaylistObj}
+    />
   </div>
 );
 
