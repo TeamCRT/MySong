@@ -22,8 +22,8 @@ class HomePage extends React.Component {
       currentPlaylist: null,
       test:'',
       currentMySong:{
-        trackSummary:'', 
-        trackID: '', 
+        trackSummary:'',
+        trackID: '',
         trackAlbum: '',
         trackName:'',
         trackArtist:'',
