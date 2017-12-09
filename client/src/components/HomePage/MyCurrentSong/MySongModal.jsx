@@ -23,7 +23,12 @@ class MySongModal extends Component {
     e.preventDefault();
     var $element = $(e.target);
     console.log('button pressed ', $element.text());
-    this.props.onMySongChange($element.text());
+    console.log('value attr is ', $element.attr('trackID'))
+    var mySong = {
+    	trackSummary: $element.text(),
+    	trackID: $element.attr('trackID')
+    }
+    this.props.onMySongChange(mySong);
   }
 
    addSearchResults(searchResults) {
@@ -49,7 +54,7 @@ class MySongModal extends Component {
 					for (var i = 0; i < resp.tracks.items.length; i++) {
 						var result = {
 							track_name: resp.tracks.items[i].name, 
-							track_id: resp.tracks.items[i].href, 
+							track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
 							track_artist: resp.tracks.items[i].artists[0].name, 
 							track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
 					  }
@@ -88,7 +93,7 @@ class MySongModal extends Component {
             </Modal.Description>
             <div>
     					{this.state.searchResults.map(result => (
-      					<button onClick = {this.handleChange}>{result.track_summary}</button>
+      					<button onClick = {this.handleChange} trackID={result.track_id}>{result.track_summary}</button>
     						))}
   					</div>
           </Modal.Content>

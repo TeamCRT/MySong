@@ -21,7 +21,10 @@ class HomePage extends React.Component {
       spotifyToken:'',
       spotifyUsername:'',
       currentPlaylist: null,
-      currentMySong:'Tiny Dancer by Elton John'
+      currentMySong:{
+        trackSummary:'Tiny Dancer by Elton John', 
+        trackID: '4BGJSbB5rAcg4pNzD4gfxU'
+      }
     };
     this.handleMySongChange = this.handleMySongChange.bind(this);
   }
@@ -67,7 +70,7 @@ class HomePage extends React.Component {
         <NavBarContainer username={this.state.spotifyUsername} />
         <Container style={{ marginTop: '3em', width: '100%' }}>
           <Header as="h1" style={{ textAlign: 'center' }}>
-            Current My Song is : {this.state.currentMySong}
+            Current My Song is : {this.state.currentMySong.trackSummary}
             <MyCurrentSongContainer onMySongChange={this.handleMySongChange}/>
           </Header>
           <Divider />
