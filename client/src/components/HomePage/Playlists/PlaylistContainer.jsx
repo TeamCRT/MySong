@@ -23,11 +23,13 @@ class PlaylistContainer extends React.Component {
   }
 
   mapFunction(playlistObj) {
+    console.log('playlistObj', playlistObj)
     return (
       <PlaylistEntry
         title={playlistObj.playlistName}
         key={playlistObj.spotifyPlaylistID}
         spotifyPlaylistID={playlistObj.spotifyPlaylistID}
+        spotifyPlaylistURI={playlistObj.spotifyURI}
         clickHandler={this.props.clickHandler}
       />
     );
@@ -35,12 +37,16 @@ class PlaylistContainer extends React.Component {
 
   render() {
     return (
-      <div style={{ float: 'left' }}>
-        <Button.Group vertical >
-          <Button disabled >My Playlists</Button>
-          {this.state.playlists.map(this.mapFunction.bind(this))}
-          <Button color="red">Create</Button>
-        </Button.Group>
+      <div>
+        {this.state.playlists[0] &&
+          <div style={{ float: 'left' }}>
+            <Button.Group vertical >
+              <Button disabled >My Playlists</Button>
+              {this.state.playlists.map(this.mapFunction.bind(this))}
+              <Button color="red">Create</Button>
+            </Button.Group>
+          </div>
+        }
       </div>
     );
   }

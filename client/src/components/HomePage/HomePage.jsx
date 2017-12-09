@@ -9,7 +9,6 @@ import NavBarContainer from '../NavBar/NavBarContainer';
 import MyCurrentSongContainer from './MyCurrentSong/MyCurrentSongContainer';
 
 
-
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +25,7 @@ class HomePage extends React.Component {
         trackID: '4BGJSbB5rAcg4pNzD4gfxU', 
         note:'I love this song'
       }
+      currentPlaylistObj: {},
     };
     this.handleMySongChange = this.handleMySongChange.bind(this);
   }
@@ -41,8 +41,8 @@ class HomePage extends React.Component {
             spotifyDisplayName: res.data.spotifyDisplayName,
             spotifyId: res.data.spotifyId,
             spotifyRefreshToken: res.data.spotifyRefreshToken,
-            spotifyToken:res.data.spotifyToken,
-            spotifyUsername:res.data.spotifyUsername
+            spotifyToken: res.data.spotifyToken,
+            spotifyUsername: res.data.spotifyUsername,
           });
         })
         .catch((err) => {
@@ -51,10 +51,14 @@ class HomePage extends React.Component {
     }
   }
 
-  handlePlaylistEntryClick(playlistID) {
-    console.log('handlePlaylistEntryClick', 'input:', playlistID);
+  handlePlaylistEntryClick(playlistID, playlistURI, title) {
+    console.log('handlePlaylistEntryClick', 'input:', arguments);
     this.setState({
-      currentPlaylist: playlistID,
+      currentPlaylistObj: {
+        playlistID,
+        playlistURI,
+        title,
+      },
     });
   }
 
@@ -84,8 +88,11 @@ class HomePage extends React.Component {
             </Grid.Column>
 
             <Grid.Column>
-              <Header as="h1">Current Playlist: {this.state.currentPlaylist}</Header>
-              <MainContainer />
+              {this.state.currentPlaylistObj.title && (
+                <MainContainer
+                  currentPlaylistObj={this.state.currentPlaylistObj}
+                />
+              )}
             </Grid.Column>
 
             <Grid.Column>
