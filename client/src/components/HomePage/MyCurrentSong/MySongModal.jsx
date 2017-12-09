@@ -81,10 +81,9 @@ class MySongModal extends Component {
       <div>
         <Button onClick={this.show(true)}>Edit</Button>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
-          <Modal.Header>Change your mysong</Modal.Header>
+          <Modal.Header>Change your MySong</Modal.Header>
           <Modal.Content image>
             <Modal.Description>
-              <Header>Select Your New MySong</Header>
               <p>Pick a new MySong</p>
               <form onSubmit={this.handleFormSubmit} >
                 <input type='text' value={this.state.formData} onChange={this.handleFormChange} ></input>
@@ -100,9 +99,6 @@ class MySongModal extends Component {
   					</div>
           </Modal.Content>
           <Modal.Actions>
-            <Button color='black' onClick={this.close}>
-              Close
-            </Button>
             <Button positive icon='checkmark' labelPosition='right' content="OK" onClick={this.close} />
           </Modal.Actions>
         </Modal>
