@@ -65,7 +65,7 @@ User.getUserPlaylists = spotifyUserId => (
     .catch(err => err)
 );
 
-User.getUserFollowing = spotifyId => (
+User.getFollowing = spotifyId => (
   User.find({ spotifyId }).select('following').exec()
     .then(res => res)
     .catch(err => err)

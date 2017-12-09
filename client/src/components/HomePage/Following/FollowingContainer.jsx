@@ -14,17 +14,11 @@ class FollowingContainer extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.getFollowing();
-  }
-
   getFollowing(spotifyId) {
     if (spotifyId && spotifyId !== this.state.spotifyId) {
-      console.log('SPOTIFY ID: ', spotifyId);
       axios.post('/api/following', { spotifyId })
         .then((response) => {
-          if (response.data[0]) {
-            console.log('User: ', spotifyId, 'following: ', response.data[0].following);
+          if (response.data[0]) { // if user has any followers, user could have none
             this.setState({
               spotifyId,
               following: response.data[0].following,
@@ -37,7 +31,6 @@ class FollowingContainer extends React.Component {
     }
   }
   mapFollowing(follow) {
-    console.log('FOLLOW INFO: ', follow);
     return (
       <Following
         follow={follow}
