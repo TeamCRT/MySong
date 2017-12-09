@@ -82,10 +82,7 @@ class HomePage extends React.Component {
           <div style={{fontSize:'15px'}}>
             Note: {this.state.currentMySong.note}
           </div>
-            <MyCurrentSongContainer
-              spotifyToken={this.state.spotifyToken}
-              onMySongChange={this.handleMySongChange}
-            />
+            <MyCurrentSongContainer spotifyId={this.state.spotifyId} spotifyToken={this.state.spotifyToken} onMySongChange={this.handleMySongChange}/>
           </Header>
           <Divider />
           <Grid columns={3} stackable>
