@@ -1,116 +1,105 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { Button, Dropdown } from 'semantic-ui-react';
-import axios from 'axios';
+import { Search, Grid, Header } from 'semantic-ui-react';
 
-const options = [
-  { key: 'English', text: 'English', value: 'English' },
-  { key: 'French', text: 'French', value: 'French' },
-  { key: 'Spanish', text: 'Spanish', value: 'Spanish' },
-  { key: 'German', text: 'German', value: 'German' },
-  { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
-]
+let source = [];
 
-const getOptions = () => {
-  return options
-}
+// const source = [
+//   {
+//     "title": "Legros and Sons",
+//     "description": "Business-focused homogeneous local area network",
+//     // "image": "https://s3.amazonaws.com/uifaces/faces/twitter/commadelimited/128.jpg",
+//     // "price": "$5.91"
+//   },
+//   {
+//     "title": "Runolfsson, Huel and Schuster",
+//     "description": "Horizontal real-time encoding",
+//     // "image": "https://s3.amazonaws.com/uifaces/faces/twitter/sindresorhus/128.jpg",
+//     // "price": "$54.62"
+//   },
+//   {
+//     "title": "McLaughlin LLC",
+//     "description": "Diverse neutral process improvement",
+//     // "image": "https://s3.amazonaws.com/uifaces/faces/twitter/cdavis565/128.jpg",
+//     // "price": "$23.12"
+//   },
+//   {
+//     "title": "Gutmann, Sipes and Howe",
+//     "description": "Configurable 5th generation conglomeration",
+//     // "image": "https://s3.amazonaws.com/uifaces/faces/twitter/supervova/128.jpg",
+//     // "price": "$98.80"
+//   },
+//   {
+//     "title": "Senger Inc",
+//     "description": "Self-enabling responsive challenge",
+//     // "image": "https://s3.amazonaws.com/uifaces/faces/twitter/salleedesign/128.jpg",
+//     // "price": "$87.31"
+//   }
+// ]
 
-class Search extends Component {
+export default class SearchExampleStandard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false,
+      results: [],
+      value: '',
+    }
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleResultSelect = this.handleResultSelect.bind(this);
+  }
   componentWillMount() {
-    this.setState({
-      isFetching: false,
-      multiple: true,
-      search: true,
-      searchQuery: null,
-      value: [],
-      options: [],
-    })
+    this.resetComponent()
   }
 
-  handleChange = (e, { value }) => this.setState({ value })
+  resetComponent() {this.setState({ isLoading: false, results: [], value: '' })}
 
-  handleSearchChange = (e, { searchQuery }) => {
-    this.setState({ searchQuery })
-  }
+  handleResultSelect(e, { result }) {this.setState({ value: result.title })}
 
-  setOptions = (options) => {
-    var formatOptions = [];
-    options.forEach((result) => {
-      let formatResult = {};
-      formatResult.text = result.mySongUsername;
-      formatResult.key = result._id;
-      formatOptions.push(formatResult)
-    })
-    console.log('formatted options : ', formatOptions );
-    this.setState({ isFetching: true })
+  handleSearchChange(e, { value }) {
+    this.setState({ isLoading: true, value })
 
     setTimeout(() => {
-      this.setState({ isFetching: false, options: formatOptions, value: ['hello'] })
+      if (this.state.value.length < 1) return this.resetComponent();
+
+      const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
+      const isMatch = result => re.test(result.title);
+
+      this.setState({
+        isLoading: false,
+        results: _.filter(source, isMatch),
+      })
     }, 500)
   }
 
-  handleAddItem = () => {
-    console.log('handle Add item');
-  }
-  toggleSearch = e => this.setState({ search: e.target.checked })
-
-  searchUsers = (e, {value}) => {
-    console.log('search fo users');
-    axios.post('/api/searchUsers', { query: value })
-    .then((results) => {
-      console.log('SEARCH RESULTS: ', results.data);
-      this.setOptions(results.data)
-      // const newOptions = [];
-      // const searchResult = {};
-      // results.data.forEach((user) => {
-      //   searchResult.text = user.mySongUsername;
-      //   searchResult.key = user.mySongUsername;
-      //   newOptions.push(searchResult);
-      // });
-      // return newOptions
-      // this.setState({
-      //   options: newOptions,
-      //   // runOnce: false,
-      // });
-    })
-    .catch((err) => {
-      throw err;
-    });
-  }
-
   render() {
-    const { multiple, options, isFetching, search, value } = this.state
+    const { isLoading, value, results } = this.state;
+    console.log('RENDERING SEARCH');
+    if (this.props.options !== '' && JSON.stringify(this.props.options) !== JSON.stringify(source)) {
+      source = this.props.options;
+      console.log('OPTIONS from Search.props.options ', this.props.options, 'source gloabal: ', source);
+    }
+
+
     return (
-      // <Dropdown
-      //   options={this.state.options}
-      //   search//={this.searchUsers.bind(this)}
-      //   // allowAdditions
-      //   // onAdditem={this.searchUsers.bind(this)}
-      //   selection
-      //   allowAdditions
-      //   additionLabel='Custom Language: '
-      //   value={currentValue}
-      //   onAddItem={this.handleAddition}
-      //   onChange={this.handleChange}
-      //   // loading={this.state.loading}
-      //   // placeholder="A custom message..."
-      //   // noResultsMessage="Try another search."
-      // />
-        <Dropdown
-            selection
-            multiple={multiple}
-            search={search}
-            options={options}
-            value={value}
-            placeholder='Add Users'
-            onChange={this.handleChange}
+      <Grid>
+        <Grid.Column width={8}>
+          <Search
+            loading={isLoading}
+            onResultSelect={this.handleResultSelect}
             onSearchChange={this.handleSearchChange}
-            disabled={isFetching}
-            loading={isFetching}
-            allowAdditions
-            onAddItem={this.searchUsers.bind(this)}
+            results={results}
+            value={value}
+            {...this.props}
           />
-    );
+        </Grid.Column>
+        <Grid.Column width={8}>
+          <Header>State</Header>
+          <pre>{JSON.stringify(this.state, null, 2)}</pre>
+          <Header>Options</Header>
+          <pre>{JSON.stringify(source, null, 2)}</pre>
+        </Grid.Column>
+      </Grid>
+    )
   }
 }
-
-export default Search;

@@ -4,15 +4,23 @@ import Search from './Search.jsx'
 import './NavBarContainer.css';
 
 
-const NavBarContainer = (props) => (
-  <Menu>
-    <Menu.Item>
-      <Search />
-    </Menu.Item>
+class NavBarContainer extends React.Component {
+  constructor(props) {
+    super(props);
 
-    <Header size="large" color="red" floated="right">mysong.io </Header>
-    <Menu.Item name={props.username} position="right" />
-  </Menu>
-);
+  }
+  render(props){
+    // console.log('NAVBAR PROPS', this.props);
+    return (
+      <Menu>
+        <Menu.Item>
+          <Search options={this.props.options} />
+        </Menu.Item>
+        <Header size="large" color="red" floated="right">mysong.io </Header>
+        <Menu.Item name={this.props.username} position="right" />
+      </Menu>
+    );
+  }
+}
 
 export default NavBarContainer;
