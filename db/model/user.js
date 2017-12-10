@@ -139,7 +139,7 @@ User.changeCurrentSong = (spotifyId, mySong) => {
 
 =======
 User.search = query => (
-  User.find({}).select('mySongUsername').exec()
+  User.find({}, 'mySongUsername spotifyId').exec()
     .then(users => users)
     .catch(err => err)
 );

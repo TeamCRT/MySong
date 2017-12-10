@@ -72,9 +72,11 @@ class HomePage extends React.Component {
           // this.setOptions(results.data)
           const formatOptions = [];
           results.data.forEach((result) => {
+            console.log('USER SEARCH RESULTS: ', result);
             const formatResult = {};
             formatResult.title = result.mySongUsername;
             formatResult.key = result._id; // eslint-disable-line
+            formatResult.spotifyId = result.spotifyId;
             formatOptions.push(formatResult);
           });
           this.setState({ options: formatOptions });
