@@ -76,7 +76,8 @@ class HomePage extends React.Component {
             const formatResult = {};
             formatResult.title = result.mySongUsername;
             formatResult.key = result._id; // eslint-disable-line
-            formatResult.spotifyId = result.spotifyId;
+            // the i in spotifyid is not capitalized to avoid an error
+            formatResult.spotifyid = result.spotifyId;
             formatOptions.push(formatResult);
           });
           this.setState({ options: formatOptions });
