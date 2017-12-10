@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Label, Search, Grid, Header } from 'semantic-ui-react';
 
@@ -86,15 +87,22 @@ export default class SearchExampleStandard extends Component {
     }, 500)
   }
 
-  handleFollowClick(e, { result }) {
-    console.log('BUTTON CLICKED: ', result);
+  handleFollowClick(e, { spotifyid }) { // eslint-disable-line
+    console.log('BUTTON CLICKED: ', spotifyid);
+    axios.put('/api/addToFollowing', { spotifyId: spotifyid })
+      .then((data) => {
+        console.log('HANDLE FOLLOW CLICK AXIOS RETURN: ', data);
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 
-  resultRenderer({ title, spotifyId }) { // eslint-disable-line
+  resultRenderer({ title, spotifyid }) { // eslint-disable-line
     return (
       <div>
         <Label content={title} />
-        <Button result={spotifyId} onClick={this.handleFollowClick}>Follow</Button>
+        <Button spotifyid={spotifyid} onClick={this.handleFollowClick}>Follow</Button>
       </div>
     );
   }

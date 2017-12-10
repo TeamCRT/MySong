@@ -15,7 +15,6 @@ router.get('/users', (req, res) => {
 
 // retrieve the current user from the session
 router.get('/getUser', (req, res) => {
-  console.log('Testing to see the current session', req.session);
   res.send({/*req.session.passport.user*/});
 });
 
@@ -67,11 +66,8 @@ router.get(
   passport.authenticate('spotify',{ failureRedirect: 'http://127.0.0.1:3000'}),
   (req, res) => {
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
-    // console.log('TESTING ############', req.user);
-    var user = req.session.passport.user;
-    var token = jwt.encode(user, secret);
-    //res.status(200).json(token);
-    // console.log('Session data: ', req.session.passport)
+    const user = req.user;
+    const token = jwt.encode(user, secret);
     // Successful authentication, redirect home.
     res.set({ 'authorization': token});
     res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + 'token=' + token);
@@ -129,6 +125,17 @@ router.post('/currentmysong', (req, res) => {
     .then(result => res.status(200).json(result))
     .catch(err => res.send(err));
 });
+
+router.put(
+  '/addToFollowing',
+  (req, res) => {
+    console.log('INSIDE API/ADDTOFOLLWOING ROUTE:', req.body.spotifyId);
+    User.addToFollowing(req.body.spotifyId)
+      .then(result => res.send(result))
+      .catch(err => res.send(err));
+  },
+);
+
 
 router.post(
   '/searchUsers',
