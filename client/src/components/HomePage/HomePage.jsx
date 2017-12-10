@@ -13,6 +13,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      options: '',
       currentUser: '',
       spotifyDisplayName: '',
       spotifyId: null,
@@ -65,6 +66,22 @@ class HomePage extends React.Component {
         .catch((err) => {
           console.log(err);
         });
+        axios.post('/api/searchUsers', { query: '' })
+        .then((results) => {
+          // console.log('SEARCH RESULTS: ', results.data);
+          // this.setOptions(results.data)
+          const formatOptions = [];
+          results.data.forEach((result) => {
+            const formatResult = {};
+            formatResult.title = result.mySongUsername;
+            formatResult.key = result._id; // eslint-disable-line
+            formatOptions.push(formatResult);
+          });
+          this.setState({ options: formatOptions });
+        })
+        .catch((err) => {
+          throw err;
+        });
     }
   }
 
@@ -78,18 +95,15 @@ class HomePage extends React.Component {
     });
   }
 
-  handleFollowingClick() {
-    console.log('HANDLE FOLLOWING CLICK');
-  }
-
   handleMySongChange(mySong) {
     this.setState({ currentMySong: mySong });
   }
 
   render() {
+    console.log('OPTIONS PASSED FDOWN: ', this.state.options);
     return (
       <div>
-        <NavBarContainer username={this.state.spotifyUsername} />
+        <NavBarContainer options={this.state.options} username={this.state.spotifyUsername} />
         <Container style={{ marginTop: '3em', width: '100%' }}>
             <MyCurrentSongContainer currentMySong={this.state.currentMySong} spotifyId={this.state.spotifyId} spotifyToken={this.state.spotifyToken} onMySongChange={this.handleMySongChange}/>
           <Divider />
