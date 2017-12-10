@@ -129,10 +129,23 @@ router.post('/currentmysong', (req, res) => {
 router.put(
   '/addToFollowing',
   (req, res) => {
-    console.log('INSIDE API/ADDTOFOLLWOING ROUTE:', req.body.spotifyId);
-    User.addToFollowing(req.body.spotifyId)
-      .then(result => res.send(result))
+    const token = req.headers.jwt;
+    const decoded = jwt.decode(token, secret);
+    console.log('DECODED JWT inside /addToFollowing: ', decoded.spotifyId);
+    User.getFollowing("121440509")
+      .then((result) => {
+        console.log('follwoing: ', result[0].following);
+        const following = result[0].following.map((follow) => {
+          return follow.spotifyId;
+        })
+        console.log("GET USER FOLLWOING and put following ids into array: ", following);
+        res.send(result)
+      })
       .catch(err => res.send(err));
+    // User.addToFollowing(decoded.spotifyId, req.body.spotifyId)
+    //   .then(result => res.send(result))
+    //   .catch(err => res.send(err));
+    // res.send(decoded)
   },
 );
 
