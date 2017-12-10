@@ -108,14 +108,26 @@ User.getFollowing = spotifyId => (
     .catch(err => err)
 );
 
+<<<<<<< HEAD
 User.getCurrentSong = (spotifyId) => (
   User.find({ spotifyId }).select('currentMySong').exec()
   .then(res => res)
   .catch(err => err)
 );
 
-User.addToFollowing = spotifyId => (
-  User.findOneAndUpdate({ spotifyId }, { $push: { following: { spotifyId } } }).exec()
+
+User.populateFollowing = (following) => {
+  const followingIds = following.map((follow) => { // eslint-disable-line
+    return follow.spotifyId;
+  });
+  return User.find({ spotifyId: { $in: followingIds } }).select('spotifyId mySongUsername currentSong').exec()
+};
+
+User.addToFollowing = (currentUserId, idToAdd) => (
+  User.findOneAndUpdate(
+    { spotifyId: currentUserId },
+    { $push: { following: { spotifyId: idToAdd } } },
+  ).exec()
     .then(res => res)
     .catch(err => err)
 );

@@ -22,7 +22,6 @@ router.get('/me', (req, res) => {
 
   var token = req.headers.jwt;
   var decoded = jwt.decode(token, secret);
-  console.log('\nuser is ', decoded);
   res.status(200).json(decoded);
 });
 
@@ -95,12 +94,21 @@ router.get(
 );
 
 router.post(
-  '/following',
+  '/getFollowing',
   (req, res) => {
     User.getFollowing(req.body.spotifyId)
-      .then(result => res.send(result))
+      .then((result) => {
+        console.log('RESULT FROM GET FOLLOWING: ', result[0].following);
+        // INPUT: array of spotifyIds OUTPUT: object containing mySongUsername
+        // and CurrentSong for each spotifyId
+        User.populateFollowing(result[0].following)
+          .then((populatedFollowing) => {
+            console.log('POPULATE FOLLWOING: ',populatedFollowing);
+            res.send(populatedFollowing);
+          })
+          .catch(err => res.send(err));
+      })
       .catch(err => res.send(err));
-    // res.send('sent from /playlists POST');
   },
 );
 
@@ -131,21 +139,21 @@ router.put(
   (req, res) => {
     const token = req.headers.jwt;
     const decoded = jwt.decode(token, secret);
-    console.log('DECODED JWT inside /addToFollowing: ', decoded.spotifyId);
-    User.getFollowing("121440509")
+    User.getFollowing(decoded.spotifyId)
       .then((result) => {
-        console.log('follwoing: ', result[0].following);
-        const following = result[0].following.map((follow) => {
+        const userFollowing = result[0].following;
+        const following = userFollowing.map((follow) => { // eslint-disable-line
           return follow.spotifyId;
-        })
-        console.log("GET USER FOLLWOING and put following ids into array: ", following);
-        res.send(result)
+        });
+        if (!following.includes(req.body.spotifyId) && decoded.spotifyId !== req.body.spotifyId) {
+          User.addToFollowing(decoded.spotifyId, req.body.spotifyId)
+            .then(added => res.send(added))
+            .catch(err => res.send(err));
+        } else {
+          res.send('Already following user');
+        }
       })
       .catch(err => res.send(err));
-    // User.addToFollowing(decoded.spotifyId, req.body.spotifyId)
-    //   .then(result => res.send(result))
-    //   .catch(err => res.send(err));
-    // res.send(decoded)
   },
 );
 

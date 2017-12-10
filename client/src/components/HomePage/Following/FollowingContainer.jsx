@@ -1,9 +1,7 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
-import Following from './Following';
 import axios from 'axios';
-
-
+import Following from './Following';
 
 class FollowingContainer extends React.Component {
   constructor(props) {
@@ -15,22 +13,23 @@ class FollowingContainer extends React.Component {
   }
 
   getFollowing(spotifyId) {
-    if (spotifyId && spotifyId !== this.state.spotifyId) {
-      axios.post('/api/following', { spotifyId })
-        .then((response) => {
-          if (response.data[0]) { // if user has any followers, user could have none
-            this.setState({
-              spotifyId,
-              following: response.data[0].following,
-            });
-          }
-        })
-        .catch((err) => {
-          throw err;
-        });
-    }
+    console.log('CURRENT USER:', spotifyId);
+    axios.post('/api/getFollowing', { spotifyId })
+      .then((response) => {
+        console.log('USER follwoing: ', response);
+        if (response.data[0]) { // if user has any followers, user could have none
+          this.setState({
+            spotifyId,
+            following: response.data[0].following,
+          });
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
   mapFollowing(follow) {
+    console.log('MAP FOLLOWING: ', follow);
     return (
       <Following
         follow={follow}
@@ -40,7 +39,7 @@ class FollowingContainer extends React.Component {
     );
   }
   render() {
-    // if we have recieved a spotifyId and it is not the current user load following
+    // the below statement limits the calls to the DB to retrieve following
     if (this.props.spotifyId && this.state.spotifyId !== this.props.spotifyId) {
       this.getFollowing(this.props.spotifyId);
     }
