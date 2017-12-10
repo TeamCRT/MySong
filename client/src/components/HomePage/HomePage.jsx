@@ -72,7 +72,6 @@ class HomePage extends React.Component {
           // this.setOptions(results.data)
           const formatOptions = [];
           results.data.forEach((result) => {
-            console.log('USER SEARCH RESULTS: ', result);
             const formatResult = {};
             formatResult.title = result.mySongUsername;
             formatResult.key = result._id; // eslint-disable-line
@@ -103,7 +102,6 @@ class HomePage extends React.Component {
   }
 
   render() {
-    console.log('OPTIONS PASSED FDOWN: ', this.state.options);
     return (
       <div>
         <NavBarContainer options={this.state.options} username={this.state.spotifyUsername} />
