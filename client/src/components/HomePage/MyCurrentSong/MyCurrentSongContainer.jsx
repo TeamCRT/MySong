@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Segment, Header } from 'semantic-ui-react';
+import { Segment, Header } from 'semantic-ui-react';
 import MySongModal from './MySongModal';
 
 class MyCurrentSongContainer extends React.Component {
@@ -24,6 +24,3 @@ class MyCurrentSongContainer extends React.Component {
 
 }
 export default MyCurrentSongContainer;
-
-
-

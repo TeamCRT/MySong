@@ -18,13 +18,13 @@ class Following extends React.Component {
     return (
       <div>
         <Button onClick={this.handleClick.bind(this)} color="red">
-          {this.props.follow.username}
+          {this.props.follow.mySongUsername}
         </Button>
         {this.state.isVisible &&
           (
             <div>
-              <Button>{this.props.follow.song}</Button>
-              <Button>{this.props.follow.note}</Button>
+              <Button>{this.props.follow.currentMySong.trackName}</Button>
+              <Button>{this.props.follow.currentMySong.note}</Button>
             </div>
           )
         }

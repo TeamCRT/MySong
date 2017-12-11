@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Popup, Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 import axios from 'axios';
 import $ from 'jquery';
 
@@ -8,15 +8,15 @@ class MySongModal extends Component {
     super(props);
     this.state = {
       open: false,
-      formData:'', 
-      searchResults: [], 
-      showNote: false, 
+      formData:'',
+      searchResults: [],
+      showNote: false,
       trackSummary:'',
       trackID:'',
       trackAlbum:'',
       trackArist: '',
       trackName: '',
-      note:'Write note here', 
+      note:'Write note here',
       showError: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -55,9 +55,9 @@ class MySongModal extends Component {
   	 	$.ajax({
 				type:'GET',
 				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=10&offset=5`,
-				contentType:'application/json', 
+				contentType:'application/json',
 				headers: {
-                'Authorization': 'Bearer' + ' ' + spotifyToken
+                'Authorization': 'Bearer ' + spotifyToken
             },
 				success:function(resp) {
 					console.log('GET request to https://api.spotify.com/v1/search successful!');
@@ -67,9 +67,9 @@ class MySongModal extends Component {
 					var searchResults = [];
 					for (var i = 0; i < resp.tracks.items.length; i++) {
 						var result = {
-							track_name: resp.tracks.items[i].name, 
+							track_name: resp.tracks.items[i].name,
 							track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
-							track_artist: resp.tracks.items[i].artists[0].name, 
+							track_artist: resp.tracks.items[i].artists[0].name,
               track_album: resp.tracks.items[i].album.name,
 							track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
 					  }
@@ -87,7 +87,6 @@ class MySongModal extends Component {
 
   handleNoteChange(e) {
   	e.preventDefault();
-  	console.log('the note value is ', e.target.value);
   	this.setState({noteData: e.target.value});
   }
 
@@ -100,13 +99,13 @@ class MySongModal extends Component {
       trackAlbum: this.state.trackAlbum,
       trackName: this.state.trackName,
       trackArtist: this.state.trackArtist,
-    	note: this.state.noteData, 
+    	note: this.state.noteData,
     };
     var mySongPayload = {
-      mySong: mySong, 
+      mySong: mySong,
       spotifyId: this.props.spotifyId,
     }
-   
+
     axios.post('/api/currentmysong', mySongPayload)
       .then((response) => {
           console.log('axios POST to /api/currentmysong successful', response);
@@ -143,12 +142,12 @@ class MySongModal extends Component {
             <div>
     					{this.state.searchResults.map((result, index) => (
     					 <div>{index+1 + '. '}
-      					<button onClick = {this.handleChange} trackID={result.track_id} trackAlbum={result.track_album} trackArtist={result.track_artist} trackName={result.track_name} >{result.track_summary}</button>
+      					<button onClick = {this.handleChange} key={result.track_id} trackID={result.track_id} trackAlbum={result.track_album} trackArtist={result.track_artist} trackName={result.track_name} >{result.track_summary}</button>
       				 </div>
     						))}
   					</div>
             <span>
-            {this.state.showError && 
+            {this.state.showError &&
              <span style={{fontSize:'40px'}}>No search results</span>
             }
             </span>

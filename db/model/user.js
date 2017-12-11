@@ -120,7 +120,7 @@ User.populateFollowing = (following) => {
   const followingIds = following.map((follow) => { // eslint-disable-line
     return follow.spotifyId;
   });
-  return User.find({ spotifyId: { $in: followingIds } }).select('spotifyId mySongUsername currentSong').exec()
+  return User.find({ spotifyId: { $in: followingIds } }).select('spotifyId mySongUsername currentMySong').exec()
 };
 
 User.addToFollowing = (currentUserId, idToAdd) => (
@@ -133,9 +133,6 @@ User.addToFollowing = (currentUserId, idToAdd) => (
 );
 
 User.changeCurrentSong = (spotifyId, mySong) => {
-  console.log('spotifyId is ', spotifyId);
-  console.log('mySong is ', mySong);
-
   return User.update(
     { spotifyId: spotifyId },
     {
