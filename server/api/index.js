@@ -13,29 +13,16 @@ router.get('/users', (req, res) => {
   });
 });
 
-// retrieve the current user from the session
-router.get('/getUser', (req, res) => {
-  res.send({/*req.session.passport.user*/});
-});
-
 router.get('/me', (req, res) => {
-
-  var token = req.headers.jwt;
-  var decoded = jwt.decode(token, secret);
+  const token = req.headers.jwt;
+  const decoded = jwt.decode(token, secret);
   res.status(200).json(decoded);
 });
 
 router.get('/search', (req, res) => {
-
-  var token = req.headers.jwt;
-  var decoded = jwt.decode(token, secret);
-  console.log('\n\nuser is ', decoded);
+  const token = req.headers.jwt;
+  const decoded = jwt.decode(token, secret);
   res.status(200).json(decoded);
-});
-
-router.get('/baz', (req, res) => {
-  console.log('baz endpoint reached!!', req.headers);
-  res.status(200).json('yeah!!');
 });
 
 // see https://github.com/jmperez/passport-spotify#readme for passport
@@ -85,7 +72,6 @@ router.get(
 router.get(
   '/aplaylist',
   (req, res) => {
-    console.log('\n\nGET received to /api/aplaylist\n');
     User.getAPlaylist('1234369600', 'spotify:user:1234369600:playlist:2ckdrIQHqvnDT2fkMc6GOR')
       .then(result => res.send(result))
       .catch(err => res.send(err));
@@ -95,15 +81,12 @@ router.get(
 router.post(
   '/getFollowing',
   (req, res) => {
-    console.log('REQUEST FOLLOWING FOR: ', req.body.spotifyId);
     User.getFollowing(req.body.spotifyId)
       .then((result) => {
-        console.log('RESULT FROM GET FOLLOWING: ', result[0].following);
         // INPUT: array of spotifyIds OUTPUT: object containing mySongUsername
         // and CurrentSong for each spotifyId
         User.populateFollowing(result[0].following)
           .then((populatedFollowing) => {
-            console.log('INDEX.JS/API POPULATED FOLLOWING: ', populatedFollowing);
             res.send(populatedFollowing);
           })
           .catch((err) => {
@@ -117,9 +100,6 @@ router.post(
 
 
 router.get('/currentmysong/:spotifyId', (req, res) => {
-  console.log('GET request to /currentmysong recieved!');
-  console.log('the req.params.spotifyId is ', req.params.spotifyId);
-
   var spotifyId = req.params.spotifyId;
   User.getCurrentSong(spotifyId)
     .then(result => res.status(200).json(result))
@@ -127,8 +107,6 @@ router.get('/currentmysong/:spotifyId', (req, res) => {
 });
 
 router.post('/currentmysong', (req, res) => {
-  console.log('POST request to /currentmysong recieved');
-  console.log('req.body is ', req.body);
   var spotifyId = req.body.spotifyId;
   var mySong = req.body.mySong;
 

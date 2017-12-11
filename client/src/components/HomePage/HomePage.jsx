@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Divider, Grid, Header } from 'semantic-ui-react';
+import { Container, Divider, Grid } from 'semantic-ui-react';
 import PlaylistContainer from './Playlists/PlaylistContainer';
 import MainContainer from './Main/MainContainer';
 import FollowingContainer from './Following/FollowingContainer';
@@ -54,12 +54,9 @@ class HomePage extends React.Component {
 
           axios.get(`/api/currentmysong/${this.state.spotifyId}`)
             .then((res) => {
-              console.log('axios call to /api/currentmysong!');
-              console.log('current song queried from database is ', res.data[0].currentMySong);
               this.setState({
                 currentMySong:res.data[0].currentMySong
               });
-              console.log('this.state.currentMySong is ', this.state.currentMySong);
             });
 
         })
