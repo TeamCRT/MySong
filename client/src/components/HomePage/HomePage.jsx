@@ -101,7 +101,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <NavBarContainer options={this.state.options} username={this.state.spotifyUsername} />
+        <NavBarContainer options={this.state.options} username={this.state.spotifyUsername} style={{border:'10px'}} />
         <Container style={{ marginTop: '3em', width: '100%' }}>
             <MyCurrentSongContainer currentMySong={this.state.currentMySong} spotifyId={this.state.spotifyId} spotifyToken={this.state.spotifyToken} onMySongChange={this.handleMySongChange}/>
           <Divider />

@@ -9,7 +9,7 @@ const NavBarContainer = props => (
     <Menu.Item>
       <Search options={props.options} />
     </Menu.Item>
-    <Header size="large" color="red" floated="right">mysong.io </Header>
+    <Header size="large" color="red" style={{fontFamily:'Bungee', fontSize:'50px', marginLeft:'11em'}} floated="right">mysong.io </Header>
     <Menu.Item name={props.username} position="right" />
   </Menu>
 );
