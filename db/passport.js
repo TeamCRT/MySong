@@ -20,7 +20,6 @@ module.exports = (passport) => {
       callbackURL: 'http://127.0.0.1:3001/api/auth/spotify/callback',
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log('USER PROFILE: ', profile);
       // check to see if the user already exists in the db
       User.findOne({ spotifyId: profile.id }, (err, user) => { // eslint-disable-line
         if (err) {
@@ -51,9 +50,10 @@ module.exports = (passport) => {
         if (profile.displayName) {
           newUser.mySongUsername = profile.displayName;
         } else {
-          console.log('NO DISPLAY NAME: ', profile.id);
+          // if user has no Spotify Display Name then use their spotifyId
           newUser.mySongUsername = profile.id;
         }
+        newUser.following = [];
         newUser.save((err1) => {
           if (err1) {
             throw err1;

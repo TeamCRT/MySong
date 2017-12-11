@@ -56,6 +56,7 @@ export default class SearchExampleStandard extends Component {
   }
 
   handleFollowClick(e, { spotifyid }) { // eslint-disable-line
+    console.log('FOLLOW BUTTON CLICKED: ', spotifyid);
     axios.put('/api/addToFollowing', { spotifyId: spotifyid })
       .then((data) => {
         console.log('Follow attempt: ', data);
