@@ -23,7 +23,7 @@ router.get('/me', (req, res) => {
 
   var token = req.headers.jwt;
   var decoded = jwt.decode(token, secret);
-  console.log('user is ', decoded);
+  console.log('\nuser is ', decoded);
   res.status(200).json(decoded);
 });
 
@@ -31,7 +31,7 @@ router.get('/search', (req, res) => {
   
   var token = req.headers.jwt;
   var decoded = jwt.decode(token, secret);
-  console.log('user is ', decoded);
+  console.log('\n\nuser is ', decoded);
   res.status(200).json(decoded);
 });
 
@@ -83,8 +83,18 @@ router.get(
 router.get(
   '/playlists',
   (req, res) => {
-    console.log('GET received to /api/playlists');
+    console.log('\n\nGET received to /api/playlists\n');
     User.getUserPlaylists('1234369600')
+      .then(result => res.send(result))
+      .catch(err => res.send(err));
+  },
+);
+
+router.get(
+  '/aplaylist',
+  (req, res) => {
+    console.log('\n\nGET received to /api/aplaylist\n');
+    User.getAPlaylist('1234369600', 'spotify:user:1234369600:playlist:2ckdrIQHqvnDT2fkMc6GOR')
       .then(result => res.send(result))
       .catch(err => res.send(err));
   },

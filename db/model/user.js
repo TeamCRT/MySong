@@ -64,11 +64,21 @@ const User = mongoose.model('user', userSchema);
 
 User.getUserPlaylists = spotifyUserId => (
   User.find({ spotifyId: spotifyUserId }, { 'playlists.playlistName': 1, 'playlists.spotifyPlaylistID': 1, 'playlists.spotifyURI': 1 }).exec()
-    .then(response => response)
-    .catch(err => err)
+
 );
 
-User.createPlaylist = (spotifyUserId, newPlaylistName) => (
+User.getAPlaylist = (spotifyUserId = '1234369600', spotifyPlaylistURI = 'spotify:user:1234369600:playlist:2ckdrIQHqvnDT2fkMc6GOR') => (
+  User.find(
+    {
+      spotifyId: spotifyUserId,
+    },
+    {
+      playlists: { $elemMatch: { spotifyURI: spotifyPlaylistURI } }
+    }
+  )
+);
+
+User.createPlaylist = (spotifyUserId, newPlaylistName = 'test') => (
   User.update(
     { spotifyId: spotifyUserId },
     {

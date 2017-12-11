@@ -87,7 +87,10 @@ class HomePage extends React.Component {
           <Divider />
           <Grid columns={3} stackable>
             <Grid.Column>
-              <PlaylistContainer clickHandler={this.handlePlaylistEntryClick.bind(this)} />
+              <PlaylistContainer
+                clickHandler={this.handlePlaylistEntryClick.bind(this)}
+                spotifyId={this.state.spotifyId}
+              />
             </Grid.Column>
 
             <Grid.Column>
