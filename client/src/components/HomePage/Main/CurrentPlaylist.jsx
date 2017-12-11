@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import axios from 'axios';
-import CurrentPlaylistSong from './CurrentPlaylistSong';
+// import CurrentPlaylistSong from './CurrentPlaylistSong';
 
 class CurrentPlaylist extends React.Component {
   constructor(props) {
@@ -10,6 +10,9 @@ class CurrentPlaylist extends React.Component {
       tracks: null,
     };
 
+  }
+
+  getAPlaylist() {
     axios.get('/api/aplaylist')
       .then((response) => {
         console.log('response from aplaylist', response);
@@ -31,10 +34,9 @@ class CurrentPlaylist extends React.Component {
           style={{ margin: '5.0em' }}
           textAlign="center"
         >
-          <Grid.Column color="grey" style={{ width: 400 }}>
+          <Grid.Column color="grey" style={{ width: 400, textAlign: 'center' }}>
              Current Playlist: {this.props.currentPlaylistObj.title}
           </Grid.Column>
-          <CurrentPlaylistSong />
         </Grid>
         <iframe
           title="bottomPlayerIframe"
