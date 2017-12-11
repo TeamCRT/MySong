@@ -109,7 +109,6 @@ User.getFollowing = (spotifyId) => {
     .catch(err => err);
 };
 
-<<<<<<< HEAD
 User.getCurrentSong = (spotifyId) => (
   User.find({ spotifyId }).select('currentMySong').exec()
   .then(res => res)
