@@ -41,6 +41,14 @@ module.exports = (passport) => {
         newUser.spotifyEmail = profile._json.email; // eslint-disable-line
         newUser.spotifyToken = accessToken;
         newUser.spotifyRefreshToken = refreshToken;
+        newUser.currentMySong = {
+          trackSummary: '',
+          trackID: '',
+          trackAlbum: '',
+          trackName: '',
+          trackArtist: '',
+          note: '',
+        }
         newUser.save((err1) => {
           if (err1) {
             throw err1;

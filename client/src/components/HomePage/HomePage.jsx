@@ -20,6 +20,7 @@ class HomePage extends React.Component {
       spotifyToken:'',
       spotifyUsername:'',
       currentPlaylist: null,
+      test:'',
       currentMySong:{
         trackSummary:'', 
         trackID: '', 
@@ -29,8 +30,8 @@ class HomePage extends React.Component {
         note:'',
       },
       currentPlaylistObj: {},
-    };
-    this.handleMySongChange = this.handleMySongChange.bind(this);
+      }
+      this.handleMySongChange = this.handleMySongChange.bind(this);
   }
 
   componentWillMount() {
@@ -47,6 +48,19 @@ class HomePage extends React.Component {
             spotifyToken: res.data.spotifyToken,
             spotifyUsername: res.data.spotifyUsername,
           });
+        })
+        .then((res) => {
+
+          axios.get(`/api/currentmysong/${this.state.spotifyId}`)
+            .then((res) => {
+              console.log('axios call to /api/currentmysong!');
+              console.log('current song queried from database is ', res.data[0].currentMySong);
+              this.setState({
+                currentMySong:res.data[0].currentMySong
+              });
+              console.log('this.state.currentMySong is ', this.state.currentMySong);
+            });
+
         })
         .catch((err) => {
           console.log(err);
@@ -77,13 +91,7 @@ class HomePage extends React.Component {
       <div>
         <NavBarContainer username={this.state.spotifyUsername} />
         <Container style={{ marginTop: '3em', width: '100%' }}>
-          <Header as="h1" style={{ textAlign: 'center' }}>
-            Current My Song is : {this.state.currentMySong.trackSummary}
-          <div style={{fontSize:'15px'}}>
-            Note: {this.state.currentMySong.note}
-          </div>
-            <MyCurrentSongContainer spotifyId={this.state.spotifyId} spotifyToken={this.state.spotifyToken} onMySongChange={this.handleMySongChange}/>
-          </Header>
+            <MyCurrentSongContainer currentMySong={this.state.currentMySong} spotifyId={this.state.spotifyId} spotifyToken={this.state.spotifyToken} onMySongChange={this.handleMySongChange}/>
           <Divider />
           <Grid columns={3} stackable>
             <Grid.Column>

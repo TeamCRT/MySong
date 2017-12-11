@@ -110,20 +110,24 @@ router.post(
   },
 );
 
-router.post('/currentsong', (req, res) => {
-  console.log('current song endpoint reached!!', req.body);
+router.get('/currentmysong/:spotifyId', (req, res) => {
+  console.log('GET request to /currentmysong recieved!');
+  console.log('the req.params.spotifyId is ', req.params.spotifyId);
+
+  var spotifyId = req.params.spotifyId;
+  User.getCurrentSong(spotifyId)
+    .then(result => res.status(200).json(result))
+    .catch(err => res.send(err));
+});
+
+router.post('/currentmysong', (req, res) => {
+  console.log('POST request to /currentmysong recieved');
+  console.log('req.body is ', req.body);
   var spotifyId = req.body.spotifyId;
-  var mySong = {
-    songSpotifyId: req.body.trackID,
-    note: req.body.note,
-    songTitle: req.body.trackName,
-    songArtist: req.body.trackArtist,
-    songAlbum: req.body.trackAlbum
-  };
-  console.log('spotifyId is ', spotifyId);
-  console.log('mySong is ', mySong);
-  User.updateCurrentSong(spotifyId, mySong)
-    .then(result => res.send('Database updated!'))
+  var mySong = req.body.mySong;
+ 
+  User.changeCurrentSong(spotifyId, mySong)
+    .then(result => res.status(200).json(result))
     .catch(err => res.send(err));
 });
 
