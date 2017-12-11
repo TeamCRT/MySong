@@ -62,13 +62,13 @@ router.get(
 // spotify OAuth callback for authorization process
 router.get(
   '/auth/spotify/callback',
-  passport.authenticate('spotify',{ failureRedirect: 'http://127.0.0.1:3000'}),
+  passport.authenticate('spotify', { failureRedirect: 'http://127.0.0.1:3000' }),
   (req, res) => {
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
     const user = req.user;
     const token = jwt.encode(user, secret);
     // Successful authentication, redirect home.
-    res.set({ 'authorization': token});
+    res.set({ authorization: token });
     res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + 'token=' + token);
   },
 );
@@ -76,7 +76,6 @@ router.get(
 router.get(
   '/playlists',
   (req, res) => {
-    console.log('\n\nGET received to /api/playlists\n');
     User.getUserPlaylists('1234369600')
       .then(result => res.send(result))
       .catch(err => res.send(err));
@@ -96,6 +95,7 @@ router.get(
 router.post(
   '/getFollowing',
   (req, res) => {
+    console.log('REQUEST FOLLOWING FOR: ', req.body.spotifyId);
     User.getFollowing(req.body.spotifyId)
       .then((result) => {
         console.log('RESULT FROM GET FOLLOWING: ', result[0].following);
@@ -103,10 +103,13 @@ router.post(
         // and CurrentSong for each spotifyId
         User.populateFollowing(result[0].following)
           .then((populatedFollowing) => {
-            console.log('POPULATE FOLLWOING: ',populatedFollowing);
+            console.log('INDEX.JS/API POPULATED FOLLOWING: ', populatedFollowing);
             res.send(populatedFollowing);
           })
-          .catch(err => res.send(err));
+          .catch((err) => {
+            res.send(err);
+          });
+        // res.send('Getting nothing back for populate folowing');
       })
       .catch(err => res.send(err));
   },
@@ -159,7 +162,7 @@ router.put(
 
 
 router.post(
-  '/searchUsers',
+  '/getAllUsers',
   (req, res) => {
     User.search(req.body.query)
       .then((users) => {

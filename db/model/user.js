@@ -102,11 +102,12 @@ User.createPlaylist = (spotifyUserId, newPlaylistName = 'test') => (
   )
 );
 
-User.getFollowing = spotifyId => (
-  User.find({ spotifyId }).select('following').exec()
+User.getFollowing = (spotifyId) => {
+  console.log('GET FOLLOWING FOR THIS USER ID: ', spotifyId);
+  return User.find({ spotifyId }).select('following').exec()
     .then(res => res)
-    .catch(err => err)
-);
+    .catch(err => err);
+};
 
 <<<<<<< HEAD
 User.getCurrentSong = (spotifyId) => (

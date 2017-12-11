@@ -66,7 +66,7 @@ class HomePage extends React.Component {
         .catch((err) => {
           console.log(err);
         });
-        axios.post('/api/searchUsers', { query: '' })
+        axios.post('/api/getAllUsers', { query: '' })
         .then((results) => {
           // console.log('SEARCH RESULTS: ', results.data);
           // this.setOptions(results.data)
