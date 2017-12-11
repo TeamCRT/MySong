@@ -16,7 +16,8 @@ class MySongModal extends Component {
       trackAlbum:'',
       trackArist: '',
       trackName: '',
-      noteData:'Write note here'
+      note:'Write note here', 
+      showError: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -59,7 +60,10 @@ class MySongModal extends Component {
                 'Authorization': 'Bearer' + ' ' + spotifyToken
             },
 				success:function(resp) {
-					console.log('GET request successful', resp.tracks.items[0].name);
+					console.log('GET request to https://api.spotify.com/v1/search successful!');
+          context.setState({
+            showError: resp.tracks.items.length !== 0 ? false : true
+          })
 					var searchResults = [];
 					for (var i = 0; i < resp.tracks.items.length; i++) {
 						var result = {
@@ -72,7 +76,6 @@ class MySongModal extends Component {
 					 searchResults.push(result);
 					}
 					context.addSearchResults(searchResults);
-					console.log(context.state);
 				}
 			});
   }
@@ -98,14 +101,16 @@ class MySongModal extends Component {
       trackName: this.state.trackName,
       trackArtist: this.state.trackArtist,
     	note: this.state.noteData, 
-      spotifyId: this.props.spotifyId
-    } 
-    this.props.onMySongChange(mySong);
-
-
-    axios.post('/api/currentsong', mySong)
+    };
+    var mySongPayload = {
+      mySong: mySong, 
+      spotifyId: this.props.spotifyId,
+    }
+   
+    axios.post('/api/currentmysong', mySongPayload)
       .then((response) => {
-          console.log('Successfully updated current song in database!');
+          console.log('axios POST to /api/currentmysong successful', response);
+          this.props.onMySongChange(mySongPayload.mySong);
       })
       .catch((err) => {
         throw err;
@@ -142,6 +147,11 @@ class MySongModal extends Component {
       				 </div>
     						))}
   					</div>
+            <span>
+            {this.state.showError && 
+             <span style={{fontSize:'40px'}}>No search results</span>
+            }
+            </span>
           </Modal.Content>
           <Modal.Actions>
             <Button positive icon='checkmark' labelPosition='right' content="OK" onClick={this.close} />

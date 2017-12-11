@@ -39,12 +39,13 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 
-  currentSong: {
-    songSpotifyId: String, //spotifySongID
-    note: String,
-    songTitle: String,
-    songArtist: String,
-    songAlbum: String,
+  currentMySong: {
+    trackSummary: String,
+    trackID: String,
+    trackAlbum: String,
+    trackName: String,
+    trackArtist: String,
+    note: String
   },
 
   following: {
@@ -102,10 +103,32 @@ User.getFollowing = spotifyId => (
     .catch(err => err)
 );
 
-User.updateCurrentSong = (spotifyId, currentSong) => (
-  User.findOneAndUpdate({ spotifyId }, { currentSong }).select('currentSong').exec()
+User.getCurrentSong = (spotifyId) => (
+  User.find({ spotifyId }).select('currentMySong').exec()
     .then(res => res)
     .catch(err => err)
 );
+
+User.changeCurrentSong = (spotifyId, mySong) => {
+  console.log('spotifyId is ', spotifyId);
+  console.log('mySong is ', mySong);
+  
+  return User.update(
+    { spotifyId: spotifyId },
+    {
+      $set: {
+        currentMySong: mySong,
+      }
+    }
+  ).exec()
+    .then((res) => {
+      console.log('res is ', res);
+      return res;
+    })
+    .catch((err) => {
+      console.log('error is ', err);
+      return err;
+    })
+};
 
 module.exports = User;
