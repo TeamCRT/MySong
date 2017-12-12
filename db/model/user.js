@@ -70,13 +70,13 @@ User.getUserPlaylists = spotifyUserId => (
 
 );
 
-User.getAPlaylist = (spotifyUserId, spotifyPlaylistURI) => (
+User.getAPlaylist = (spotifyUserId, spotifyPlaylistURI, playlistName) => (
   User.find(
     {
       spotifyId: spotifyUserId,
     },
     {
-      playlists: { $elemMatch: { spotifyPlaylistURI: spotifyPlaylistURI } },
+      playlists: { $elemMatch: { playlistName: playlistName } },
     },
   )
 );

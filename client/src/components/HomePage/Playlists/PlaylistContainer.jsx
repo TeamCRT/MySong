@@ -21,7 +21,7 @@ class PlaylistContainer extends React.Component {
   mapFunction(playlistObj) {
     return (
       <PlaylistEntry
-        title={playlistObj.playlistName}
+        name={playlistObj.playlistName}
         key={playlistObj.spotifyPlaylistID}
         spotifyPlaylistID={playlistObj.spotifyPlaylistID}
         spotifyPlaylistURI={playlistObj.spotifyPlaylistURI}
