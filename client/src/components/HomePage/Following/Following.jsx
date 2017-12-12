@@ -20,7 +20,7 @@ class Following extends React.Component {
     this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
   }
 
-  render(props) {
+  render() {
     return (
       <div>
         <Button onClick={this.handleClick.bind(this)} color="red">
