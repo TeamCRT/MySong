@@ -35,13 +35,6 @@ class CurrentPlaylist extends React.Component {
         <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.title}</h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {this.state.playlistSongArr && this.state.playlistSongArr.map(this.songMapFunction)}
-        {!this.state.playlistSongArr && <iframe
-          title="currentPlaylistIframe"
-          src={`https://open.spotify.com/embed?uri=${this.props.currentPlaylistObj.playlistURI}`}
-          frameBorder="0"
-          height="400"
-          width="100%"
-        />}
       </div>
     );
   }
