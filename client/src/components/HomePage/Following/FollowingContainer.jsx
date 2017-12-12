@@ -33,6 +33,7 @@ class FollowingContainer extends React.Component {
         playFollowingTrack={this.props.playFollowingTrack}
         onClick={this.props.handleFollowingClick}
         key={follow.mySongUsername}
+        newPlaylistHandleClick = {this.props.newPlaylistHandleClick}
       />
     );
   }

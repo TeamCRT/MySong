@@ -88,19 +88,13 @@ User.populateAPlaylist = userArray => (
   )
 );
 
-User.createPlaylist = (spotifyUserId, newPlaylistName = 'test') => (
+User.createPlaylist = (spotifyUserId, newPlaylist) => (
   User.update(
     { spotifyId: spotifyUserId },
     {
       $push:
         {
-          playlists:
-            {
-              playlistName: newPlaylistName,
-              spotifyPlaylistID: 'test',
-              spotifyPlaylistURI: 'test',
-              songsArrayBySpotifyUserID: [],
-            }
+          playlists: newPlaylist
         }
     }
   )

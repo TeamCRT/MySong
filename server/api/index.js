@@ -86,6 +86,17 @@ router.get(
   },
 );
 
+//new endpoint created 
+router.post(
+  '/aplaylist',
+  (req, res) => {
+    console.log('POST to /aplaylist detected!');
+    User.createPlaylist(req.body.spotifyId, req.body.newPlaylist)
+      .then(result => res.send(result))
+      .catch(err => res.send(err));
+  },
+);
+
 router.post(
   '/getFollowing',
   (req, res) => {
