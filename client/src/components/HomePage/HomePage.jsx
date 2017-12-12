@@ -18,21 +18,21 @@ class HomePage extends React.Component {
       spotifyDisplayName: '',
       spotifyId: null,
       spotifyRefreshToken: '',
-      spotifyToken:'',
-      spotifyUsername:'',
+      spotifyToken: '',
+      spotifyUsername: '',
       currentPlaylist: null,
-      test:'',
       currentMySong:{
-        trackSummary:'',
+        trackSummary: '',
         trackID: '',
         trackAlbum: '',
-        trackName:'',
-        trackArtist:'',
-        note:'',
+        trackName: '',
+        trackArtist: '',
+        note: '',
       },
       currentPlaylistObj: {},
-      }
-      this.handleMySongChange = this.handleMySongChange.bind(this);
+    };
+    this.handleMySongChange = this.handleMySongChange.bind(this);
+    this.playFollowingTrack = this.playFollowingTrack.bind(this);
   }
 
   componentWillMount() {
@@ -98,6 +98,12 @@ class HomePage extends React.Component {
     this.setState({ currentMySong: mySong });
   }
 
+  playFollowingTrack(trackID) {
+    console.log('this is the track ID:', trackID);
+    // Carter, here is the trackID of someone you are following
+    // please play this on the bottom player
+  }
+
   render() {
     return (
       <div>
@@ -124,6 +130,7 @@ class HomePage extends React.Component {
             <Grid.Column>
               {this.state.spotifyId && ( <FollowingContainer
                 spotifyId={this.state.spotifyId}
+                playFollowingTrack={this.playFollowingTrack}
               /> ) }
             </Grid.Column>
 

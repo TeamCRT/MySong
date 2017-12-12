@@ -30,6 +30,7 @@ class FollowingContainer extends React.Component {
     return (
       <Following
         follow={follow}
+        playFollowingTrack={this.props.playFollowingTrack}
         onClick={this.props.handleFollowingClick}
         key={follow.mySongUsername}
       />
