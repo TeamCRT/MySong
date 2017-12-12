@@ -42,8 +42,8 @@ class FollowingContainer extends React.Component {
       this.getFollowing(this.props.spotifyId);
     }
     return (
-      <div style={{ float: 'right' }} >
-        <Button.Group vertical >
+      <div>
+        <Button.Group vertical style={{ width: '100%'}}>
           <Button disabled >Following</Button>
           {this.state.following &&
            this.state.following.map(this.mapFollowing.bind(this))
