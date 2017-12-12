@@ -7,15 +7,15 @@ class CurrentPlaylist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tracks: null,
+      tracksBySpotifyUserId: null,
     };
   }
 
-  getAPlaylist(spotifyUserId, spotifyPlaylistURI) {
-    axios.get(`/api/aplaylist?spotifyUserId=${spotifyUserId}&spotifyPlaylistURI=${spotifyPlaylistURI}`)
+  getAPlaylist() {
+    axios.get(`/api/aplaylist?spotifyUserId=${this.props.spotifyUserId}&spotifyPlaylistURI=${this.props.currentPlaylistObj.playlistURI}`)
       .then((response) => {
-        console.log('response from aplaylist', response);
-        // this.setState({ tracks: response.data[0].playlists });
+        this.setState({ tracksBySpotifyUserId: response.data[0].playlists[0].songsArray });
+        console.log('this.state', this.state);
         return response;
       })
       .catch(err => err);
@@ -24,7 +24,8 @@ class CurrentPlaylist extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.getAPlaylist('testId', 'testURI')}>Test getAPlaylist</button>
+        <button onClick={this.getAPlaylist.bind(this)}>Test getAPlaylist</button>
+        <div>{this.state.tracksBySpotifyUserId}</div>
         <Grid
           centered
           columns={3}
