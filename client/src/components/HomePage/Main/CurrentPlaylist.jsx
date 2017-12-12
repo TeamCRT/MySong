@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import CurrentPlaylistSong from './CurrentPlaylistSong';
 
@@ -12,10 +11,20 @@ class CurrentPlaylist extends React.Component {
     this.getAPlaylist();
   }
 
+  componentWillUpdate() {
+    this.getAPlaylist();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !(nextState === this.state);
+  }
+
   getAPlaylist() {
     axios.get(`/api/aplaylist?spotifyUserId=${this.props.spotifyUserId}&spotifyPlaylistURI=${this.props.currentPlaylistObj.playlistURI}`)
       .then((response) => {
-        this.setState({ playlistSongArr: response.data });
+        this.setState({
+          playlistSongArr: response.data,
+        });
       })
       .catch(err => err);
   }
@@ -27,6 +36,7 @@ class CurrentPlaylist extends React.Component {
       trackObj={songObj.currentMySong}
     />);
   }
+
 
   render() {
     return (
