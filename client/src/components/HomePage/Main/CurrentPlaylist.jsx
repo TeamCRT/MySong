@@ -32,8 +32,7 @@ class CurrentPlaylist extends React.Component {
   render() {
     return (
       <div>
-        {/*<button onClick={this.getAPlaylist.bind(this)}>Test getAPlaylist</button>*/}
-        <div style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.title}</div>
+        <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.title}</h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {this.state.playlistSongArr && this.state.playlistSongArr.map(this.songMapFunction)}
         {!this.state.playlistSongArr && <iframe
