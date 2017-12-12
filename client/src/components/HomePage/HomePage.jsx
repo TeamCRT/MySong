@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Container, Divider, Grid } from 'semantic-ui-react';
 import PlaylistContainer from './Playlists/PlaylistContainer';
-import MainContainer from './Main/MainContainer';
+import CurrentPlaylist from './Main/CurrentPlaylist';
 import FollowingContainer from './Following/FollowingContainer';
 import BottomPlayer from './BottomPlayer';
 import NavBarContainer from '../NavBar/NavBarContainer';
@@ -129,7 +129,7 @@ class HomePage extends React.Component {
 
             <Grid.Column style={{ width: '60%' }}>
               {this.state.currentPlaylistObj.title && (
-                <MainContainer
+                <CurrentPlaylist
                   currentPlaylistObj={this.state.currentPlaylistObj}
                   spotifyUserId={this.state.spotifyId}
                 />
