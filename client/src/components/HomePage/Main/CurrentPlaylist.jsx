@@ -15,7 +15,6 @@ class CurrentPlaylist extends React.Component {
   getAPlaylist() {
     axios.get(`/api/aplaylist?spotifyUserId=${this.props.spotifyUserId}&spotifyPlaylistURI=${this.props.currentPlaylistObj.playlistURI}`)
       .then((response) => {
-        console.log('response.data', response.data)
         this.setState({ playlistSongArr: response.data });
       })
       .catch(err => err);

@@ -120,14 +120,14 @@ class HomePage extends React.Component {
           />
           <Divider />
           <Grid columns={3} stackable>
-            <Grid.Column style={{ width: '15%' }}>
+            <Grid.Column style={{ width: '20%' }}>
               <PlaylistContainer
                 clickHandler={this.handlePlaylistEntryClick.bind(this)}
                 spotifyId={this.state.spotifyId}
               />
             </Grid.Column>
 
-            <Grid.Column style={{ width: '65%' }}>
+            <Grid.Column style={{ width: '60%' }}>
               {this.state.currentPlaylistObj.title && (
                 <MainContainer
                   currentPlaylistObj={this.state.currentPlaylistObj}
