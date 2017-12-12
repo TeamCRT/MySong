@@ -3,10 +3,6 @@ import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 import PlaylistEntry from './PlaylistEntry';
 
-// testPlaylistArray is an array of objects, where
-// each object has properties spotifyID, URI, playlistName, and perhaps the songs
-
-
 class PlaylistContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +24,7 @@ class PlaylistContainer extends React.Component {
         title={playlistObj.playlistName}
         key={playlistObj.spotifyPlaylistID}
         spotifyPlaylistID={playlistObj.spotifyPlaylistID}
-        spotifyPlaylistURI={playlistObj.spotifyURI}
+        spotifyPlaylistURI={playlistObj.spotifyPlaylistURI}
         clickHandler={this.props.clickHandler}
       />
     );

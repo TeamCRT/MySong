@@ -21,11 +21,6 @@ const userSchema = new mongoose.Schema({
 
   spotifyDisplayName: String,
 
-  // password: {
-  //   type: String,
-  //   required: true,
-  // },
-
   spotifyEmail: {
     type: String,
     unique: true,
@@ -50,26 +45,28 @@ const userSchema = new mongoose.Schema({
     trackAlbum: String,
     trackName: String,
     trackArtist: String,
-    note: String
+    note: String,
   },
 
   following: {
     type: Array,
   },
 
-  playlists: {
-    type: Array,
-  },
-  mySongUsername: {
-    type: String,
-  },
+  playlists: [
+    {
+      playlistName: String,
+      spotifyPlaylistID: String,
+      spotifyPlaylistURI: String,
+      songsArrayBySpotifyUserID: Array,
+    },
+  ],
 
 });
 
 const User = mongoose.model('user', userSchema);
 
 User.getUserPlaylists = spotifyUserId => (
-  User.find({ spotifyId: spotifyUserId }, { 'playlists.playlistName': 1, 'playlists.spotifyPlaylistID': 1, 'playlists.spotifyURI': 1 }).exec()
+  User.find({ spotifyId: spotifyUserId }, { 'playlists.playlistName': 1, 'playlists.spotifyPlaylistID': 1, 'playlists.spotifyPlaylistURI': 1 }).exec()
 
 );
 
@@ -79,7 +76,7 @@ User.getAPlaylist = (spotifyUserId, spotifyPlaylistURI) => (
       spotifyId: spotifyUserId,
     },
     {
-      playlists: { $elemMatch: { spotifyURI: spotifyPlaylistURI } },
+      playlists: { $elemMatch: { spotifyPlaylistURI: spotifyPlaylistURI } },
     },
   )
 );
@@ -102,7 +99,7 @@ User.createPlaylist = (spotifyUserId, newPlaylistName = 'test') => (
               playlistName: newPlaylistName,
               spotifyPlaylistID: 'test',
               spotifyPlaylistURI: 'test',
-              songsArray: [],
+              songsArrayBySpotifyUserID: [],
             }
         }
     }
