@@ -34,8 +34,8 @@ class PlaylistContainer extends React.Component {
     return (
       <div>
         {this.state.playlists[0] &&
-          <div style={{ float: 'left' }}>
-            <Button.Group vertical >
+          <div>
+            <Button.Group vertical style={{ width: '100%' }}>
               <Button disabled >My Playlists</Button>
               {this.state.playlists.map(this.mapFunction.bind(this))}
               <Button color="red">Create</Button>
