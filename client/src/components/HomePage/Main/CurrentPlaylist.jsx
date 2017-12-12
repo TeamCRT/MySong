@@ -9,14 +9,13 @@ class CurrentPlaylist extends React.Component {
     this.state = {
       tracks: null,
     };
-
   }
 
-  getAPlaylist() {
-    axios.get('/api/aplaylist')
+  getAPlaylist(spotifyUserId, spotifyPlaylistURI) {
+    axios.get(`/api/aplaylist?spotifyUserId=${spotifyUserId}&spotifyPlaylistURI=${spotifyPlaylistURI}`)
       .then((response) => {
         console.log('response from aplaylist', response);
-        this.setState({ tracks: response.data[0].playlists });
+        // this.setState({ tracks: response.data[0].playlists });
         return response;
       })
       .catch(err => err);
@@ -25,6 +24,7 @@ class CurrentPlaylist extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={this.getAPlaylist('testId', 'testURI')}>Test getAPlaylist</button>
         <Grid
           centered
           columns={3}
@@ -34,12 +34,12 @@ class CurrentPlaylist extends React.Component {
           style={{ margin: '5.0em' }}
           textAlign="center"
         >
-          <Grid.Column color="grey" style={{ width: 400, textAlign: 'center' }}>
+          <Grid.Column color="grey" style={{ width: '100%', textAlign: 'center' }}>
              Current Playlist: {this.props.currentPlaylistObj.title}
           </Grid.Column>
         </Grid>
         <iframe
-          title="bottomPlayerIframe"
+          title="currentPlaylistIframe"
           src={`https://open.spotify.com/embed?uri=${this.props.currentPlaylistObj.playlistURI}`}
           frameBorder="0"
           height="400"
