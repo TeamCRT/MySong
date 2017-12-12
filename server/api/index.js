@@ -72,9 +72,16 @@ router.get(
 router.get(
   '/aplaylist',
   (req, res) => {
-    console.log('req.query:', req.query)
     User.getAPlaylist(req.query.spotifyUserId, req.query.spotifyPlaylistURI)
-      .then(result => res.send(result))
+      .then((result) => {
+        User.populateAPlaylist(result[0].playlists[0].songsArray)
+          .then((response) => {
+            res.send(response);
+          })
+          .catch((err) => {
+            res.send(err);
+          });
+      })
       .catch(err => res.send(err));
   },
 );
