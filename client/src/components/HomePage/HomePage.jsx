@@ -30,6 +30,9 @@ class HomePage extends React.Component {
         note: '',
       },
       currentPlaylistObj: {},
+      songToPlay: {
+        trackID: null,
+      }
     };
     this.handleMySongChange = this.handleMySongChange.bind(this);
     this.playFollowingTrack = this.playFollowingTrack.bind(this);
@@ -99,9 +102,11 @@ class HomePage extends React.Component {
   }
 
   playFollowingTrack(trackID) {
-    console.log('this is the track ID:', trackID);
-    // Carter, here is the trackID of someone you are following
-    // please play this on the bottom player
+    this.setState({
+      songToPlay: {
+        trackID,
+      },
+    });
   }
 
   render() {
@@ -136,7 +141,10 @@ class HomePage extends React.Component {
             </Grid.Column>
 
           </Grid>
-          {this.state.currentMySong.trackID && <BottomPlayer URI={`spotify:track:${this.state.currentMySong.trackID}`} />}
+          {this.state.songToPlay.trackID ?
+            <BottomPlayer URI={`spotify:track:${this.state.songToPlay.trackID}`} /> :
+            <BottomPlayer URI={`spotify:track:${this.state.currentMySong.trackID}`} />
+          }
         </Container>
       </div>
     );
