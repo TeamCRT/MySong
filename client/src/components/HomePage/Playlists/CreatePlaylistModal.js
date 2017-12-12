@@ -32,27 +32,34 @@ class CreatePlaylistModal extends Component {
 
   handleSave() {
     console.log('SAVE button pressed!');
+    this.setState({noPlaylistNameError :false});
+    this.setState({noSongsInPlaylistError: false});
+    //Error Handling
     if (this.state.newPlaylistName === '' && this.state.newPlaylist.length === 0) {
-      this.state.noPlaylistNameError = true;
-      this.state.noSongsInPlaylistError = true;
+      this.setState({noPlaylistNameError :true});
+      this.setState({noSongsInPlaylistError: true});
+      console.log('Not enough songs and no playlist name');
       return;
     }
     
     if (this.state.newPlaylist.length === 0) {
-      this.state.noSongsInPlaylistError = true;
-      this.state.noPlaylistNameError = false;
+      this.setState({noSongsInPlaylistError: true});
+      this.setState({noPlaylistNameError :false});
+      console.log('Not enough songs in playlist');
       return;
     }
 
     if (this.state.newPlaylistName === '') {
-      this.state.noPlaylistNameError = true;
-      this.state.noSongsInPlaylistError = false;
+      this.setState({noPlaylistNameError :true});
+      this.setState({noSongsInPlaylistError: false});
+      console.log('Playlist has no name');
       return;
     }
 
     if (this.state.newPlaylist.length !== 0 && this.state.newPlaylistName !== '') {
-      this.state.noPlaylistNameError = false;
-      this.state.noSongsInPlaylistError = false;
+      console.log('All conditions met!');
+      this.setState({noPlaylistNameError :false});
+      this.setState({noSongsInPlaylistError: false});
       var newPlaylist = {
          "playlistName" : this.state.newPlaylistName,
          "spotifyPlaylistID" : "testForNow",
@@ -122,19 +129,28 @@ class CreatePlaylistModal extends Component {
                 spotifyId={this.props.spotifyId} newPlaylistHandleClick = {this.newPlaylistHandleClick}
               /> ) }
             </Grid.Column>
+
             <Header>
               {this.state.noPlaylistNameError &&
                 <div style={{color:'red'}}>No Playlist Name</div>
               }
             </Header>
 
+
+
             <Grid.Column>
             <Header>{this.state.newPlaylist.length}</Header>
             <Header>{this.state.newPlaylistName}</Header>
-            
+
+
+            <Header>
               {this.state.noSongsInPlaylistError &&
                 <div style={{color:'red'}}>No Songs in Playlist</div>
               }
+            </Header>
+
+
+
             <Header>
             </Header>
               New Playlist Name
