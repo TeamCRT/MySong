@@ -135,7 +135,7 @@ class HomePage extends React.Component {
             </Grid.Column>
 
           </Grid>
-          <BottomPlayer />
+          {this.state.currentMySong.trackID && <BottomPlayer URI={`spotify:track:${this.state.currentMySong.trackID}`} />}
         </Container>
       </div>
     );
