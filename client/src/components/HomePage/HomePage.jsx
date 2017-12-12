@@ -32,7 +32,7 @@ class HomePage extends React.Component {
       currentPlaylistObj: {},
       songToPlay: {
         trackID: null,
-      }
+      },
     };
     this.handleMySongChange = this.handleMySongChange.bind(this);
     this.playFollowingTrack = this.playFollowingTrack.bind(this);
@@ -54,19 +54,17 @@ class HomePage extends React.Component {
           });
         })
         .then((res) => {
-
           axios.get(`/api/currentmysong/${this.state.spotifyId}`)
             .then((res) => {
               this.setState({
-                currentMySong:res.data[0].currentMySong
+                currentMySong: res.data[0].currentMySong
               });
             });
-
         })
         .catch((err) => {
           console.log(err);
         });
-        axios.post('/api/getAllUsers', { query: '' })
+      axios.post('/api/getAllUsers', { query: '' })
         .then((results) => {
           // console.log('SEARCH RESULTS: ', results.data);
           // this.setOptions(results.data)
@@ -112,19 +110,24 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <NavBarContainer options={this.state.options} username={this.state.spotifyUsername} style={{border:'10px'}} />
+        <NavBarContainer options={this.state.options} username={this.state.spotifyUsername} style={{ border: '10px' }} />
         <Container style={{ marginTop: '3em', width: '100%' }}>
-            <MyCurrentSongContainer currentMySong={this.state.currentMySong} spotifyId={this.state.spotifyId} spotifyToken={this.state.spotifyToken} onMySongChange={this.handleMySongChange}/>
+          <MyCurrentSongContainer
+            currentMySong={this.state.currentMySong}
+            spotifyId={this.state.spotifyId}
+            spotifyToken={this.state.spotifyToken}
+            onMySongChange={this.handleMySongChange}
+          />
           <Divider />
           <Grid columns={3} stackable>
-            <Grid.Column>
+            <Grid.Column style={{ width: '15%' }}>
               <PlaylistContainer
                 clickHandler={this.handlePlaylistEntryClick.bind(this)}
                 spotifyId={this.state.spotifyId}
               />
             </Grid.Column>
 
-            <Grid.Column>
+            <Grid.Column style={{ width: '65%' }}>
               {this.state.currentPlaylistObj.title && (
                 <MainContainer
                   currentPlaylistObj={this.state.currentPlaylistObj}
@@ -133,11 +136,11 @@ class HomePage extends React.Component {
               )}
             </Grid.Column>
 
-            <Grid.Column>
-              {this.state.spotifyId && ( <FollowingContainer
+            <Grid.Column style={{ width: '20%' }}>
+              {this.state.spotifyId && (<FollowingContainer
                 spotifyId={this.state.spotifyId}
                 playFollowingTrack={this.playFollowingTrack}
-              /> ) }
+              />) }
             </Grid.Column>
 
           </Grid>

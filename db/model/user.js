@@ -73,14 +73,21 @@ User.getUserPlaylists = spotifyUserId => (
 
 );
 
-User.getAPlaylist = (spotifyUserId = '1234369600', spotifyPlaylistURI = 'spotify:user:1234369600:playlist:2ckdrIQHqvnDT2fkMc6GOR') => (
+User.getAPlaylist = (spotifyUserId, spotifyPlaylistURI) => (
   User.find(
     {
       spotifyId: spotifyUserId,
     },
     {
-      playlists: { $elemMatch: { spotifyURI: spotifyPlaylistURI } }
-    }
+      playlists: { $elemMatch: { spotifyURI: spotifyPlaylistURI } },
+    },
+  )
+);
+
+User.populateAPlaylist = userArray => (
+  User.find(
+    { spotifyId: { $in: userArray } },
+    { spotifyId: 1, currentMySong: 1 },
   )
 );
 
