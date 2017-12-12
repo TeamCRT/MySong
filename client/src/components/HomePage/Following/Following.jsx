@@ -7,20 +7,25 @@ class Following extends React.Component {
     this.state = {
       isVisible: false,
     };
+
     this.handleTrackClick = this.handleTrackClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {
+  handleClick(e) {
     this.setState({
       isVisible: !this.state.isVisible,
-    })
+    });
+
+    this.props.newPlaylistHandleClick(this.props.follow);
   }
+
 
   handleTrackClick() {
     console.log('following track clicked:', this.props.follow.currentMySong.trackID);
     this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
   }
 
-  render() {
+  render(props) {
     return (
       <div>
         <Button onClick={this.handleClick.bind(this)} color="red">

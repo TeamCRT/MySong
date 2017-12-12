@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 import PlaylistEntry from './PlaylistEntry';
+import CreatePlaylistModal from './CreatePlaylistModal';
 
 class PlaylistContainer extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class PlaylistContainer extends React.Component {
             <Button.Group vertical style={{ width: '100%' }}>
               <Button disabled >My Playlists</Button>
               {this.state.playlists.map(this.mapFunction.bind(this))}
-              <Button color="red">Create</Button>
+              <CreatePlaylistModal spotifyId={this.props.spotifyId} color="red"/>
             </Button.Group>
           </div>
         }

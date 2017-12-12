@@ -36,6 +36,8 @@ class HomePage extends React.Component {
     };
     this.handleMySongChange = this.handleMySongChange.bind(this);
     this.playFollowingTrack = this.playFollowingTrack.bind(this);
+    this.handleMySongChange = this.handleMySongChange.bind(this);
+    this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
   }
 
   componentWillMount() {
@@ -107,6 +109,10 @@ class HomePage extends React.Component {
     });
   }
 
+  newPlaylistHandleClick() {
+    console.log('Nothing to see here boiiis');
+  }
+
   render() {
     return (
       <div>
@@ -140,7 +146,8 @@ class HomePage extends React.Component {
               {this.state.spotifyId && (<FollowingContainer
                 spotifyId={this.state.spotifyId}
                 playFollowingTrack={this.playFollowingTrack}
-              />) }
+                newPlaylistHandleClick = {this.newPlaylistHandleClick}
+              />)}
             </Grid.Column>
 
           </Grid>
