@@ -123,6 +123,7 @@ class HomePage extends React.Component {
               {this.state.currentPlaylistObj.title && (
                 <MainContainer
                   currentPlaylistObj={this.state.currentPlaylistObj}
+                  spotifyUserId={this.state.spotifyId}
                 />
               )}
             </Grid.Column>

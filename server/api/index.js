@@ -72,7 +72,8 @@ router.get(
 router.get(
   '/aplaylist',
   (req, res) => {
-    User.getAPlaylist('1234369600', 'spotify:user:1234369600:playlist:2ckdrIQHqvnDT2fkMc6GOR')
+    console.log('req.query:', req.query)
+    User.getAPlaylist(req.query.spotifyUserId, req.query.spotifyPlaylistURI)
       .then(result => res.send(result))
       .catch(err => res.send(err));
   },
