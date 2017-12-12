@@ -72,7 +72,7 @@ router.get(
 router.get(
   '/aplaylist',
   (req, res) => {
-    User.getAPlaylist(req.query.spotifyUserId, req.query.spotifyPlaylistURI)
+    User.getAPlaylist(req.query.spotifyUserId, req.query.spotifyPlaylistURI, req.query.playlistName)
       .then((result) => {
         User.populateAPlaylist(result[0].playlists[0].songsArrayBySpotifyUserID)
           .then((response) => {

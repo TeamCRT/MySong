@@ -85,12 +85,12 @@ class HomePage extends React.Component {
     }
   }
 
-  handlePlaylistEntryClick(playlistID, playlistURI, title) {
+  handlePlaylistEntryClick(playlistID, playlistURI, name) {
     this.setState({
       currentPlaylistObj: {
         playlistID,
         playlistURI,
-        title,
+        name,
       },
     });
   }
@@ -128,7 +128,7 @@ class HomePage extends React.Component {
             </Grid.Column>
 
             <Grid.Column style={{ width: '60%' }}>
-              {this.state.currentPlaylistObj.title && (
+              {this.state.currentPlaylistObj.name && (
                 <CurrentPlaylist
                   currentPlaylistObj={this.state.currentPlaylistObj}
                   spotifyUserId={this.state.spotifyId}
