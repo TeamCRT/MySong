@@ -12,7 +12,6 @@ class FollowingContainer extends React.Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    console.log('REFRESH FOLLWOING CONTAINER');
     if (this.props !== nextProps) {
       this.setState({
         following: this.state.following,

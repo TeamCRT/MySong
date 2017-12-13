@@ -23,7 +23,7 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/spotifyAPI/test', (req, res) => {
-  console.log('SPOTIFY API ROUTE TEST');
+  console.log('SPOTIFY API ROUTE TEST: ', req.session.passport);
   res.end()
 });
 
