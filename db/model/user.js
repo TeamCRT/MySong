@@ -84,7 +84,7 @@ User.getAPlaylist = (spotifyUserId, spotifyPlaylistURI, playlistName) => (
 User.populateAPlaylist = userArray => (
   User.find(
     { spotifyId: { $in: userArray } },
-    { spotifyId: 1, currentMySong: 1 },
+    { spotifyId: 1, currentMySong: 1, mySongUsername: 1 },
   )
 );
 
