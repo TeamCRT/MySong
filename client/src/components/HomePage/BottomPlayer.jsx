@@ -10,7 +10,7 @@ const BottomPlayer = (props) => (
     width="100%"
     height="80"
     frameBorder="0"
-    style={{ position: 'absolute', bottom: 0 }}
+    style={{ position: 'fixed', bottom: 0, left:0 }}
   />
 
 );
