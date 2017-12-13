@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Button, Header, Modal, Grid } from 'semantic-ui-react'
+import { Popup, Button, Header, Image, Modal, Grid, Divider } from 'semantic-ui-react'
 import FollowingContainer from '../Following/FollowingContainer'
+import Following from '../Following/Following'
 import axios from 'axios'
 
-class CreatePlaylistModal extends Component {
+class EditPlaylistModal extends Component {
 
   constructor(props) {
     super(props);
@@ -112,11 +113,11 @@ class CreatePlaylistModal extends Component {
   close = () => this.setState({ open: false })
 
   render() {
-    const { open } = this.state
+    const { open, dimmer } = this.state
 
     return (
       <div>
-        <Button color='red' onClick={this.show(true)}>Create</Button>
+        <Button color='grey' onClick={this.show(true)}>Edit</Button>
         <Modal dimmer={false} open={open} onClose={this.close}>
           <Modal.Header>Create a Playlist</Modal.Header>
           <Modal.Content image>
@@ -178,4 +179,4 @@ class CreatePlaylistModal extends Component {
   }
 }
 
-export default CreatePlaylistModal
+export default EditPlaylistModal
