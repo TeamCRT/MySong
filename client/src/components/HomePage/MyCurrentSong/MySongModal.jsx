@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Header } from 'semantic-ui-react'
 import axios from 'axios';
 import $ from 'jquery';
 
@@ -9,6 +9,7 @@ class MySongModal extends Component {
     this.state = {
       open: false,
       formData:'',
+      noteData: '',
       searchResults: [],
       showNote: false,
       trackSummary:'',
@@ -16,14 +17,18 @@ class MySongModal extends Component {
       trackAlbum:'',
       trackArist: '',
       trackName: '',
-      note:'Write note here',
-      showError: false
+      note:'',
+      showError: false, 
+      noSongSelectedError: false, 
+      noNoteError: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleNoteChange = this.handleNoteChange.bind(this);
     this.addSearchResults = this.addSearchResults.bind(this);
+    this.handleCancel= this.handleCancel.bind(this);
+    this.handleSave= this.handleSave.bind(this);
   }
 
    handleChange(e) {
@@ -91,30 +96,65 @@ class MySongModal extends Component {
   }
 
   show = dimmer => () => this.setState({ dimmer, open: true })
-  close = () => {
-    this.setState({ open: false });
-     var mySong = {
-    	trackSummary: this.state.trackSummary,
-    	trackID: this.state.trackID,
-      trackAlbum: this.state.trackAlbum,
-      trackName: this.state.trackName,
-      trackArtist: this.state.trackArtist,
-    	note: this.state.noteData,
-    };
-    var mySongPayload = {
-      mySong: mySong,
-      spotifyId: this.props.spotifyId,
+  handleSave () {
+    console.log('note is ', this.state.noteData);
+    if (this.state.trackName === '' && this.state.noteData === '') {
+      this.setState({noSongSelectedError :true});
+      this.setState({noNoteError: true});
+      console.log('No song selected && no note added');
+      return;
     }
 
-    axios.post('/api/currentmysong', mySongPayload)
-      .then((response) => {
-          console.log('axios POST to /api/currentmysong successful', response);
-          this.props.onMySongChange(mySongPayload.mySong);
-      })
-      .catch((err) => {
-        throw err;
-      });
+    if (this.state.trackName === '') {
+      this.setState({noSongSelectedError: true});
+      this.setState({noNoteError :false});
+      console.log('No song selected!');
+      return;
+    }
+
+    if (this.state.noteData === '') {
+      this.setState({noNoteError :true});
+      this.setState({noSongSelectedError: false});
+      console.log('No note added!');
+      return;
+    }
+
+    if (this.state.noteData !== '' && this.state.trackName !== '') {
+      console.log('All conditions met!');
+      this.setState({noNoteError :false});
+      this.setState({noSongSelectedError: false});
+
+      var mySong = {
+        trackSummary: this.state.trackSummary,
+        trackID: this.state.trackID,
+        trackAlbum: this.state.trackAlbum,
+        trackName: this.state.trackName,
+        trackArtist: this.state.trackArtist,
+        note: this.state.noteData,
+      };
+      var mySongPayload = {
+        mySong: mySong,
+        spotifyId: this.props.spotifyId,
+      }
+
+      axios.post('/api/currentmysong', mySongPayload)
+        .then((response) => {
+            console.log('axios POST to /api/currentmysong successful', response);
+            this.props.onMySongChange(mySongPayload.mySong);
+        })
+        .catch((err) => {
+          throw err;
+        });
+       
+
+    }
+    this.setState({ open: false });
   }
+
+  handleCancel = () => {
+    this.setState({ open: false });
+
+  };
 
   render() {
     const { open, dimmer } = this.state
@@ -146,6 +186,20 @@ class MySongModal extends Component {
       				 </div>
     						))}
   					</div>
+            <Header>{this.state.trackName}</Header>
+
+            <div>
+            {this.state.noSongSelectedError &&
+                <div style={{color:'red'}}>Select a Song</div>
+            }
+            </div>
+
+            <div>
+            {this.state.noNoteError &&
+                <div style={{color:'red'}}>Add a Note</div>
+            }
+            </div>
+
             <span>
             {this.state.showError &&
              <span style={{fontSize:'40px'}}>No search results</span>
@@ -153,7 +207,8 @@ class MySongModal extends Component {
             </span>
           </Modal.Content>
           <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content="OK" onClick={this.close} />
+            <Button color='black' onClick={this.handleCancel}>Cancel</Button>
+            <Button positive icon='checkmark' labelPosition='right' content="OK" onClick={this.handleSave} />
           </Modal.Actions>
         </Modal>
       </div>
