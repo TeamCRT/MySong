@@ -63,6 +63,7 @@ export default class SearchExampleStandard extends Component {
       .catch((err) => {
         throw err;
       });
+      this.props.refreshFollowing();
   }
 
   resultRenderer({ title, spotifyid }) { // eslint-disable-line
@@ -83,6 +84,7 @@ export default class SearchExampleStandard extends Component {
 
     return (
       <Search
+        placeholder={'Search for users to follow'}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
         onSearchChange={this.handleSearchChange}

@@ -11,7 +11,14 @@ class FollowingContainer extends React.Component {
       spotifyId: null,
     };
   }
-
+  componentWillReceiveProps(nextProps) {
+    console.log('REFRESH FOLLWOING CONTAINER');
+    if (this.props !== nextProps) {
+      this.setState({
+        following: this.state.following,
+      })
+    }
+  }
   getFollowing(spotifyId) {
     axios.post('/api/getFollowing', { spotifyId })
       .then((response) => {
@@ -39,9 +46,9 @@ class FollowingContainer extends React.Component {
   }
   render() {
     // the below statement limits the calls to the DB to retrieve following
-    if (this.props.spotifyId && this.state.spotifyId !== this.props.spotifyId) {
+    // if (this.props.spotifyId && this.state.spotifyId !== this.props.spotifyId) {
       this.getFollowing(this.props.spotifyId);
-    }
+    // }
     return (
       <div>
         <Button.Group vertical style={{ width: '100%'}}>

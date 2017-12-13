@@ -1,11 +1,15 @@
 const router = require('express').Router();
+const axios = require('axios');
 const User = require('../../db/model/user.js');
+const path = require('path');
 require('dotenv').config({ path: '../../env.env' });
-var jwt = require('jwt-simple');
+const jwt = require('jwt-simple');
 // const helpers = require('./helpers.js');
-
 const passport = require('passport');/* http://www.passportjs.org/docs */
-var secret = 'myappisawesome';
+// const redirect = require('./redirect.html');
+
+const secret = 'myappisawesome';
+const HOME = 'http://127.0.0.1:3000';
 
 router.get('/users', (req, res) => {
   User.find().exec((err, users) => {
@@ -14,15 +18,14 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/me', (req, res) => {
-  const token = req.headers.jwt;
-  const decoded = jwt.decode(token, secret);
-  res.status(200).json(decoded);
-});
-
-router.get('/search', (req, res) => {
-  const token = req.headers.jwt;
-  const decoded = jwt.decode(token, secret);
-  res.status(200).json(decoded);
+  console.log('session data: ', req.session.token);
+  // const token = req.headers.jwt;
+  // const decoded = jwt.decode(token, secret);
+  if (req.session) {
+    res.status(200).json(req.session);
+  } else {
+    res.redirect(HOME);
+  }
 });
 
 // see https://github.com/jmperez/passport-spotify#readme for passport
@@ -54,9 +57,13 @@ router.get(
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
     const user = req.user;
     const token = jwt.encode(user, secret);
+    const session = req.session;
+    session.token = token;
     // Successful authentication, redirect home.
-    res.set({ authorization: token });
-    res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId + 'token=' + token);
+    // res.set({ authorization: token });
+    // axios.defaults.headers.common.jwt = token;
+    // res.redirect(302, 'http://localhost:3000/home/'+req.user.spotifyId+'&token=' + token);
+    res.sendFile(path.join(__dirname + '/index.html'));
   },
 );
 
@@ -86,7 +93,7 @@ router.get(
   },
 );
 
-//new endpoint created 
+//new endpoint created
 router.post(
   '/aplaylist',
   (req, res) => {
@@ -119,46 +126,47 @@ router.post(
 
 
 router.get('/currentmysong/:spotifyId', (req, res) => {
-  var spotifyId = req.params.spotifyId;
+  const spotifyId = req.params.spotifyId;
   User.getCurrentSong(spotifyId)
     .then(result => res.status(200).json(result))
     .catch(err => res.send(err));
 });
 
 router.post('/currentmysong', (req, res) => {
-  var spotifyId = req.body.spotifyId;
-  var mySong = req.body.mySong;
+  const spotifyId = req.body.spotifyId;
+  const mySong = req.body.mySong;
 
   User.changeCurrentSong(spotifyId, mySong)
     .then(result => res.status(200).json(result))
     .catch(err => res.send(err));
 });
 
-router.put(
-  '/addToFollowing',
-  (req, res) => {
-    const token = req.headers.jwt;
-    const decoded = jwt.decode(token, secret);
-    User.getFollowing(decoded.spotifyId)
-      .then((result) => {
-        const userFollowing = result[0].following;
-        const following = userFollowing.map((follow) => { // eslint-disable-line
-          return follow.spotifyId;
-        });
-        if (!following.includes(req.body.spotifyId) && decoded.spotifyId !== req.body.spotifyId) {
-          User.addToFollowing(decoded.spotifyId, req.body.spotifyId)
-            .then(added => res.send(added))
-            .catch(err => res.send(err));
-        } else {
-          res.send('Already following user');
-        }
-      })
-      .catch(err => res.send(err));
-  },
-);
+router.put('/addToFollowing', (req, res) => {
+  const token = req.session.token;
+  const decoded = jwt.decode(token, secret);
+  User.getFollowing(decoded.spotifyId)
+    .then((result) => {
+      const userFollowing = result[0].following;
+      const following = userFollowing.map((follow) => { // eslint-disable-line
+        return follow.spotifyId;
+      });
+      if (!following.includes(req.body.spotifyId) && decoded.spotifyId !== req.body.spotifyId) {
+        User.addToFollowing(decoded.spotifyId, req.body.spotifyId)
+          .then(added => res.send(added))
+          .catch(err => res.send(err));
+      } else {
+        res.send('Already following user');
+      }
+    })
+    .catch(err => res.send(err));
+});
 
+router.delete('/deleteSession', (req, res) => {
+  req.session.destroy();
+  res.send('User logged out');
+});
 
-router.post(
+router.get(
   '/getAllUsers',
   (req, res) => {
     User.search(req.body.query)
