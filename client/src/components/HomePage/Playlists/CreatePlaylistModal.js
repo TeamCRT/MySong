@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Popup, Button, Header, Image, Modal, Grid, Divider } from 'semantic-ui-react'
+import { Button, Header, Modal, Grid } from 'semantic-ui-react'
 import FollowingContainer from '../Following/FollowingContainer'
-import Following from '../Following/Following'
 import axios from 'axios'
 
 class CreatePlaylistModal extends Component {
@@ -113,7 +112,7 @@ class CreatePlaylistModal extends Component {
   close = () => this.setState({ open: false })
 
   render() {
-    const { open, dimmer } = this.state
+    const { open } = this.state
 
     return (
       <div>

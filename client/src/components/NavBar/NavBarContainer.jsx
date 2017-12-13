@@ -16,7 +16,6 @@ class NavBarContainer extends React.Component {
     window.location.href = HOME;
   }
   render() {
-    console.log('NAV BAR PROPS: ', this.props);
     return (
       <Menu>
         <Menu.Item>
