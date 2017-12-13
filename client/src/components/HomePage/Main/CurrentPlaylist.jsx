@@ -21,6 +21,7 @@ class CurrentPlaylist extends React.Component {
   getAPlaylist() {
     axios.get(`/api/aplaylist?spotifyUserId=${this.props.spotifyUserId}&spotifyPlaylistURI=${this.props.currentPlaylistObj.playlistURI}&playlistName=${this.props.currentPlaylistObj.name}`)
       .then((response) => {
+        console.log('response', response)
         this.setState({
           playlistSongArr: response.data,
         });
@@ -52,6 +53,7 @@ class CurrentPlaylist extends React.Component {
 
 
   render() {
+    console.log('CUREENT SONG ARRAY', this.state.playlistSongArr);
     return (
       <div>
         <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}

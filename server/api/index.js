@@ -4,6 +4,7 @@ const User = require('../../db/model/user.js');
 const path = require('path');
 require('dotenv').config({ path: '../../env.env' });
 const jwt = require('jwt-simple');
+// const btoa = require('btoa');
 // const helpers = require('./helpers.js');
 const passport = require('passport');/* http://www.passportjs.org/docs */
 // const redirect = require('./redirect.html');
@@ -12,7 +13,21 @@ const secret = 'myappisawesome';
 const HOME = 'http://127.0.0.1:3000';
 
 router.use('/spotifyAPI/:id', (req, res, next) => {
-  console.log('testing middleware');
+  const refreshToken = req.session.passport.user.spotifyRefreshToken;
+  console.log('testing middleware ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:', refreshToken);
+  axios({
+    method: 'post',
+    url: `https://accounts.spotify.com/api/token?refresh_token=${refreshToken}&grant_type=refresh_token`,
+    headers: { Authorization: process.env.SPOTIFY_BASE64}
+  })
+    .then((response) => {
+      const timeAndDate = new Date();
+      req.session.passport.user.spotifyToken = response.data.access_token;
+      req.session.tokenExpirationDate = timeAndDate;
+    })
+    .catch((err) => {
+      console.log('REFRESH TOKEN ERROR: ', err);
+    })
   next();
 });
 
@@ -23,7 +38,7 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/spotifyAPI/test', (req, res) => {
-  console.log('SPOTIFY API ROUTE TEST: ', req.session.passport);
+  console.log('SPOTIFY API ROUTE TEST: ', req.session.passport.user.spotifyToken);
   res.end()
 });
 
