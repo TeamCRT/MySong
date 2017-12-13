@@ -63,8 +63,7 @@ router.get(
 router.get(
   '/playlists',
   (req, res) => {
-    // User.getUserPlaylists(req.query.spotifyUserID)
-    User.getUserPlaylists('1234369600')
+    User.getUserPlaylists(req.query.spotifyUserID)
       .then(result => res.send(result))
       .catch(err => res.send(err));
   },

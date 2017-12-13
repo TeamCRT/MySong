@@ -10,7 +10,7 @@ class PlaylistContainer extends React.Component {
       playlists: [],
     };
 
-    axios.get(`/api/playlists?spotifyUserID=${this.props.spotifyID}`)
+    axios.get(`/api/playlists?spotifyUserID=${props.spotifyId}`)
       .then((response) => {
         this.setState({ playlists: response.data[0].playlists });
         return response;
