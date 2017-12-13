@@ -63,7 +63,7 @@ export default class SearchExampleStandard extends Component {
       .catch((err) => {
         throw err;
       });
-      this.props.refreshFollowing();
+    this.props.refreshfollowing();
   }
 
   resultRenderer({ title, spotifyid }) { // eslint-disable-line
@@ -76,6 +76,7 @@ export default class SearchExampleStandard extends Component {
   }
 
   render() {
+    console.log('SEARCH PROPS: ', this.props);
     const { isLoading, value, results } = this.state;
     if (this.props.options !== '' && JSON.stringify(this.props.options) !== JSON.stringify(source)) {
       // this.props.options contains all users and is being passed down from Homepage

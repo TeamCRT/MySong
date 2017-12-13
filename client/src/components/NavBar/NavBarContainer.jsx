@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { browserHistory } from 'react-router';
 import { Button, Menu, Header } from 'semantic-ui-react';
 import Search from './Search.jsx'
 import './NavBarContainer.css';
@@ -17,10 +16,11 @@ class NavBarContainer extends React.Component {
     window.location.href = HOME;
   }
   render() {
+    console.log('NAV BAR PROPS: ', this.props);
     return (
       <Menu>
         <Menu.Item>
-          <Search refreshFollowing={this.props.refreshFollowing} options={this.props.options} />
+          <Search refreshfollowing={this.props.refreshFollowing} options={this.props.options} />
         </Menu.Item>
         <Header size="large" color="red" style={{fontFamily:'Bungee', fontSize:'50px', marginLeft:'11em'}} floated="right">mysong.io </Header>
         <Menu.Item name={this.props.username} position="right" />
