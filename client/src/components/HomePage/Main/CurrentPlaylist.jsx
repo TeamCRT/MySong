@@ -11,12 +11,10 @@ class CurrentPlaylist extends React.Component {
     this.getAPlaylist();
   }
 
-  componentWillReceiveProps() {
-    this.getAPlaylist();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !(nextState === this.state);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currentPlaylistObj.name !== this.props.currentPlaylistObj.name) {
+      this.getAPlaylist();
+    }
   }
 
   getAPlaylist() {
