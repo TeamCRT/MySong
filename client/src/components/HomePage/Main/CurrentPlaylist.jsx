@@ -11,7 +11,7 @@ class CurrentPlaylist extends React.Component {
     this.getAPlaylist();
   }
 
-  componentWillUpdate() {
+  componentWillReceiveProps() {
     this.getAPlaylist();
   }
 
