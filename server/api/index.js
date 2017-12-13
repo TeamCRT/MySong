@@ -186,5 +186,23 @@ router.get(
   },
 );
 
+router.post(
+  '/spotifyAPI/createPlaylist',
+  (req, res) => {
+    console.log('token', req.session.passport.user.spotifyToken, '\n', 'req.body', req.body, '\n');
+    axios({
+      method: 'post',
+      url: `https://api.spotify.com/v1/users/${req.body.spotifyUserID}/playlists`,
+      data: {
+        name: req.body.playlistName,
+      },
+      headers: {
+        Authorization: `Bearer ${req.session.passport.user.spotifyToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+  },
+);
+
 
 module.exports = router;

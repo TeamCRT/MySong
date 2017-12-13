@@ -8,6 +8,7 @@ class CurrentPlaylist extends React.Component {
     this.state = {
       playlistSongArr: null,
     };
+    this.makeArrayofURIs = this.makeArrayofURIs.bind(this);
     this.getAPlaylist();
   }
 
@@ -27,10 +28,18 @@ class CurrentPlaylist extends React.Component {
       .catch(err => err);
   }
 
+  makeArrayofURIs() {
+    const arrMapFunction = item => `spotify:track:${item.currentMySong.trackID}`;
+    console.log('this:', this)
+    const playlistArr = this.state.playlistSongArr.map(arrMapFunction);
+    console.log('playlistArr', playlistArr);
+    return playlistArr;
+  }
+
   songMapFunction(songObj) {
     return (<CurrentPlaylistSong
       key={songObj.currentMySong.trackID}
-      user={songObj.spotifyId}
+      user={songObj.mySongUsername}
       trackObj={songObj.currentMySong}
     />);
   }
@@ -39,6 +48,7 @@ class CurrentPlaylist extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={this.makeArrayofURIs}>Write This Playlist to Spotify</button>
         <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}</h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {this.state.playlistSongArr && this.state.playlistSongArr.map(this.songMapFunction)}
