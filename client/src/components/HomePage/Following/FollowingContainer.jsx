@@ -12,6 +12,7 @@ class FollowingContainer extends React.Component {
     };
   }
   componentWillReceiveProps(nextProps) {
+    this.getFollowing(this.props.spotifyId);
     if (this.props !== nextProps) {
       this.setState({
         following: this.state.following,
@@ -45,9 +46,9 @@ class FollowingContainer extends React.Component {
   }
   render() {
     // the below statement limits the calls to the DB to retrieve following
-    // if (this.props.spotifyId && this.state.spotifyId !== this.props.spotifyId) {
-      this.getFollowing(this.props.spotifyId);
-    // }
+    if (this.props.spotifyId && this.state.spotifyId !== this.props.spotifyId) {
+
+    }
     return (
       <div>
         <Button.Group vertical style={{ width: '100%'}}>

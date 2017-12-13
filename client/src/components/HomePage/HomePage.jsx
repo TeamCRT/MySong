@@ -50,9 +50,7 @@ class HomePage extends React.Component {
       .catch((err) => {console.log('SPOTIFY API CATCH:', err)})
     axios.get('/api/me')
       .then((res) => {
-        console.log('SESSION DATA RETURNED TO HOMEPAGE: ', res.data);
         const user = res.data.passport.user;
-        const currentUser = window.location.href.split('=')[1];
         this.setState({
           mySongUsername: user.mySongUsername,
           spotifyDisplayName: user.spotifyDisplayName,
@@ -87,7 +85,7 @@ class HomePage extends React.Component {
       });
   }
 
-  handleFollowingRefresh(){
+  handleFollowingRefresh() {
     this.setState({currentUser: this.state.currentUser})
     // refreshFollowing = !refreshFollowing;
     console.log('REFRESH FOLLOWING');
@@ -120,7 +118,6 @@ class HomePage extends React.Component {
   }
 
   render() {
-    console.log('THIS IS THE STATE: ', this.state);
     return (
       <div>
         <NavBarContainer refreshFollowing={this.handleFollowingRefresh} history={this.props.history} options={this.state.options} username={this.state.mySongUsername} style={{ border: '10px' }} />
