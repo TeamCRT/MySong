@@ -121,10 +121,10 @@ class HomePage extends React.Component {
           <Divider />
           <Grid columns={3} stackable>
             <Grid.Column style={{ width: '20%' }}>
-              <PlaylistContainer
+              {this.state.spotifyId && (<PlaylistContainer
                 clickHandler={this.handlePlaylistEntryClick.bind(this)}
                 spotifyId={this.state.spotifyId}
-              />
+              />)}
             </Grid.Column>
 
             <Grid.Column style={{ width: '60%' }}>
