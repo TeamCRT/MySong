@@ -46,6 +46,8 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
+    axios.get('/api/spotifyAPI/test')
+      .catch((err) => {console.log('SPOTIFY API CATCH:', err)})
     axios.get('/api/me')
       .then((res) => {
         console.log('SESSION DATA RETURNED TO HOMEPAGE: ', res.data);
@@ -86,7 +88,7 @@ class HomePage extends React.Component {
   }
 
   handleFollowingRefresh(){
-    this.setState({currentUser: this.state.current})
+    this.setState({currentUser: this.state.currentUser})
     // refreshFollowing = !refreshFollowing;
     console.log('REFRESH FOLLOWING');
   }

@@ -11,14 +11,23 @@ const passport = require('passport');/* http://www.passportjs.org/docs */
 const secret = 'myappisawesome';
 const HOME = 'http://127.0.0.1:3000';
 
+router.use('/spotifyAPI/:id', (req, res, next) => {
+  console.log('testing middleware');
+  next();
+});
+
 router.get('/users', (req, res) => {
   User.find().exec((err, users) => {
     res.send({ users });
   });
 });
 
+router.get('/spotifyAPI/test', (req, res) => {
+  console.log('SPOTIFY API ROUTE TEST');
+  res.end()
+});
+
 router.get('/me', (req, res) => {
-  console.log('session data: ', req.session.token);
   // const token = req.headers.jwt;
   // const decoded = jwt.decode(token, secret);
   if (req.session) {
