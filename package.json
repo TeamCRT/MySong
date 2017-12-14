@@ -7,8 +7,7 @@
   },
   "main": "client/index.html",
   "scripts": {
-    "start": "cd server && node index.js",
-    "heroku-postbuild": "cd client/ && npm install && npm run build",
+    "start": "cd client && npm run build && cd ../server && node index.js",
     "start dev": "concurrently \"cd server && nodemon --watch ../db --watch . index.js \" \"cd client && npm start\"",
     "setup": "npm install && cd client && npm install",
     "build": "cd client && npm install && npm run build"
