@@ -46,7 +46,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/api/spotifyAPI/test')
+    axios.post('/api/spotifyAPI/test')
       .catch((err) => {console.log('SPOTIFY API CATCH:', err)})
     axios.get('/api/me')
       .then((res) => {

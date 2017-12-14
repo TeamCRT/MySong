@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 app.use(session({
   secret: 'hratx30',
   store: new MongoStore({ mongooseConnection: db }),
-  resave: true,
+  resave: false,
   saveUninitialized: false,
 }));
 
