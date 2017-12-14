@@ -2,6 +2,9 @@
   "name": "mysong",
   "version": "0.0.1",
   "description": "An app to share your favorite song.",
+  "engines": {
+    "node": "8.4.0"
+  }, 
   "main": "client/index.html",
   "scripts": {
     "start": "cd server && node index.js",
