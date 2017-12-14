@@ -13,22 +13,41 @@ const secret = 'myappisawesome';
 const HOME = 'http://127.0.0.1:3000';
 
 router.use('/spotifyAPI/:id', (req, res, next) => {
-  const refreshToken = req.session.passport.user.spotifyRefreshToken;
-  console.log('testing middleware ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:', refreshToken);
-  axios({
-    method: 'post',
-    url: `https://accounts.spotify.com/api/token?refresh_token=${refreshToken}&grant_type=refresh_token`,
-    headers: { Authorization: process.env.SPOTIFY_BASE64}
-  })
+  let currentTimeAndDate = new Date();
+  currentTimeAndDate = Date.parse(currentTimeAndDate);
+  let tokenExpiration = Date.parse(req.session.tokenExpirationDate);
+  let compare = currentTimeAndDate - tokenExpiration;
+  console.log('OLD SPOTIFY TOKEN: ', req.session.passport.user.spotifyToken);
+  console.log('WE HAVE WAITED THIS LONG: ', compare);
+  if (compare > 30000) { //3000000
+    const refreshToken = req.session.passport.user.spotifyRefreshToken;
+    axios({
+      method: 'post',
+      url: `https://accounts.spotify.com/api/token?refresh_token=${refreshToken}&grant_type=refresh_token`,
+      headers: { Authorization: process.env.SPOTIFY_BASE64}
+    })
     .then((response) => {
-      const timeAndDate = new Date();
+      req.session.test = Math.random();
+      let timeAndDate = new Date();
+      console.log('MADE A CALL TO SPOTIFY');
       req.session.passport.user.spotifyToken = response.data.access_token;
+      console.log('NEW SPOTIFY TOKEN: ', req.session.passport.user.spotifyToken);
       req.session.tokenExpirationDate = timeAndDate;
+      next();
     })
     .catch((err) => {
       console.log('REFRESH TOKEN ERROR: ', err);
+      next(err);
     })
-  next();
+    // next();
+  } else {
+    next();
+  }
+});
+
+router.post('/spotifyAPI/test', (req, res) => {
+  // req.session.save();
+  res.send()
 });
 
 router.get('/users', (req, res) => {
@@ -37,10 +56,6 @@ router.get('/users', (req, res) => {
   });
 });
 
-router.get('/spotifyAPI/test', (req, res) => {
-  console.log('SPOTIFY API ROUTE TEST: ', req.session.passport.user.spotifyToken);
-  res.end()
-});
 
 router.get('/me', (req, res) => {
   // const token = req.headers.jwt;
@@ -83,6 +98,8 @@ router.get(
     const token = jwt.encode(user, secret);
     const session = req.session;
     session.token = token;
+    const timeAndDate = new Date();
+    session.tokenExpirationDate = timeAndDate;
     // Successful authentication, redirect home.
     // res.set({ authorization: token });
     // axios.defaults.headers.common.jwt = token;
