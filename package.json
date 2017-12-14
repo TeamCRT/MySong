@@ -5,10 +5,10 @@
   "main": "client/index.html",
   "scripts": {
     "start": "node server",
-    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "start dev": "concurrently \"cd server && nodemon --watch ../db --watch . index.js \" \"cd client && npm start\"",
     "setup": "npm install && cd client && npm install",
-    "build": "cd client && npm install && npm run build",
+    "build": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
