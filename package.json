@@ -4,7 +4,7 @@
   "description": "An app to share your favorite song.",
   "main": "client/index.html",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "cd server && node index.js",
     "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "start dev": "concurrently \"cd server && nodemon --watch ../db --watch . index.js \" \"cd client && npm start\"",
     "setup": "npm install && cd client && npm install",
