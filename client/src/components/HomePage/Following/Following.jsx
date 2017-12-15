@@ -1,3 +1,4 @@
+/* eslint-disable no-console, react/prop-types */
 import React from 'react';
 import axios from 'axios';
 import { Button, Icon, Label, Popup } from 'semantic-ui-react';
@@ -9,11 +10,14 @@ class Following extends React.Component {
       isVisible: false,
     };
 
-    this.handleTrackClick = this.handleTrackClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
+// <<<<<<< HEAD
     this.handleRemoveFollow = this.handleRemoveFollow.bind(this, this.props.follow.spotifyId);
+// =======
+    this.handleTrackClick = this.handleTrackClick.bind(this);
+// >>>>>>> Play a song in following on click
   }
-  handleClick(e) {
+  handleClick() {
     this.setState({
       isVisible: !this.state.isVisible,
     });
@@ -35,10 +39,20 @@ class Following extends React.Component {
 
 
   handleTrackClick() {
-    this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
+    axios({
+      method: 'put',
+      url: '/api/spotifyAPI/playSong',
+      data: {
+        uris: [`spotify:track:${this.props.follow.currentMySong.trackID}`],
+      },
+    })
+      .then((success) => {
+        console.log('success', success);
+      }, (err) => { console.log('err', err); });
+      this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
   }
 
-  render(props) {
+  render() {
     return (
       <div>
         <Label style={{ width: '100%', textAlign: 'center' }} color="red">
@@ -68,7 +82,5 @@ class Following extends React.Component {
     );
   }
 }
-
-
 
 export default Following;
