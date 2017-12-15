@@ -10,7 +10,7 @@ class EditPlaylistModal extends Component {
     super(props);
     this.state = {
       newPlaylistName: '', 
-      newPlaylist: [], 
+      newPlaylist: this.props.playlistSongArr,
       open: false,
       noPlaylistNameError: false, 
       noSongsInPlaylistError: false,
@@ -20,7 +20,30 @@ class EditPlaylistModal extends Component {
     this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this); 
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handlePlaylistChange = this.handlePlaylistChange.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+
+     // {this.props.playlistSongArr &&
+     //            <div style={{color:'red'}}>{this.props.playlistSongArr.map((result,index)=>
+
+     //              <div>{result.spotifyId}</div>
+
+     //              )}</div>
+     //          }
+
+
     
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.playlistSongArr !== this.props.playlistSongArr) {
+      console.log('Update called - props ', this.props.playlistSongArr );
+      var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
+      this.setState({newPlaylist: playlistArray});
+      console.log('Update called - playlist obj name ', this.props.playlistName);
+      this.setState({newPlaylistName: this.props.playlistName});
+      console.log('Update called - state ', this.state.newPlaylist );
+    }
   }
 
   //state = { open: false }
@@ -28,6 +51,21 @@ class EditPlaylistModal extends Component {
   handlePlaylistNameChange(e) {
     e.preventDefault();
     this.setState({newPlaylistName: e.target.value});
+  }
+
+  handleUpdate() {
+    // this.setState({newPlaylist: this.props.playlistSongArr});
+    console.log('Update called - props ', this.props.playlistSongArr );
+    var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
+    this.setState({newPlaylist: playlistArray});
+    this.setState({newPlaylistName: this.props.playlistName});
+    console.log('Update called - state ', this.state.newPlaylist );
+  }
+
+  handlePlaylistChange() {
+    var newPlaylistSongsArray = this.props.playlistSongArr && this.props.playlistSongArr.map((result,index)=>result.spotifyId);
+    console.log('new playlist song array is ', newPlaylistSongsArray);
+    this.setState({ newPlaylist: newPlaylistSongsArray });
   }
 
   handleSave() {
@@ -114,14 +152,16 @@ class EditPlaylistModal extends Component {
 
   render() {
     const { open, dimmer } = this.state
-
+    console.log('this state song array is', this.state.newPlaylist);
     return (
       <div>
         <Button color='grey' onClick={this.show(true)}>Edit</Button>
         <Modal dimmer={false} open={open} onClose={this.close}>
-          <Modal.Header>Create a Playlist</Modal.Header>
+          <Modal.Header>Edit a Playlist</Modal.Header>
           <Modal.Content image>
+          <div>
 
+          </div>
 
           <Grid columns={2} stackable>
             <Grid.Column>
@@ -139,7 +179,7 @@ class EditPlaylistModal extends Component {
 
 
             <Grid.Column>
-            <Header>{this.state.newPlaylist.length}</Header>
+            <Header>{this.state.newPlaylist.length }</Header>
             <Header>{this.state.newPlaylistName}</Header>
 
 
@@ -153,9 +193,9 @@ class EditPlaylistModal extends Component {
 
             <Header>
             </Header>
-              New Playlist Name
+              Playlist Name
               <input value={this.state.newPlaylistName} onChange={this.handlePlaylistNameChange}></input>
-              {this.state.newPlaylist.map((result, index) => (
+               {this.state.newPlaylist.map((result, index) => (
                <div> {'-'}
                 {result}
                </div>
@@ -168,6 +208,7 @@ class EditPlaylistModal extends Component {
 
           </Modal.Content>
           <Modal.Actions>
+            <Button onClick={this.handleUpdate}>Undo All Changes</Button>
             <Button color='black' onClick={this.handleCancel}>
               Cancel
             </Button>
