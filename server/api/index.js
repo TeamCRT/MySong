@@ -189,18 +189,34 @@ router.get(
 router.post(
   '/spotifyAPI/createPlaylist',
   (req, res) => {
-    console.log('token', req.session.passport.user.spotifyToken, '\n', 'req.body', req.body, '\n');
+    const URIArray = req.body.songURIs;
+    const spotifyUserID = req.body.spotifyUserID;
+    const token = req.session.passport.user.spotifyToken;
     axios({
       method: 'post',
-      url: `https://api.spotify.com/v1/users/${req.body.spotifyUserID}/playlists`,
+      url: `https://api.spotify.com/v1/users/${spotifyUserID}/playlists`,
       data: {
         name: req.body.playlistName,
+        description: (new Date()).toString().substring(0,10),
       },
       headers: {
-        Authorization: `Bearer ${req.session.passport.user.spotifyToken}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-    });
+    }).then((response) => {
+      const playlistid = response.data.id;
+      axios({
+        method: 'put',
+        url: `https://api.spotify.com/v1/users/${spotifyUserID}/playlists/${playlistid}/tracks`,
+        data: {
+          uris: URIArray,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    }).catch(err => err);
   },
 );
 
