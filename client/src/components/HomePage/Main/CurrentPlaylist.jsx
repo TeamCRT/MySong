@@ -10,6 +10,7 @@ class CurrentPlaylist extends React.Component {
     };
     this.makeArrayofURIs = this.makeArrayofURIs.bind(this);
     this.getAPlaylist();
+    this.songMapFunction = this.songMapFunction.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,17 +22,27 @@ class CurrentPlaylist extends React.Component {
   getAPlaylist() {
     axios.get(`/api/aplaylist?spotifyUserId=${this.props.spotifyUserId}&spotifyPlaylistURI=${this.props.currentPlaylistObj.playlistURI}&playlistName=${this.props.currentPlaylistObj.name}`)
       .then((response) => {
-        console.log('response', response)
         this.setState({
-          playlistSongArr: response.data,
+          playlistSongArr: response.data.DBResponse,
+          songsArrayBySpotifyUserID: response.data.songsArrayBySpotifyUserID,
         });
       })
       .catch(err => err);
   }
 
+  songMapFunction(spotifyUserId) {
+    let songObj;
+    this.state.playlistSongArr.forEach((item) => { if (item.spotifyId === spotifyUserId) songObj = item; });
+    return (<CurrentPlaylistSong
+      key={songObj.currentMySong.trackID}
+      user={songObj.mySongUsername}
+      trackObj={songObj.currentMySong}
+    />);
+  }
+
   makeArrayofURIs() {
     const arrMapFunction = item => `spotify:track:${item.currentMySong.trackID}`;
-    const songURIs = this.state.playlistSongArr.map(arrMapFunction);
+    const songURIs = this.state.songsArrayBySpotifyUserID.map(arrMapFunction);
     axios({
       method: 'post',
       url: '/api/spotifyAPI/createPlaylist',
@@ -43,17 +54,9 @@ class CurrentPlaylist extends React.Component {
     });
   }
 
-  songMapFunction(songObj) {
-    return (<CurrentPlaylistSong
-      key={songObj.currentMySong.trackID}
-      user={songObj.mySongUsername}
-      trackObj={songObj.currentMySong}
-    />);
-  }
 
 
   render() {
-    console.log('CUREENT SONG ARRAY', this.state.playlistSongArr);
     return (
       <div>
         <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}
@@ -64,7 +67,7 @@ class CurrentPlaylist extends React.Component {
           </button>
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
-        {this.state.playlistSongArr && this.state.playlistSongArr.map(this.songMapFunction)}
+        {this.state.playlistSongArr && this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)}
       </div>
     );
   }
