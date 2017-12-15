@@ -270,5 +270,23 @@ router.post(
   },
 );
 
+router.put(
+  '/spotifyAPI/playSong',
+  (req, res) => {
+    const token = req.session.passport.user.spotifyToken;
+    axios({
+      method: 'put',
+      url: 'https://api.spotify.com/v1/me/player/play',
+      data: {
+        uris: req.body.uris,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }).then((success) => { res.send(success); }, (err) => { console.log('\nerr', err.response.data); res.send(err); });
+  },
+);
+
 
 module.exports = router;

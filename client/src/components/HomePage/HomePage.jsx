@@ -142,7 +142,6 @@ class HomePage extends React.Component {
   }
 
   newPlaylistHandleClick() {
-    console.log('Nothing to see here boiiis');
   }
 
   render() {
