@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon, Label, Popup, Segment } from 'semantic-ui-react';
 
 class Following extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class Following extends React.Component {
 
     this.handleTrackClick = this.handleTrackClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleRemoveFollow = this.handleRemoveFollow.bind(this, this.props.follow.spotifyId);
   }
   handleClick(e) {
     this.setState({
@@ -19,22 +20,39 @@ class Following extends React.Component {
     this.props.newPlaylistHandleClick(this.props.follow);
   }
 
+  handleRemoveFollow(spotifyId) {
+    console.log('REMOVE FOLLLOW', spotifyId);
+    // axios.delete('/api/removeFollow', {spotifyId})
+    //   .then
+  }
+
 
   handleTrackClick() {
-    console.log('following track clicked:', this.props.follow.currentMySong.trackID);
     this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
   }
 
   render(props) {
     return (
       <div>
-        <Button onClick={this.handleClick.bind(this)} color="red">
+        <Label style={{ width: '100%', textAlign: 'center' }} color="red">
           {this.props.follow.mySongUsername}
-        </Button>
+          <Popup
+            trigger={<Icon style={{ display: 'inline-block', float: 'right' }} size='large' onClick={this.handleRemoveFollow} name='close' />}
+            content={`Stop following ${this.props.follow.mySongUsername}`}
+            position='top center'
+          />
+        </Label>
+        <Label style={{ width: '100%', textAlign: 'center' }} onClick={this.handleTrackClick}>
+          {this.props.follow.currentMySong.trackName}
+          <Popup
+            trigger={<Icon style={{ display: 'inline-block', float: 'left' }} size='small' onClick={this.handleClick} name='expand' />}
+            content='Show/Hide MySong note'
+            position='top center'
+          />
+        </Label>
         {this.state.isVisible &&
           (
             <div>
-              <Button onClick={this.handleTrackClick}>{this.props.follow.currentMySong.trackName}</Button>
               <Button>{this.props.follow.currentMySong.note}</Button>
             </div>
           )

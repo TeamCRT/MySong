@@ -30,8 +30,11 @@ export default class SearchExampleStandard extends Component {
     this.handleFollowClick = this.handleFollowClick.bind(this);
     this.resultRenderer = this.resultRenderer.bind(this);
   }
-  componentWillMount() {
-    this.resetComponent();
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.options.length !== this.props.options.length) {
+      source = this.props.options;
+    }
   }
 
   resetComponent() { this.setState({ isLoading: false, results: [], value: '' }); }
@@ -56,17 +59,19 @@ export default class SearchExampleStandard extends Component {
   }
 
   handleFollowClick(e, { spotifyid }) { // eslint-disable-line
+    e.preventDefault();
     axios.put('/api/addToFollowing', { spotifyId: spotifyid })
       .then((data) => {
         console.log('Follow attempt: ', data);
+        this.props.refreshfollowing();
       })
       .catch((err) => {
         throw err;
       });
-    this.props.refreshfollowing();
   }
 
   resultRenderer({ title, spotifyid }) { // eslint-disable-line
+
     return (
       <div>
         <Label content={title} />
