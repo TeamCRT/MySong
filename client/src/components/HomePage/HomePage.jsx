@@ -46,8 +46,6 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    axios.post('/api/spotifyAPI/test')
-      .catch((err) => {console.log('SPOTIFY API CATCH:', err)})
     axios.get('/api/me')
       .then((res) => {
         const user = res.data.passport.user;
