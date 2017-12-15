@@ -105,25 +105,36 @@ class EditPlaylistModal extends Component {
          "songsArrayBySpotifyUserID" : this.state.newPlaylist
       }
 
-      var newPlaylistPayload = {
+      var updatePlaylistPayload = {
         newPlaylist: newPlaylist,
-        spotifyId: this.props.spotifyId
+        spotifyId: this.props.spotifyId,
+        originalName: this.props.playlistName
       }
 
-      axios.post('/api/aplaylist', newPlaylistPayload)
-        .then((results) => {
-           console.log('Successfully added new playlist to database!');
-           this.setState({newPlaylistName: ''});
-           this.setState({newPlaylist: []});
-        })
-        .catch((err) => {
-          console.log(err);
-          throw err;
-        });
+      // axios.post('/api/aplaylist', newPlaylistPayload)
+      //   .then((results) => {
+      //      console.log('Successfully added new playlist to database!');
+      //      this.setState({newPlaylistName: ''});
+      //      this.setState({newPlaylist: []});
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     throw err;
+      //   });
+      axios({
+        method: 'put',
+        url: '/api/aplaylist',
+        data: updatePlaylistPayload
+      })
+      .then((results) => {
+
+      })
+      .catch((err) => {
+
+      });
+
     }
-
-
-    this.setState({open:false});
+    //this.setState({open:false});
   }
 
   handleCancel() {
