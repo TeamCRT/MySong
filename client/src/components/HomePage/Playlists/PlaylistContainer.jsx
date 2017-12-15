@@ -23,7 +23,7 @@ class PlaylistContainer extends React.Component {
     return (
       <PlaylistEntry
         name={playlistObj.playlistName}
-        key={playlistObj.spotifyPlaylistID}
+        key={playlistObj.playlistName}
         spotifyPlaylistID={playlistObj.spotifyPlaylistID}
         spotifyPlaylistURI={playlistObj.spotifyPlaylistURI}
         clickHandler={this.props.clickHandler}
