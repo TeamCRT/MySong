@@ -139,7 +139,6 @@ User.changeCurrentSong = (spotifyId, mySong) => {
     }
   ).exec()
     .then((res) => {
-      console.log('res is ', res);
       return res;
     })
     .catch((err) => {
