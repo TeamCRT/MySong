@@ -30,10 +30,16 @@ class CurrentPlaylist extends React.Component {
 
   makeArrayofURIs() {
     const arrMapFunction = item => `spotify:track:${item.currentMySong.trackID}`;
-    console.log('this:', this)
-    const playlistArr = this.state.playlistSongArr.map(arrMapFunction);
-    console.log('playlistArr', playlistArr);
-    return playlistArr;
+    const songURIs = this.state.playlistSongArr.map(arrMapFunction);
+    axios({
+      method: 'post',
+      url: '/api/spotifyAPI/createPlaylist',
+      data: {
+        songURIs,
+        playlistName: this.props.currentPlaylistObj.name,
+        spotifyUserID: this.props.spotifyUserId,
+      },
+    });
   }
 
   songMapFunction(songObj) {
@@ -48,8 +54,13 @@ class CurrentPlaylist extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.makeArrayofURIs}>Write This Playlist to Spotify</button>
-        <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}</h1>
+        <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}
+          <button
+            onClick={this.makeArrayofURIs}
+            style={{ fontSize: 15, marginLeft: 20 }}
+          >Save this Playlist on Spotify
+          </button>
+        </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {this.state.playlistSongArr && this.state.playlistSongArr.map(this.songMapFunction)}
       </div>
