@@ -17,37 +17,28 @@ router.use('/spotifyAPI/:id', (req, res, next) => {
   currentTimeAndDate = Date.parse(currentTimeAndDate);
   let tokenExpiration = Date.parse(req.session.tokenExpirationDate);
   let compare = currentTimeAndDate - tokenExpiration;
-  console.log('OLD SPOTIFY TOKEN: ', req.session.passport.user.spotifyToken);
-  console.log('WE HAVE WAITED THIS LONG: ', compare);
-  if (compare > 30000) { //3000000
+  if (compare > 3000000) { //3000000
     const refreshToken = req.session.passport.user.spotifyRefreshToken;
     axios({
       method: 'post',
       url: `https://accounts.spotify.com/api/token?refresh_token=${refreshToken}&grant_type=refresh_token`,
       headers: { Authorization: process.env.SPOTIFY_BASE64}
     })
-    .then((response) => {
-      req.session.test = Math.random();
-      let timeAndDate = new Date();
-      console.log('MADE A CALL TO SPOTIFY');
-      req.session.passport.user.spotifyToken = response.data.access_token;
-      console.log('NEW SPOTIFY TOKEN: ', req.session.passport.user.spotifyToken);
-      req.session.tokenExpirationDate = timeAndDate;
-      next();
-    })
-    .catch((err) => {
-      console.log('REFRESH TOKEN ERROR: ', err);
-      next(err);
-    })
+      .then((response) => {
+        req.session.test = Math.random();
+        const timeAndDate = new Date();
+        req.session.passport.user.spotifyToken = response.data.access_token;
+        req.session.tokenExpirationDate = timeAndDate;
+        next();
+      })
+      .catch((err) => {
+        console.log('REFRESH TOKEN ERROR: ', err);
+        next(err);
+      });
     // next();
   } else {
     next();
   }
-});
-
-router.post('/spotifyAPI/test', (req, res) => {
-  // req.session.save();
-  res.send()
 });
 
 router.get('/users', (req, res) => {
