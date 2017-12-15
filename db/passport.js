@@ -36,9 +36,7 @@ module.exports = (passport) => {
         newUser.spotifyUsername = profile.username;
         newUser.spotifyDisplayName = profile.displayName;
         newUser.spotifyEmail = profile._json.email; // eslint-disable-line
-        newUser.spotifyToken = accessToken;
         newUser.spotifyRefreshToken = refreshToken;
-
         newUser.currentMySong = {
           trackSummary: '',
           trackID: '',
@@ -58,6 +56,8 @@ module.exports = (passport) => {
           if (err1) {
             throw err1;
           }
+          // don't need to store accessToken into DB, only need refreshToken
+          newUser.spotifyToken = accessToken;
           return done(null, newUser);
         });
       });

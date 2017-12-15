@@ -27,12 +27,6 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 
-  spotifyToken: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-
   spotifyRefreshToken: {
     type: String,
     unique: true,
@@ -147,7 +141,7 @@ User.changeCurrentSong = (spotifyId, mySong) => {
     })
 };
 
-User.search = query => (
+User.getAllUsers = () => (
   User.find({}, 'mySongUsername spotifyId').exec()
     .then(users => users)
     .catch(err => err)

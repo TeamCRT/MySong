@@ -49,6 +49,7 @@ class HomePage extends React.Component {
     axios.get('/api/me')
       .then((res) => {
         const user = res.data.passport.user;
+        console.log('USER Session: ', user);
         this.setState({
           mySongUsername: user.mySongUsername,
           spotifyDisplayName: user.spotifyDisplayName,
@@ -57,6 +58,7 @@ class HomePage extends React.Component {
           spotifyToken: user.spotifyToken,
           spotifyUsername: user.spotifyUsername,
           currentMySong: user.currentMySong,
+          following: user.following,
         });
       })
       .catch((err) => {
@@ -84,7 +86,14 @@ class HomePage extends React.Component {
   }
 
   handleFollowingRefresh() {
-    this.setState({currentUser: this.state.currentUser})
+    axios.get('/api/me')
+      .then((res) => {
+        const user = res.data.passport.user;
+        this.setState({
+          following: user.following,
+        });
+        console.log('SET THE FOLLOWING STATE: ', user);
+      });
   }
 
   handlePlaylistEntryClick(playlistID, playlistURI, name) {
@@ -99,6 +108,14 @@ class HomePage extends React.Component {
 
   handleMySongChange(mySong) {
     this.setState({ currentMySong: mySong });
+  }
+
+  handleRemoveFollow(spotifyId) {
+    console.log('REMOVE FOLLLOW', spotifyId);
+    // axios.delete('/api/removeFollow', {spotifyId})
+    //   .then((following) => {
+    //     console.log('New following: ', following);
+    //   })
   }
 
   playFollowingTrack(trackID) {
@@ -147,7 +164,9 @@ class HomePage extends React.Component {
                 refresh={refreshFollowing}
                 spotifyId={this.state.spotifyId}
                 playFollowingTrack={this.playFollowingTrack}
-                newPlaylistHandleClick = {this.newPlaylistHandleClick}
+                newPlaylistHandleClick={this.newPlaylistHandleClick}
+                following={this.state.following}
+                handleRemoveFollow={this.handleRemoveFollow}
               />)}
             </Grid.Column>
 

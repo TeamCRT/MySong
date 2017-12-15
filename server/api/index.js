@@ -52,6 +52,7 @@ router.get('/me', (req, res) => {
   // const token = req.headers.jwt;
   // const decoded = jwt.decode(token, secret);
   if (req.session) {
+    console.log('SESSION: ', req.session);
     res.status(200).json(req.session);
   } else {
     res.redirect(HOME);
@@ -206,7 +207,7 @@ router.delete('/deleteSession', (req, res) => {
 router.get(
   '/getAllUsers',
   (req, res) => {
-    User.search(req.body.query)
+    User.getAllUsers()
       .then((users) => {
         res.send(users);
       })
