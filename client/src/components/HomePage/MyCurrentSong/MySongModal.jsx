@@ -18,8 +18,8 @@ class MySongModal extends Component {
       trackArist: '',
       trackName: '',
       note:'',
-      showError: false, 
-      noSongSelectedError: false, 
+      showError: false,
+      noSongSelectedError: false,
       noNoteError: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -145,7 +145,7 @@ class MySongModal extends Component {
         .catch((err) => {
           throw err;
         });
-       
+
 
     }
     this.setState({ open: false });
@@ -160,8 +160,8 @@ class MySongModal extends Component {
     const { open, dimmer } = this.state
 
     return (
-      <div>
-        <Button onClick={this.show(true)}>Edit</Button>
+      <div style={{textAlign:'center'}}>
+        <Button onClick={this.show(true)}>Edit your current MySong</Button>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
           <Modal.Content image>

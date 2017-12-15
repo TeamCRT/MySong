@@ -85,8 +85,6 @@ class HomePage extends React.Component {
 
   handleFollowingRefresh() {
     this.setState({currentUser: this.state.currentUser})
-    // refreshFollowing = !refreshFollowing;
-    console.log('REFRESH FOLLOWING');
   }
 
   handlePlaylistEntryClick(playlistID, playlistURI, name) {
