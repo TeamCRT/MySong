@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import CurrentPlaylistSong from './CurrentPlaylistSong';
+import EditPlaylistModal from './EditPlaylistModal';
 
 class CurrentPlaylist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlistSongArr: null,
+      playlistSongArr: [],
     };
     this.saveToSpotify = this.saveToSpotify.bind(this);
     this.getAPlaylist();
@@ -63,9 +64,10 @@ class CurrentPlaylist extends React.Component {
             style={{ fontSize: 15, marginLeft: 20 }}
           >Save this Playlist on Spotify
           </button>
+          <EditPlaylistModal playlistName={this.props.currentPlaylistObj.name} spotifyId={this.props.spotifyUserId} playlistSongArr={this.state.playlistSongArr} />
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
-        {this.state.playlistSongArr && this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)}
+        {this.state.playlistSongArr.length > 0 && this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)}
       </div>
     );
   }
