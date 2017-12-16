@@ -1,7 +1,7 @@
 /* eslint-disable no-console, react/prop-types */
 import React from 'react';
 import axios from 'axios';
-import { Button, Icon, Label, Popup } from 'semantic-ui-react';
+import { Icon, Label, Popup } from 'semantic-ui-react';
 
 class Following extends React.Component {
   constructor(props) {
@@ -26,10 +26,8 @@ class Following extends React.Component {
   }
 
   handleRemoveFollow(spotifyId) { // eslint-disable-line
-    console.log('REMOVE FOLLLOW', spotifyId);
     axios.delete(`/api/removeFollow?removeSpotifyId=${spotifyId}`)
       .then((following) => {
-        console.log('New following: ', following);
         this.props.getFollowing();
       })
       .catch((err) => {

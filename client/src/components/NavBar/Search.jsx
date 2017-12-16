@@ -32,7 +32,6 @@ class SearchExampleStandard extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('CURRENT spotifyID', this.props.spotifyId);
     const followingSpotifyIds = [];
     let newOptions = [];
     if (this.props.options && this.props.following.constructor === Array) {
@@ -44,9 +43,7 @@ class SearchExampleStandard extends Component {
       });
       newOptions.push(this.props.spotifyId);
     }
-    console.log('SPOTIFYID Array: \n', followingSpotifyIds);
     if (prevProps.options.length !== newOptions.length) {
-      console.log('NEW OPTIONS');
       source = newOptions;
     }
   }
