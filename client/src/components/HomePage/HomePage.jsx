@@ -65,11 +65,9 @@ class HomePage extends React.Component {
         });
       })
       .then((res) => {
-        console.log('playlists are being retrieved now!');
         axios.get(`/api/playlists?spotifyUserID=${this.state.spotifyId}`)
           .then((response) => {
             this.setState({ playlists: response.data[0].playlists });
-            console.log('sucesss on setting playlists!', this.state.playlists);
             return response;
           })
           .catch(err => err);
@@ -99,7 +97,6 @@ class HomePage extends React.Component {
   getFollowing() {
     axios.post('/api/getFollowing', {spotifyId: this.state.spotifyId})
       .then((following) => {
-        console.log('NEW FOLLOWING');
         this.setState({
           following: following
         })
@@ -116,7 +113,6 @@ class HomePage extends React.Component {
         this.setState({
           following: user.following,
         });
-        console.log('SET THE FOLLOWING STATE: ', user);
       });
   }
 
@@ -150,14 +146,6 @@ class HomePage extends React.Component {
 
   handleMySongChange(mySong) {
     this.setState({ currentMySong: mySong });
-  }
-
-  handleRemoveFollow(spotifyId) {
-    console.log('REMOVE FOLLLOW', spotifyId);
-    // axios.delete('/api/removeFollow', {spotifyId})
-    //   .then((following) => {
-    //     console.log('New following: ', following);
-    //   })
   }
 
   playFollowingTrack(trackID) {

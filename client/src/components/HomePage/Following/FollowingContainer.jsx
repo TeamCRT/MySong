@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Label } from 'semantic-ui-react';
+import { Label } from 'semantic-ui-react';
 import axios from 'axios';
 import Following from './Following';
 
