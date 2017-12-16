@@ -12,17 +12,22 @@ class CurrentPlaylist extends React.Component {
     };
 
     this.saveToSpotify = this.saveToSpotify.bind(this);
-    this.makeArrayofURIs = this.makeArrayofURIs.bind(this);
+    //this.makeArrayofURIs = this.makeArrayofURIs.bind(this);
     this.songMapFunction = this.songMapFunction.bind(this);
     this.getAPlaylist();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('ComponentDidUpdate - CurrentPlaylist')
+    console.log('ComponentDidUpdate - CurrentPlaylist ***************', this.state.playlistObj);
     if (prevProps.currentPlaylistObj.name !== this.props.currentPlaylistObj.name) {
       this.getAPlaylist();
     }
-    console.log('this.state.playlistSongArr ', this.state.playlistSongArr);
+    console.log('this.state.playlistSongArr *************************** ', this.state.playlistSongArr);
+  }
+
+  componentWillUpdate(prevProps, prevState) {
+    console.log('componentWillUpdate- CurrentPlaylist ***************', this.state.playlistObj);
+    console.log('componentWillUpdate - this.state.playlistSongArr *************************** ', this.state.playlistSongArr);
   }
 
   getAPlaylist() {

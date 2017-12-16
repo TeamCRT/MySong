@@ -47,6 +47,7 @@ class HomePage extends React.Component {
     this.handleFollowingRefresh = this.handleFollowingRefresh.bind(this);
     this.getFollowing = this.getFollowing.bind(this);
     this.updatePlaylists = this.updatePlaylists.bind(this);
+    this.handlePlaylistEntryClick = this.handlePlaylistEntryClick.bind(this);
   }
 
   componentDidMount() {
@@ -125,12 +126,20 @@ class HomePage extends React.Component {
   }
 
   updatePlaylists(newPlaylist) {
-    axios.get(`/api/playlists?spotifyUserID=${this.state.spotifyId}`)
+    axios.get(`/api/aplaylist?spotifyUserId=${this.state.spotifyId}&playlistName=${newPlaylist.playlistName}`)
       .then((response) => {
-        this.setState({ playlists: response.data[0].playlists, 
-        currentPlaylistObj: newPlaylist 
-      });
-        console.log('update playlists called - current', this.state.currentPlaylistObj);
+        console.log('update playlists called - before setState &&&&&&&&&&&&&&&&&&&&&&&&&&&&', this.state.currentPlaylistObj);
+        console.log('update playlists called - RESPONSE DATA IS &&&&&&&&&&&&&&&&&&&&&&&&&&&&', response);
+        var newPlaylistObj = {
+          name: newPlaylist.playlistName,
+          playlistID: newPlaylist.spotifyPlaylistID,
+          playlistURI: newPlaylist.spotifyPlaylistURI
+        };
+
+        this.setState({ 
+          currentPlaylistObj: newPlaylistObj
+        });
+        console.log('update playlists called - after setState &&&&&&&&&&&&&&&&&&&&&&&&&&&& ', this.state.currentPlaylistObj);
 
         //return response;
       })
@@ -186,7 +195,7 @@ class HomePage extends React.Component {
             <Grid.Column style={{ width: '20%' }}>
               {this.state.spotifyId && (<PlaylistContainer
                 playlists = {this.state.playlists}
-                clickHandler={this.handlePlaylistEntryClick.bind(this)}
+                clickHandler={this.handlePlaylistEntryClick}
                 spotifyId={this.state.spotifyId}
                 following={this.state.following}
               />)}
