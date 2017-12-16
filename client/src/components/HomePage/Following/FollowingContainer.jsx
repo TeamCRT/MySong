@@ -14,7 +14,6 @@ class FollowingContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('FollowingContainer componentWillUpdate: ', prevProps.following, this.props.following);
     if (prevProps.following && prevProps.following.length !== this.props.following.length) {
       this.getFollowing(this.props.spotifyId);
     }
@@ -52,19 +51,27 @@ class FollowingContainer extends React.Component {
     //   this.getFollowing(this.props.spotifyId);
     // }
     return (
-      <div style={
-        {
-          paddingBottom: '80px',
-          maxHeight: '500px',
-          overflow: 'scroll',
-          overflowX: 'hidden',
-        }}
+      <div
+        // style={
+        // {
+        //   paddingBottom: '80px',
+        //   maxHeight: '500px',
+        //   overflow: 'scroll',
+        //   overflowX: 'hidden',
+        // }}
       >
-        <Label.Group vertical style={{ width: '100%' }}>
-          <Label style={{display: 'fixed', width: '100%', textAlign: 'center', color:'black'}} >Following</Label>
-          {this.state.following &&
-           this.state.following.map(this.mapFollowing.bind(this))
-          }
+        <Label.Group style={{ width: '100%' }}>
+          <Label style={{borderRadius: '0px', posistion: 'sticky', width: '100%', textAlign: 'center', color:'black', margin:0}} >Following</Label>
+          <div style={
+            {
+              paddingBottom: '80px',
+              maxHeight: '500px',
+              overflow: 'scroll',
+              overflowX: 'hidden',
+            }}
+          >
+            {this.state.following && this.state.following.map(this.mapFollowing.bind(this))}
+          </div>
         </Label.Group>
       </div>
     );
