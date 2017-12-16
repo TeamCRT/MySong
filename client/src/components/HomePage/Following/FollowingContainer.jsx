@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Label } from 'semantic-ui-react';
 import axios from 'axios';
 import Following from './Following';
 
@@ -42,6 +42,7 @@ class FollowingContainer extends React.Component {
         key={follow.mySongUsername}
         newPlaylistHandleClick={this.props.newPlaylistHandleClick}
         handleRemoveFollow={this.props.handleRemoveFollow}
+        getFollowing={this.props.getFollowing}
       />
     );
   }
@@ -59,12 +60,12 @@ class FollowingContainer extends React.Component {
           overflowX: 'hidden',
         }}
       >
-        <Button.Group vertical style={{ width: '100%' }}>
-          <Button disabled >Following</Button>
+        <Label.Group vertical style={{ width: '100%' }}>
+          <Label style={{display: 'fixed', width: '100%', textAlign: 'center', color:'black'}} >Following</Label>
           {this.state.following &&
            this.state.following.map(this.mapFollowing.bind(this))
           }
-        </Button.Group>
+        </Label.Group>
       </div>
     );
   }

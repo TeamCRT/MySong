@@ -18,6 +18,7 @@ class HomePage extends React.Component {
     this.state = {
       options: '',
       currentUser: '',
+      following: [],
       mySongUsername: '',
       spotifyDisplayName: '',
       spotifyId: null,
@@ -43,6 +44,7 @@ class HomePage extends React.Component {
     this.handleMySongChange = this.handleMySongChange.bind(this);
     this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
     this.handleFollowingRefresh = this.handleFollowingRefresh.bind(this);
+    this.getFollowing = this.getFollowing.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +84,19 @@ class HomePage extends React.Component {
       })
       .catch((err) => {
         throw err;
+      });
+  }
+
+  getFollowing() {
+    axios.post('/api/getFollowing', {spotifyId: this.state.spotifyId})
+      .then((following) => {
+        console.log('NEW FOLLOWING');
+        this.setState({
+          following: following
+        })
+      })
+      .catch((err) => {
+        throw err
       });
   }
 
@@ -167,6 +182,7 @@ class HomePage extends React.Component {
                 newPlaylistHandleClick={this.newPlaylistHandleClick}
                 following={this.state.following}
                 handleRemoveFollow={this.handleRemoveFollow}
+                getFollowing={this.getFollowing}
               />)}
             </Grid.Column>
 
