@@ -315,5 +315,29 @@ router.put(
   },
 );
 
+router.get(
+  '/spotifyAPI/albumArtwork',
+  (req, res) => {
+    console.log('req.query', req.query);
+    const token = req.session.passport.user.spotifyToken;
+    axios({ 
+      method: 'GET',
+      url: `https://api.spotify.com/v1/tracks/${req.query.trackID}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((success) => {
+        const imageData = success.data.album.images;
+        res.send(imageData);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  },
+);
+
 
 module.exports = router;
