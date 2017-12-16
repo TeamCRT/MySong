@@ -15,16 +15,18 @@ class MyCurrentSongContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.albumArtworkLink || (prevProps.currentMySong.trackID !== this.props.currentMySong.trackID)) {
-      axios({
-        method: 'GET',
-        url: `/api/spotifyAPI/albumArtwork?trackID=${this.props.currentMySong.trackID}`,
-      })
-        .then((response) => {
-          this.setState({
-            albumArtworkLink: response.data[1].url,
-          });
+      if (this.props.currentMySong.trackID) {
+        axios({
+          method: 'GET',
+          url: `/api/spotifyAPI/albumArtwork?trackID=${this.props.currentMySong.trackID}`,
         })
-        .catch(err => console.error(err, err));
+          .then((response) => {
+            this.setState({
+              albumArtworkLink: response.data[1].url,
+            });
+          })
+          .catch(err => console.error(err, err));
+      }
     }
   }
 
