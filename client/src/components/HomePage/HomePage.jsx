@@ -187,7 +187,7 @@ class HomePage extends React.Component {
           />
           <Divider />
           <Grid columns={3} stackable>
-            <Grid.Column style={{ width: '20%' }}>
+            <Grid.Column style={{ width: '20%', maxWidth: 300}}>
               {this.state.spotifyId && (<PlaylistContainer
                 playlists = {this.state.playlists}
                 clickHandler={this.handlePlaylistEntryClick}
@@ -196,7 +196,7 @@ class HomePage extends React.Component {
               />)}
             </Grid.Column>
 
-            <Grid.Column style={{ width: '60%' }}>
+            <Grid.Column style={{ width: '55%', margin: 'auto', marginTop: '0'}}>
               {this.state.currentPlaylistObj.name && (
                 <CurrentPlaylist
                   currentPlaylistObj={this.state.currentPlaylistObj}
@@ -206,7 +206,7 @@ class HomePage extends React.Component {
               )}
             </Grid.Column>
 
-            <Grid.Column style={{ width: '20%' }}>
+            <Grid.Column style={{ width: '25%', maxWidth: 500, right: 0 }}>
               {this.state.spotifyId && (<FollowingContainer
                 refresh={refreshFollowing}
                 spotifyId={this.state.spotifyId}
