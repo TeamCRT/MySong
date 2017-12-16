@@ -46,10 +46,10 @@ class Following extends React.Component {
         uris: [`spotify:track:${this.props.follow.currentMySong.trackID}`],
       },
     })
-      .then((success) => {
-        console.log('success', success);
-      }, (err) => { console.log('err', err); });
-      this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
+      .then(() => {
+      })
+      .catch(err => console.error(err));
+    this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
   }
 
   render() {
