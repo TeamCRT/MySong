@@ -131,7 +131,8 @@ class HomePage extends React.Component {
         var newPlaylistObj = {
           name: newPlaylist.playlistName,
           playlistID: newPlaylist.spotifyPlaylistID,
-          playlistURI: newPlaylist.spotifyPlaylistURI
+          playlistURI: newPlaylist.spotifyPlaylistURI,
+          updated: true,
         };
         this.setState({ 
           currentPlaylistObj: newPlaylistObj,
@@ -147,6 +148,7 @@ class HomePage extends React.Component {
         playlistID,
         playlistURI,
         name,
+        updated: false,
       },
     });
   }
