@@ -13,30 +13,31 @@ class MyCurrentSongContainer extends React.Component {
     };
   }
 
-  componentDidUpdate() {
-    axios({
-      method: 'GET',
-      url: `/api/spotifyAPI/albumArtwork?trackID=${this.props.currentMySong.trackID}`,
-    })
-      .then((response) => {
-        console.log('response', response)
-        this.setState({
-          albumArtworkLink: response.data[1].url,
-        });
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.albumArtworkLink || (prevProps.currentMySong.trackID !== this.props.currentMySong.trackID)) {
+      axios({
+        method: 'GET',
+        url: `/api/spotifyAPI/albumArtwork?trackID=${this.props.currentMySong.trackID}`,
       })
-      .catch(err => console.error('err--------------', err));
+        .then((response) => {
+          this.setState({
+            albumArtworkLink: response.data[1].url,
+          });
+        })
+        .catch(err => console.error(err, err));
+    }
   }
 
   render() {
     return (
       <div>
-        <Segment attached="top" class='wrapper'>
+        <Segment attached="top" className='wrapper'>
           {this.state.albumArtworkLink &&
-            <img src={this.state.albumArtworkLink} height='150' style={{position: 'static'}} />
+            <img src={this.state.albumArtworkLink} height='150' style={{position: 'fixed'}} />
           }
-          <Header as="h1" style={{ textAlign: 'left' }}>
+          <Header as="h1" style={{ textAlign: 'center' }}>
             Current My Song is : {this.props.currentMySong.trackSummary}
-            <div style={{ fontSize: '15px', textAlign: 'left' }}>
+            <div style={{ fontSize: '15px', textAlign: 'center'}}>
               Note: {this.props.currentMySong.note}
             </div>
           </Header>
