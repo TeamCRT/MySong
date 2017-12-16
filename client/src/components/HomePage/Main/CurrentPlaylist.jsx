@@ -18,7 +18,9 @@ class CurrentPlaylist extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currentPlaylistObj.name !== this.props.currentPlaylistObj.name) {
+    console.log('componentDidUpdate ', this.props.currentPlaylistObj);
+    if (prevProps.currentPlaylistObj.name !== this.props.currentPlaylistObj.name || this.props.currentPlaylistObj.updated ) {
+      this.props.currentPlaylistObj.updated = false;
       this.getAPlaylist();
     }
   }
