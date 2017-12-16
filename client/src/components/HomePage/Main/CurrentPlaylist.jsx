@@ -42,7 +42,7 @@ class CurrentPlaylist extends React.Component {
 
   makeArrayofURIs() {
     const arrMapFunction = item => `spotify:track:${item.currentMySong.trackID}`;
-    const songURIs = this.state.songsArrayBySpotifyUserID.map(arrMapFunction);
+    const songURIs = this.state.playlistSongArr.map(arrMapFunction);
     axios({
       method: 'post',
       url: '/api/spotifyAPI/createPlaylist',
@@ -53,8 +53,6 @@ class CurrentPlaylist extends React.Component {
       },
     });
   }
-
-
 
   render() {
     return (

@@ -268,7 +268,7 @@ router.post(
           },
         })
           .then(success => res.send(success))
-          .catch(err => console.error(err));
+          .catch(err => console.error(err.response.data));
       })
       .catch(err => console.error(err));
   },
