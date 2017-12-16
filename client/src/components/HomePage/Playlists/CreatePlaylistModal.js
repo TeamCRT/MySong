@@ -107,6 +107,7 @@ class CreatePlaylistModal extends Component {
     this.setState({newPlaylistName: ''});
     this.setState({newPlaylist: []});
     this.setState({open:false});
+    
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
     this.setState({playlistNameAlreadyExistsError: false});
