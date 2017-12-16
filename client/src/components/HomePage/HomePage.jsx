@@ -126,22 +126,17 @@ class HomePage extends React.Component {
   }
 
   updatePlaylists(newPlaylist) {
-    axios.get(`/api/aplaylist?spotifyUserId=${this.state.spotifyId}&playlistName=${newPlaylist.playlistName}`)
+    axios.get(`/api/playlists?spotifyUserID=${this.state.spotifyId}`)
       .then((response) => {
-        console.log('update playlists called - before setState &&&&&&&&&&&&&&&&&&&&&&&&&&&&', this.state.currentPlaylistObj);
-        console.log('update playlists called - RESPONSE DATA IS &&&&&&&&&&&&&&&&&&&&&&&&&&&&', response);
         var newPlaylistObj = {
           name: newPlaylist.playlistName,
           playlistID: newPlaylist.spotifyPlaylistID,
           playlistURI: newPlaylist.spotifyPlaylistURI
         };
-
         this.setState({ 
-          currentPlaylistObj: newPlaylistObj
+          currentPlaylistObj: newPlaylistObj,
+          playlists: response.data[0].playlists
         });
-        console.log('update playlists called - after setState &&&&&&&&&&&&&&&&&&&&&&&&&&&& ', this.state.currentPlaylistObj);
-
-        //return response;
       })
       .catch(err => err);
   }
