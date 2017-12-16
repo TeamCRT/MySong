@@ -53,7 +53,7 @@ router.get('/me', (req, res) => {
   User.getUser(req.session.passport.user.spotifyId)
     .then((user) => {
       console.log('USER', user);
-      req.session.passport.user = user
+      req.session.passport.user = user;
       if (req.session) {
         res.status(200).json(req.session);
       } else {
@@ -277,7 +277,9 @@ router.post(
 router.put(
   '/spotifyAPI/playSong',
   (req, res) => {
+    console.log('\nreq.session:\n', req.session)
     const token = req.session.passport.user.spotifyToken;
+    console.log('\ntoken:\n', token)
     axios({
       method: 'put',
       url: 'https://api.spotify.com/v1/me/player/play',
@@ -289,7 +291,7 @@ router.put(
         'Content-Type': 'application/json',
       },
     }).then((success) => { res.send(success); })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err.response.data));
   },
 );
 
