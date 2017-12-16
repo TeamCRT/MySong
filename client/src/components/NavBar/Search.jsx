@@ -17,7 +17,7 @@ let source = [
   //   },
 ];
 
-export default class SearchExampleStandard extends Component {
+class SearchExampleStandard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -96,8 +96,11 @@ export default class SearchExampleStandard extends Component {
         results={results}
         value={value}
         resultRenderer={this.resultRenderer}
-        {...this.props}
+        // {...this.props}
       />
     );
   }
 }
+
+
+export default SearchExampleStandard;

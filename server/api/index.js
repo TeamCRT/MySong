@@ -49,14 +49,22 @@ router.get('/users', (req, res) => {
 
 
 router.get('/me', (req, res) => {
+  console.log('GET ME');
+  User.getUser(req.session.passport.user.spotifyId)
+    .then((user) => {
+      console.log('USER', user);
+      req.session.passport.user = user
+      if (req.session) {
+        res.status(200).json(req.session);
+      } else {
+        res.redirect(HOME);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
   // const token = req.headers.jwt;
   // const decoded = jwt.decode(token, secret);
-  if (req.session) {
-    console.log('SESSION: ', req.session);
-    res.status(200).json(req.session);
-  } else {
-    res.redirect(HOME);
-  }
 });
 
 // see https://github.com/jmperez/passport-spotify#readme for passport
@@ -161,6 +169,19 @@ router.post(
       .catch(err => res.send(err));
   },
 );
+
+router.delete('/removeFollow', (req, res) => {
+  console.log('handle follow delete', req.query);
+  User.removeFollow(req.session.passport.user.spotifyId, req.query.removeSpotifyId)
+    .then((newFollowing) => {
+      console.log('New following: ', newFollowing);
+      res.send(newFollowing);
+    })
+    .catch((err) => {
+      console.log('REMOVEFOLLOW ERROR: ', err);
+      res.send(err);
+    });
+});
 
 
 router.get('/currentmysong/:spotifyId', (req, res) => {

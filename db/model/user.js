@@ -94,18 +94,28 @@ User.createPlaylist = (spotifyUserId, newPlaylist) => (
   )
 );
 
-User.getFollowing = (spotifyId) => {
-  return User.find({ spotifyId }).select('following').exec()
-    .then(res => res)
-    .catch(err => err);
-};
-
 User.getCurrentSong = (spotifyId) => (
   User.find({ spotifyId }).select('currentMySong').exec()
   .then(res => res)
   .catch(err => err)
 );
 
+User.getFollowing = (spotifyId) => {
+  return User.find({ spotifyId }).select('following').exec()
+    .then(res => res)
+    .catch(err => err);
+};
+
+User.removeFollow = (currentUserSpotifyId, removeSpotifyId) => {
+  return User.update(
+    {
+      spotifyId: currentUserSpotifyId
+    },
+    {
+      $pull: { following: { spotifyId: removeSpotifyId } }
+    }
+  ).exec();
+};
 
 User.populateFollowing = (following) => {
   const followingIds = following.map((follow) => { // eslint-disable-line
@@ -140,6 +150,15 @@ User.changeCurrentSong = (spotifyId, mySong) => {
       return err;
     })
 };
+User.getUser = (spotifyId) => {
+  return User.findOne({ spotifyId: spotifyId }).exec()
+    .then((user) => {
+      console.log('USER', user);
+      return user;
+    })
+    .catch(err => err);
+};
+
 
 User.getAllUsers = () => (
   User.find({}, 'mySongUsername spotifyId').exec()
