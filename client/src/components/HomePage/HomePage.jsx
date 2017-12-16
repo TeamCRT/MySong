@@ -205,6 +205,7 @@ class HomePage extends React.Component {
                   currentPlaylistObj={this.state.currentPlaylistObj}
                   spotifyUserId={this.state.spotifyId}
                   updatePlaylists={this.updatePlaylists}
+                  playlists = {this.state.playlists}
                 />
               )}
             </Grid.Column>
