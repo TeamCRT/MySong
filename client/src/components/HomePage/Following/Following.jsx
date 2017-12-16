@@ -69,12 +69,12 @@ class Following extends React.Component {
         <Label style={{ display: 'flex', order: '1', borderRadius: '0px', width: '100%', textAlign: 'center' }}>
           {this.props.follow.currentMySong.trackName}
           <Popup
-            trigger={<Icon style={{ order: '-1', padding: '0px 1px 0px 0px' }} size='large' onClick={this.handleTrackClick} name='play circle' />}
+            trigger={<Icon style={{ order: '-2', padding: '0px 1px 0px 0px' }} size='large' onClick={this.handleTrackClick} name='play circle' />}
             content={`Play ${this.props.follow.mySongUsername}'s MySong`}
             position='left center'
           />
           <Popup
-            trigger={<Icon style={{display: 'flex', order: '1', justifyContent: 'flex-end'}} size='large' onClick={this.handleClick} name='book' />}
+            trigger={<Icon style={{display: 'flex', order: '-1', justifyContent: 'flex-end'}} size='large' onClick={this.handleClick} name='book' />}
             content={`Show/Hide ${this.props.follow.mySongUsername}'s MySong note`}
             position='top center'
           />

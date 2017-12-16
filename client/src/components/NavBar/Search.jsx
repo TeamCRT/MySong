@@ -32,8 +32,22 @@ class SearchExampleStandard extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.options.length !== this.props.options.length) {
-      source = this.props.options;
+    console.log('CURRENT spotifyID', this.props.spotifyId);
+    const followingSpotifyIds = [];
+    let newOptions = [];
+    if (this.props.options && this.props.following.constructor === Array) {
+      this.props.following.forEach((user) => {
+        followingSpotifyIds.push(user.spotifyId)
+      });
+      newOptions = this.props.options.filter((user) => {
+        return !followingSpotifyIds.includes(user.spotifyid);
+      });
+      newOptions.push(this.props.spotifyId);
+    }
+    console.log('SPOTIFYID Array: \n', followingSpotifyIds);
+    if (prevProps.options.length !== newOptions.length) {
+      console.log('NEW OPTIONS');
+      source = newOptions;
     }
   }
 
@@ -61,8 +75,7 @@ class SearchExampleStandard extends Component {
   handleFollowClick(e, { spotifyid }) { // eslint-disable-line
     e.preventDefault();
     axios.put('/api/addToFollowing', { spotifyId: spotifyid })
-      .then((data) => {
-        console.log('Follow attempt: ', data);
+      .then(() => {
         this.props.refreshfollowing();
       })
       .catch((err) => {
@@ -82,10 +95,6 @@ class SearchExampleStandard extends Component {
 
   render() {
     const { isLoading, value, results } = this.state;
-    if (this.props.options !== '' && JSON.stringify(this.props.options) !== JSON.stringify(source)) {
-      // this.props.options contains all users and is being passed down from Homepage
-      source = this.props.options;
-    }
 
     return (
       <Search
