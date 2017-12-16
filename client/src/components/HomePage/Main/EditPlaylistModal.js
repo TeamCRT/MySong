@@ -127,14 +127,15 @@ class EditPlaylistModal extends Component {
         data: updatePlaylistPayload
       })
       .then((results) => {
-
+        console.log('AXIOS PUT REQUEST SUCCESSFUL!', results);
+        this.props.updatePlaylists(newPlaylist);
       })
       .catch((err) => {
-
+         console.log('AXIOS PUT REQUEST ERROR!', err);
       });
 
     }
-    //this.setState({open:false});
+    this.setState({open:false});
   }
 
   handleCancel() {
