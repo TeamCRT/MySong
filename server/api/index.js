@@ -253,20 +253,24 @@ router.post(
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-    }).then((response) => {
-      const playlistid = response.data.id;
-      axios({
-        method: 'put',
-        url: `https://api.spotify.com/v1/users/${spotifyUserID}/playlists/${playlistid}/tracks`,
-        data: {
-          uris: URIArray,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-    }).catch(err => err);
+    })
+      .then((response) => {
+        const playlistid = response.data.id;
+        axios({
+          method: 'put',
+          url: `https://api.spotify.com/v1/users/${spotifyUserID}/playlists/${playlistid}/tracks`,
+          data: {
+            uris: URIArray,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(success => res.send(success))
+          .catch(err => console.error(err));
+      })
+      .catch(err => console.error(err));
   },
 );
 
@@ -284,7 +288,8 @@ router.put(
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-    }).then((success) => { res.send(success); }, (err) => { console.log('\nerr', err.response.data); res.send(err); });
+    }).then((success) => { res.send(success); })
+      .catch(err => console.error(err));
   },
 );
 
