@@ -55,7 +55,7 @@ class Following extends React.Component {
   render() {
     return (
       <div>
-        <Label style={{ width: '100%', textAlign: 'center' }} color="red">
+        <Label onClick={this.handleClick} style={{ width: '100%', textAlign: 'center' }} color="red">
           {this.props.follow.mySongUsername}
           <Popup
             trigger={<Icon style={{ display: 'inline-block', float: 'right' }} size='large' onClick={this.handleRemoveFollow} name='close' />}
