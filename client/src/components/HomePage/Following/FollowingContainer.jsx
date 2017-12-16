@@ -46,10 +46,6 @@ class FollowingContainer extends React.Component {
     );
   }
   render() {
-    // the below statement limits the calls to the DB to retrieve following
-    // if (this.props.spotifyId && this.state.spotifyId !== this.props.spotifyId) {
-    //   this.getFollowing(this.props.spotifyId);
-    // }
     return (
       <div
         // style={

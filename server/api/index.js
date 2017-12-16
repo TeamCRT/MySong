@@ -248,6 +248,7 @@ router.get(
   (req, res) => {
     User.getAllUsers()
       .then((users) => {
+        console.log("SEDNING ALL USERS: \n", users);
         res.send(users);
       })
       .catch(err => res.send(err));
