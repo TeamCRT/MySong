@@ -49,11 +49,14 @@ router.get('/users', (req, res) => {
 
 
 router.get('/me', (req, res) => {
-  console.log('GET ME');
+  console.log('GET ME SESSION PASSPORT: \n', req.session.passport.user.spotifyToken);
+  const saveToken = req.session.passport.user.spotifyToken;
   User.getUser(req.session.passport.user.spotifyId)
     .then((user) => {
-      console.log('USER', user);
-      req.session.passport.user = user;
+      req.session.passport.user.playlists = user.playlists;
+      req.session.passport.user.following = user.following;
+      req.session.passport.user.currentMySong = user.currentMySong;
+      req.session.passport.user.mySongUsername = user.mySongUsername;
       if (req.session) {
         res.status(200).json(req.session);
       } else {
@@ -63,8 +66,6 @@ router.get('/me', (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
-  // const token = req.headers.jwt;
-  // const decoded = jwt.decode(token, secret);
 });
 
 // see https://github.com/jmperez/passport-spotify#readme for passport
@@ -95,6 +96,9 @@ router.get(
   (req, res) => {
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
     const user = req.user;
+    console.log('User for session \n', user, '\n\n')
+    console.log('User for passport session \n', req.session.passport.user, '\n\n')
+
     const token = jwt.encode(user, secret);
     const session = req.session;
     session.token = token;
