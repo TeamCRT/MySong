@@ -8,18 +8,18 @@ class CreatePlaylistModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newPlaylistName: '', 
-      newPlaylist: [], 
+      newPlaylistName: '',
+      newPlaylist: [],
       open: false,
-      noPlaylistNameError: false, 
+      noPlaylistNameError: false,
       noSongsInPlaylistError: false,
     };
 
-    this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this); 
-    this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this); 
+    this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this);
+    this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    
+
   }
 
   //state = { open: false }
@@ -40,7 +40,7 @@ class CreatePlaylistModal extends Component {
       console.log('Not enough songs and no playlist name');
       return;
     }
-    
+
     if (this.state.newPlaylist.length === 0) {
       this.setState({noSongsInPlaylistError: true});
       this.setState({noPlaylistNameError :false});
@@ -105,7 +105,7 @@ class CreatePlaylistModal extends Component {
       songsArray.splice(index, 1);
       this.setState({newPlaylist: songsArray});
     }
-  
+
   }
 
   show = dimmer => () => this.setState({ dimmer, open: true })
@@ -125,7 +125,9 @@ class CreatePlaylistModal extends Component {
           <Grid columns={2} stackable>
             <Grid.Column>
               {this.props.spotifyId && ( <FollowingContainer
-                spotifyId={this.props.spotifyId} newPlaylistHandleClick = {this.newPlaylistHandleClick}
+                spotifyId={this.props.spotifyId}
+                newPlaylistHandleClick = {this.newPlaylistHandleClick}
+                following={this.props.following}
               /> ) }
             </Grid.Column>
 
@@ -161,7 +163,7 @@ class CreatePlaylistModal extends Component {
                 ))}
             </Grid.Column>
 
-            
+
 
           </Grid>
 

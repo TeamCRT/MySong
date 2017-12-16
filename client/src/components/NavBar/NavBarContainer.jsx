@@ -21,7 +21,7 @@ class NavBarContainer extends React.Component {
         <Menu.Item>
           <Search refreshfollowing={this.props.refreshFollowing} options={this.props.options} />
         </Menu.Item>
-        <Header size="large" color="red" style={{fontFamily:'Bungee', fontSize:'50px', marginLeft:'11em'}} floated="right">mysong.io </Header>
+        <Header size="large" color="red" style={{float:'left', fontFamily:'Bungee', fontSize:'50px'}} >mysong.io </Header>
         <Menu.Item name={this.props.username} position="right" />
         <Menu.Item>
           <Button onClick={this.handleLogOut}> Log Out </Button>
