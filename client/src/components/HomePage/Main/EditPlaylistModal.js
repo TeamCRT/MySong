@@ -51,6 +51,10 @@ class EditPlaylistModal extends Component {
 
   handleSave() {
     var userPlaylists = this.props.playlists.map((playlist) => playlist.playlistName);
+    var originalPlaylistName = this.props.playlistName;
+    var originalPlaylistNameIndex = userPlaylists.indexOf(originalPlaylistName);
+    userPlaylists.splice(originalPlaylistNameIndex, 1);
+    console.log('userPlaylists is ', userPlaylists);
 
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
@@ -118,6 +122,7 @@ class EditPlaylistModal extends Component {
   }
 
   handleCancel() {
+    console.log('current playlist name is ', this.props.playlistName);
     this.setState({newPlaylistName: ''});
     this.setState({newPlaylist: []});
     this.setState({open:false});
