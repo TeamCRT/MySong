@@ -53,6 +53,7 @@ class PlaylistContainer extends React.Component {
                 color="red"
                 following={this.props.following}
                 updatePlaylists={this.props.updatePlaylists}
+                playlists = {this.props.playlists}
               /> 
             </Button.Group>
           </div>
