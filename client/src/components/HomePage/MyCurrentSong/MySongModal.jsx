@@ -59,7 +59,7 @@ class MySongModal extends Component {
 
   	 	$.ajax({
 				type:'GET',
-				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=10&offset=5`,
+				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=15&offset=0`,
 				contentType:'application/json',
 				headers: {
                 'Authorization': 'Bearer ' + spotifyToken
