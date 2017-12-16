@@ -161,6 +161,7 @@ class HomePage extends React.Component {
               {this.state.spotifyId && (<PlaylistContainer
                 clickHandler={this.handlePlaylistEntryClick.bind(this)}
                 spotifyId={this.state.spotifyId}
+                following={this.state.following}
               />)}
             </Grid.Column>
 

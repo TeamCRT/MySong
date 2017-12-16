@@ -39,7 +39,11 @@ class PlaylistContainer extends React.Component {
             <Button.Group vertical style={{ width: '100%' }}>
               <Button disabled >My Playlists</Button>
               {this.state.playlists.map(this.mapFunction.bind(this))}
-              <CreatePlaylistModal spotifyId={this.props.spotifyId} color="red"/>
+              <CreatePlaylistModal
+                spotifyId={this.props.spotifyId}
+                color="red"
+                following={this.props.following}
+              />
             </Button.Group>
           </div>
         }
