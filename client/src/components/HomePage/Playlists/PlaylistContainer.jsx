@@ -7,17 +7,26 @@ import CreatePlaylistModal from './CreatePlaylistModal';
 class PlaylistContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      playlists: [],
-    };
+    // this.state = {
+    //   playlists: [],
+    // };
 
-    axios.get(`/api/playlists?spotifyUserID=${props.spotifyId}`)
-      .then((response) => {
-        this.setState({ playlists: response.data[0].playlists });
-        return response;
-      })
-      .catch(err => err);
+    // axios.get(`/api/playlists?spotifyUserID=${props.spotifyId}`)
+    //   .then((response) => {
+    //     this.setState({ playlists: response.data[0].playlists });
+    //     return response;
+    //   })
+    //   .catch(err => err);
   }
+
+  // updatePlaylists() {
+  //   axios.get(`/api/playlists?spotifyUserID=${this.props.spotifyId}`)
+  //     .then((response) => {
+  //       this.setState({ playlists: response.data[0].playlists });
+  //       return response;
+  //     })
+  //     .catch(err => err);
+  // }
 
   mapFunction(playlistObj) {
     return (
@@ -34,16 +43,16 @@ class PlaylistContainer extends React.Component {
   render() {
     return (
       <div>
-        {this.state.playlists[0] &&
+        {this.props.playlists[0] &&
           <div>
             <Button.Group vertical style={{ width: '100%' }}>
               <Button disabled >My Playlists</Button>
-              {this.state.playlists.map(this.mapFunction.bind(this))}
+              {this.props.playlists.map(this.mapFunction.bind(this))}
               <CreatePlaylistModal
                 spotifyId={this.props.spotifyId}
                 color="red"
                 following={this.props.following}
-              />
+              /> 
             </Button.Group>
           </div>
         }
