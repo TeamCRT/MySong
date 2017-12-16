@@ -49,7 +49,10 @@ class Following extends React.Component {
       .then(() => {
         this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error(err);
+        this.props.playFollowingTrack(this.props.follow.currentMySong.trackID);
+      });
   }
 
   render() {
