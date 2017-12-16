@@ -150,12 +150,19 @@ User.changeCurrentSong = (spotifyId, mySong) => {
       return err;
     })
 };
+
 User.getUser = (spotifyId) => {
   return User.findOne({ spotifyId: spotifyId }).exec()
     .then((user) => {
       console.log('USER', user);
       return user;
     })
+    .catch(err => err);
+};
+
+User.getAllUsers = () => {
+  return User.find({}, 'mySongUsername spotifyId').exec()
+    .then(user => user)
     .catch(err => err);
 };
 

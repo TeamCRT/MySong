@@ -82,8 +82,6 @@ class HomePage extends React.Component {
 
     axios.get('/api/getAllUsers')
       .then((results) => {
-        // console.log('SEARCH RESULTS: ', results.data);
-        // this.setOptions(results.data)
         const formatOptions = [];
         results.data.forEach((result) => {
           const formatResult = {};
@@ -133,7 +131,7 @@ class HomePage extends React.Component {
           playlistURI: newPlaylist.spotifyPlaylistURI,
           updated: true,
         };
-        this.setState({ 
+        this.setState({
           currentPlaylistObj: newPlaylistObj,
           playlists: response.data[0].playlists
         });
