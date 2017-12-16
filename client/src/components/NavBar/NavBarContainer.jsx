@@ -19,7 +19,12 @@ class NavBarContainer extends React.Component {
     return (
       <Menu>
         <Menu.Item>
-          <Search refreshfollowing={this.props.refreshFollowing} options={this.props.options} />
+          <Search
+            spotifyId={this.props.spotifyId}
+            following={this.props.following}
+            refreshfollowing={this.props.refreshFollowing}
+            options={this.props.options}
+          />
         </Menu.Item>
         <Header size="large" color="red" style={{float:'left', fontFamily:'Bungee', fontSize:'50px'}} >mysong.io </Header>
         <Menu.Item name={this.props.username} position="right" />

@@ -10,7 +10,6 @@ import MyCurrentSongContainer from './MyCurrentSong/MyCurrentSongContainer';
 
 
 // const HOME = 'http://127.0.0.1:3000/home/'
-let refreshFollowing = false;
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -68,13 +67,12 @@ class HomePage extends React.Component {
       .then((res) => {
         console.log('playlists are being retrieved now!');
         axios.get(`/api/playlists?spotifyUserID=${this.state.spotifyId}`)
-         .then((response) => {
-          this.setState({ playlists: response.data[0].playlists });
-           console.log('sucesss on setting playlists!', this.state.playlists);
-          return response;
-         })
-         .catch(err => err);
-
+          .then((response) => {
+            this.setState({ playlists: response.data[0].playlists });
+            console.log('sucesss on setting playlists!', this.state.playlists);
+            return response;
+          })
+          .catch(err => err);
       })
       .catch((err) => {
         console.log(err);
@@ -176,7 +174,15 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <NavBarContainer refreshFollowing={this.handleFollowingRefresh} history={this.props.history} options={this.state.options} username={this.state.mySongUsername} style={{ border: '10px', width: '100%' }} />
+        <NavBarContainer
+          spotifyId={this.state.spotifyId}
+          following={this.state.following}
+          refreshFollowing={this.handleFollowingRefresh}
+          history={this.props.history}
+          options={this.state.options}
+          username={this.state.mySongUsername}
+          style={{ border: '10px', width: '100%' }}
+        />
         <Container style={{ marginTop: '3em', width: '100%' }}>
           <MyCurrentSongContainer
             currentMySong={this.state.currentMySong}
@@ -209,7 +215,6 @@ class HomePage extends React.Component {
 
             <Grid.Column style={{ width: '25%', maxWidth: 500, right: 0 }}>
               {this.state.spotifyId && (<FollowingContainer
-                refresh={refreshFollowing}
                 spotifyId={this.state.spotifyId}
                 playFollowingTrack={this.playFollowingTrack}
                 newPlaylistHandleClick={this.newPlaylistHandleClick}
