@@ -76,6 +76,7 @@ class CreatePlaylistModal extends Component {
            console.log('Successfully added new playlist to database!');
            this.setState({newPlaylistName: ''});
            this.setState({newPlaylist: []});
+           this.props.updatePlaylists(newPlaylist);
         })
         .catch((err) => {
           console.log(err);

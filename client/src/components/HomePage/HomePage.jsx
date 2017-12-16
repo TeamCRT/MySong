@@ -193,6 +193,7 @@ class HomePage extends React.Component {
                 clickHandler={this.handlePlaylistEntryClick}
                 spotifyId={this.state.spotifyId}
                 following={this.state.following}
+                updatePlaylists={this.updatePlaylists}
               />)}
             </Grid.Column>
 
