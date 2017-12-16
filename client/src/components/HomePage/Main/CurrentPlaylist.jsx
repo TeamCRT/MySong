@@ -8,11 +8,10 @@ class CurrentPlaylist extends React.Component {
     super(props);
     this.state = {
       playlistSongArr: [],
-      playlistObj: this.props.currentPlaylistObj
+      playlistObj: this.props.currentPlaylistObj,
     };
 
     this.saveToSpotify = this.saveToSpotify.bind(this);
-    //this.makeArrayofURIs = this.makeArrayofURIs.bind(this);
     this.songMapFunction = this.songMapFunction.bind(this);
     this.getAPlaylist();
   }
@@ -68,7 +67,12 @@ class CurrentPlaylist extends React.Component {
             style={{ fontSize: 15, marginLeft: 20 }}
           >Save this Playlist on Spotify
           </button>
-          <EditPlaylistModal playlists={this.props.playlists} updatePlaylists={this.props.updatePlaylists} playlistName={this.props.currentPlaylistObj.name} spotifyId={this.props.spotifyUserId} playlistSongArr={this.state.playlistSongArr} />
+          <EditPlaylistModal
+            playlists={this.props.playlists}
+            updatePlaylists={this.props.updatePlaylists}
+            playlistName={this.props.currentPlaylistObj.name}
+            spotifyId={this.props.spotifyUserId}
+            playlistSongArr={this.state.playlistSongArr} />
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {this.state.playlistSongArr.length > 0 && this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)}
