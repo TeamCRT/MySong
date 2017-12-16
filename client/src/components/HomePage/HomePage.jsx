@@ -54,7 +54,6 @@ class HomePage extends React.Component {
     axios.get('/api/me')
       .then((res) => {
         const user = res.data.passport.user;
-        console.log('USER Session: ', user);
         this.setState({
           mySongUsername: user.mySongUsername,
           spotifyDisplayName: user.spotifyDisplayName,
@@ -179,7 +178,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <NavBarContainer refreshFollowing={this.handleFollowingRefresh} history={this.props.history} options={this.state.options} username={this.state.mySongUsername} style={{ border: '10px' }} />
+        <NavBarContainer refreshFollowing={this.handleFollowingRefresh} history={this.props.history} options={this.state.options} username={this.state.mySongUsername} style={{ border: '10px', width: '100%' }} />
         <Container style={{ marginTop: '3em', width: '100%' }}>
           <MyCurrentSongContainer
             currentMySong={this.state.currentMySong}

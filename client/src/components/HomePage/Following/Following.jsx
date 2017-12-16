@@ -57,8 +57,8 @@ class Following extends React.Component {
 
   render() {
     return (
-      <div>
-        <Label onClick={this.handleClick} style={{ width: '100%', textAlign: 'center' }} color="red">
+      <div style={{margin: 'none'}}>
+        <Label style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }} color="red">
           {this.props.follow.mySongUsername}
           <Popup
             trigger={<Icon style={{ display: 'inline-block', float: 'right' }} size='large' onClick={this.handleRemoveFollow} name='close' />}
@@ -66,18 +66,25 @@ class Following extends React.Component {
             position='top center'
           />
         </Label>
-        <Label style={{ width: '100%', textAlign: 'center' }} onClick={this.handleTrackClick}>
+        <Label style={{ display: 'flex', order: '1', borderRadius: '0px', width: '100%', textAlign: 'center' }}>
           {this.props.follow.currentMySong.trackName}
           <Popup
-            trigger={<Icon style={{ display: 'inline-block', float: 'left' }} size='small' onClick={this.handleClick} name='expand' />}
-            content='Show/Hide MySong note'
+            trigger={<Icon style={{ order: '-1', padding: '0px 1px 0px 0px' }} size='large' onClick={this.handleTrackClick} name='play circle' />}
+            content={`Play ${this.props.follow.mySongUsername}'s MySong`}
+            position='left center'
+          />
+          <Popup
+            trigger={<Icon style={{display: 'flex', order: '1', justifyContent: 'flex-end'}} size='large' onClick={this.handleClick} name='book' />}
+            content={`Show/Hide ${this.props.follow.mySongUsername}'s MySong note`}
             position='top center'
           />
         </Label>
         {this.state.isVisible &&
           (
             <div>
-              <Button>{this.props.follow.currentMySong.note}</Button>
+              <Label style={{ display: 'inline-block', borderRadius: '0px', width: '100%', textAlign: 'center' }}>
+                {this.props.follow.currentMySong.note}
+              </Label>
             </div>
           )
         }
