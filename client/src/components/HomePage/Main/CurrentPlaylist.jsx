@@ -8,7 +8,7 @@ class CurrentPlaylist extends React.Component {
     this.state = {
       playlistSongArr: null,
     };
-    this.makeArrayofURIs = this.makeArrayofURIs.bind(this);
+    this.saveToSpotify = this.saveToSpotify.bind(this);
     this.getAPlaylist();
     this.songMapFunction = this.songMapFunction.bind(this);
   }
@@ -40,7 +40,7 @@ class CurrentPlaylist extends React.Component {
     />);
   }
 
-  makeArrayofURIs() {
+  saveToSpotify() {
     const arrMapFunction = item => `spotify:track:${item.currentMySong.trackID}`;
     const songURIs = this.state.playlistSongArr.map(arrMapFunction);
     axios({
@@ -59,7 +59,7 @@ class CurrentPlaylist extends React.Component {
       <div>
         <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}
           <button
-            onClick={this.makeArrayofURIs}
+            onClick={this.saveToSpotify}
             style={{ fontSize: 15, marginLeft: 20 }}
           >Save this Playlist on Spotify
           </button>
