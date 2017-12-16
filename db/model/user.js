@@ -64,7 +64,7 @@ User.getUserPlaylists = spotifyUserId => (
 
 );
 
-User.getAPlaylist = (spotifyUserId, spotifyPlaylistURI, playlistName) => (
+User.getAPlaylist = (spotifyUserId, playlistName) => (
   User.find(
     {
       spotifyId: spotifyUserId,
