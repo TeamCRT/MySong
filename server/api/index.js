@@ -298,9 +298,7 @@ router.post(
 router.put(
   '/spotifyAPI/playSong',
   (req, res) => {
-    console.log('\nreq.session:\n', req.session)
     const token = req.session.passport.user.spotifyToken;
-    console.log('\ntoken:\n', token)
     axios({
       method: 'put',
       url: 'https://api.spotify.com/v1/me/player/play',
@@ -312,7 +310,10 @@ router.put(
         'Content-Type': 'application/json',
       },
     }).then((success) => { res.send(success); })
-      .catch(err => console.error(err.response.data));
+      .catch(err => {
+        console.error(err);
+        res.send(err);
+      });
   },
 );
 
