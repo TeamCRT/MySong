@@ -95,10 +95,10 @@ class HomePage extends React.Component {
   }
 
   getFollowing() {
-    axios.post('/api/getFollowing', {spotifyId: this.state.spotifyId})
+    axios.get('/api/getFollowing', { spotifyId: this.state.spotifyId })
       .then((following) => {
         this.setState({
-          following: following
+          following
         })
       })
       .catch((err) => {
@@ -160,6 +160,7 @@ class HomePage extends React.Component {
   }
 
   render() {
+    console.log('HOMEPAGE FOLLOWING STATE: ', this.state.following);
     return (
       <div>
         <NavBarContainer

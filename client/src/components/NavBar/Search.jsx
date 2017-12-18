@@ -57,9 +57,14 @@ class SearchExampleStandard extends Component {
 
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent();
-
+      console.log('this.state.value', this.state.value);
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-      const isMatch = result => re.test(result.title);
+      const isMatch = (result) => {
+        console.log('RESULT', result);
+        if (result) {
+          return re.test(result.title);
+        }
+      }
 
       this.setState({
         isLoading: false,
