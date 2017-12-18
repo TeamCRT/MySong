@@ -182,6 +182,7 @@ class HomePage extends React.Component {
   }
 
   render() {
+    console.log('HOMEPAGE FOLLOWING STATE: ', this.state.following);
     return (
       <div>
         <NavBarContainer
