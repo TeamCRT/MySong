@@ -64,7 +64,6 @@ class MySongModal extends Component {
           url: `/api/spotifyAPI/search?track=${query}`,
         })
           .then((response) => {
-            console.log('axios MySong search response is ', response.data);
             var resp = response.data;
             context.setState({
               showError: resp.tracks.items.length !== 0 ? false : true

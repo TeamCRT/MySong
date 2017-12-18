@@ -357,7 +357,6 @@ router.get(
       },
     })
       .then((success) => {
-        console.log('success is ', success.data);
         res.send(success.data);
         
       })
