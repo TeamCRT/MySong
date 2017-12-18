@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import CurrentPlaylistSong from './CurrentPlaylistSong';
 import EditPlaylistModal from './EditPlaylistModal';
+import DeletePlaylistModal from './DeletePlaylistModal';
+import { Button } from 'semantic-ui-react';
 
 class CurrentPlaylist extends React.Component {
   constructor(props) {
@@ -67,12 +69,19 @@ class CurrentPlaylist extends React.Component {
             style={{ fontSize: 15, marginLeft: 20 }}
           >Save this Playlist on Spotify
           </button>
+          <DeletePlaylistModal
+            playlists={this.props.playlists}
+            updatePlaylists={this.props.updatePlaylists}
+            playlistName={this.props.currentPlaylistObj.name}
+            spotifyId={this.props.spotifyUserId}
+            playlistSongArr={this.state.playlistSongArr} />
           <EditPlaylistModal
             playlists={this.props.playlists}
             updatePlaylists={this.props.updatePlaylists}
             playlistName={this.props.currentPlaylistObj.name}
             spotifyId={this.props.spotifyUserId}
             playlistSongArr={this.state.playlistSongArr} />
+          
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {this.state.playlistSongArr.length > 0 && this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)}
