@@ -47,17 +47,21 @@ class FollowingContainer extends React.Component {
   }
   render() {
     return (
-      <div
-        // style={
-        // {
-        //   paddingBottom: '80px',
-        //   maxHeight: '500px',
-        //   overflow: 'scroll',
-        //   overflowX: 'hidden',
-        // }}
-      >
+      <div>
         <Label.Group style={{ width: '100%' }}>
-          <Label style={{borderRadius: '0px', posistion: 'sticky', width: '100%', textAlign: 'center', color:'black', margin:0}} >Following</Label>
+          <Label style={
+            {
+              borderRadius: '0px',
+              posistion: 'sticky',
+              width: '100%',
+              textAlign: 'center',
+              color: 'black',
+              margin: 0,
+            }
+          }
+          >
+          Following
+          </Label>
           <div style={
             {
               paddingBottom: '80px',

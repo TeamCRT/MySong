@@ -64,7 +64,7 @@ class Following extends React.Component {
             position='top center'
           />
         </Label>
-        <Label style={{ display: 'flex', order: '1', borderRadius: '0px', width: '100%', textAlign: 'center' }}>
+        <Label style={{ display: 'flex', order: '0', borderRadius: '0px', width: '100%', textAlign: 'center' }}>
           {this.props.follow.currentMySong.trackName}
           <Popup
             trigger={<Icon style={{ order: '-2', padding: '0px 1px 0px 0px' }} size='large' onClick={this.handleTrackClick} name='play circle' />}
