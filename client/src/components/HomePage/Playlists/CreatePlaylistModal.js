@@ -14,6 +14,7 @@ class CreatePlaylistModal extends Component {
       noPlaylistNameError: false,
       noSongsInPlaylistError: false,
       playlistNameAlreadyExistsError: false,
+      illegalCharError: false,
     };
 
     this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this);
@@ -38,10 +39,12 @@ class CreatePlaylistModal extends Component {
 
   handleSave() {
     var userPlaylists = this.props.playlists.map((playlist) => playlist.playlistName);
+    var illegalChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
     this.setState({playlistNameAlreadyExistsError: false});
+    this.setState({illegalCharError: false});
     //Error Handling
     if (this.state.newPlaylistName === '' && this.state.newPlaylist.length === 0) {
       this.setState({noPlaylistNameError :true});
@@ -61,6 +64,11 @@ class CreatePlaylistModal extends Component {
       this.setState({noPlaylistNameError :true});
       this.setState({noSongsInPlaylistError: false});
       this.setState({playlistNameAlreadyExistsError: false});
+      return;
+    }
+
+    if (illegalChars.test(this.state.newPlaylistName) == true) {
+      this.setState({illegalCharError: true});
       return;
     }
 
@@ -174,7 +182,12 @@ class CreatePlaylistModal extends Component {
               }
             </Header>
 
-
+              
+            <Header>
+              {this.state.illegalCharError &&
+                <div style={{color:'red'}}>Illegal Character(s) In Playlist Name!</div>
+              }
+            </Header>
 
             <Header>
             </Header>
