@@ -11,11 +11,8 @@ class Following extends React.Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
-// <<<<<<< HEAD
     this.handleRemoveFollow = this.handleRemoveFollow.bind(this, this.props.follow.spotifyId);
-// =======
     this.handleTrackClick = this.handleTrackClick.bind(this);
-// >>>>>>> Play a song in following on click
   }
   handleClick() {
     this.setState({
