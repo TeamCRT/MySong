@@ -59,7 +59,7 @@ class SearchExampleStandard extends Component {
 
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent();
-
+      console.log('this.state.value', this.state.value);
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
       const isMatch = result => re.test(result.title);
       let results = _.filter(source, isMatch);
