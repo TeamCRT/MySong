@@ -15,6 +15,7 @@ class EditPlaylistModal extends Component {
       noPlaylistNameError: false, 
       noSongsInPlaylistError: false,
       playlistNameAlreadyExistsError: false,
+       illegalCharError: false,
     };
 
     this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this); 
@@ -51,6 +52,7 @@ class EditPlaylistModal extends Component {
 
   handleSave() {
     var userPlaylists = this.props.playlists.map((playlist) => playlist.playlistName);
+    var illegalChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     var originalPlaylistName = this.props.playlistName;
     var originalPlaylistNameIndex = userPlaylists.indexOf(originalPlaylistName);
     userPlaylists.splice(originalPlaylistNameIndex, 1);
@@ -59,6 +61,7 @@ class EditPlaylistModal extends Component {
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
     this.setState({playlistNameAlreadyExistsError: false});
+    this.setState({illegalCharError: false});
     //Error Handling
     if (this.state.newPlaylistName === '' && this.state.newPlaylist.length === 0) {
       this.setState({noPlaylistNameError :true});
@@ -78,6 +81,11 @@ class EditPlaylistModal extends Component {
       this.setState({noPlaylistNameError :true});
       this.setState({noSongsInPlaylistError: false});
       this.setState({playlistNameAlreadyExistsError: false});
+      return;
+    }
+
+    if (illegalChars.test(this.state.newPlaylistName) == true) {
+      this.setState({illegalCharError: true});
       return;
     }
 
@@ -130,6 +138,7 @@ class EditPlaylistModal extends Component {
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
     this.setState({playlistNameAlreadyExistsError: false});
+    this.setState({illegalCharError: false});
   }
 
   newPlaylistHandleClick(follow) {
@@ -192,7 +201,11 @@ class EditPlaylistModal extends Component {
               }
             </Header>
 
-
+            <Header>
+              {this.state.illegalCharError &&
+                <div style={{color:'red'}}>Illegal Character(s) In Playlist Name!</div>
+              }
+            </Header>
 
             <Header>
             </Header>
