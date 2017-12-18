@@ -24,14 +24,16 @@ class FollowingContainer extends React.Component {
     axios.get('/api/getFollowing', { spotifyId })
       .then((response) => {
         if (response.data[0]) { // if user has any followers, user could have none
+          this.props.refreshFollowing();
           this.setState({
             spotifyId,
             following: response.data,
           });
-        } else{
-          // this.setState({
-          //   following: null,
-          // })
+        } else {
+          this.props.refreshFollowing();
+          this.setState({
+            following: null,
+          });
         }
       })
       .catch((err) => {
@@ -54,6 +56,7 @@ class FollowingContainer extends React.Component {
     );
   }
   render() {
+    console.log('this.state.following in FollowingContainer: \n', this.state.following);
     return (
       <div>
         <Label.Group style={{ width: '100%' }}>
@@ -79,6 +82,15 @@ class FollowingContainer extends React.Component {
             }}
           >
             {this.state.following && this.state.following.map(this.mapFollowing.bind(this))}
+            {this.state.following === null &&
+              (<Label>
+                You are not currently following anyone on MySong. In order to
+                follow someone type their MySong Username into the search bar
+                at the top of this page and select Follow. The selected user
+                will then appear here and you will able to view their current
+                MySong, play their current MySong and read their Note
+              </Label>)
+            }
           </div>
         </Label.Group>
       </div>
