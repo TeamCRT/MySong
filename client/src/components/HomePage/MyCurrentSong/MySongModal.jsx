@@ -21,6 +21,7 @@ class MySongModal extends Component {
       showError: false,
       noSongSelectedError: false,
       noNoteError: false,
+      noteTooLongError: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -119,10 +120,19 @@ class MySongModal extends Component {
       return;
     }
 
-    if (this.state.noteData !== '' && this.state.trackName !== '') {
+    if (this.state.noteData.length > 180) {
+      this.setState({noteTooLongError: true});
+      this.setState({noNoteError :false});
+      this.setState({noSongSelectedError: false});
+      console.log('No note added!');
+      return;
+    }
+
+    if (this.state.noteData !== '' && this.state.trackName !== '' && this.state.noteData.length <= 180 ) {
       console.log('All conditions met!');
       this.setState({noNoteError :false});
       this.setState({noSongSelectedError: false});
+      this.setState({noteTooLongError: false});
 
       var mySong = {
         trackSummary: this.state.trackSummary,
@@ -152,8 +162,10 @@ class MySongModal extends Component {
   }
 
   handleCancel = () => {
+    this.setState({noNoteError :false});
+    this.setState({noSongSelectedError: false});
+    this.setState({noteTooLongError: false});
     this.setState({ open: false });
-
   };
 
   render() {
@@ -174,7 +186,12 @@ class MySongModal extends Component {
               {this.state.showNote &&
               	<div> Add Song Note
               	  <div>
-              	    <input style={{height:'100px'}} type='text' onChange={this.handleNoteChange} value={this.state.noteData}></input>
+              	    <textarea
+                    placeholder="Add Song Note" 
+                    type='text' 
+                    style={{width: '90%', height: '150px', resize: 'none', backgroundColor: '#f8f8f8', boxSizing: 'border-box'}} 
+                    onChange={this.handleNoteChange} 
+                    value={this.state.noteData}></textarea>
               	  </div>
               	</div>
               }
@@ -197,6 +214,12 @@ class MySongModal extends Component {
             <div>
             {this.state.noNoteError &&
                 <div style={{color:'red'}}>Add a Note</div>
+            }
+            </div>
+
+            <div>
+            {this.state.noteTooLongError &&
+                <div style={{color:'red'}}>Note Exceeds 180 characters</div>
             }
             </div>
 
