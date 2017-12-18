@@ -83,6 +83,7 @@ class HomePage extends React.Component {
           const formatResult = {};
           formatResult.title = result.mySongUsername;
           formatResult.key = result._id; // eslint-disable-line
+          // formatResult.onClick = (e) => { e.preventDefault(); };
           // the i in spotifyid is not capitalized to avoid an error
           formatResult.spotifyid = result.spotifyId;
           formatOptions.push(formatResult);
@@ -95,7 +96,7 @@ class HomePage extends React.Component {
   }
 
   getFollowing() {
-    axios.get('/api/getFollowing', { spotifyId: this.state.spotifyId })
+    axios.get('/api/getFollowing')
       .then((following) => {
         this.setState({
           following
@@ -210,6 +211,7 @@ class HomePage extends React.Component {
                 following={this.state.following}
                 handleRemoveFollow={this.handleRemoveFollow}
                 getFollowing={this.getFollowing}
+                refreshFollowing={this.handleFollowingRefresh}
               />)}
             </Grid.Column>
 
