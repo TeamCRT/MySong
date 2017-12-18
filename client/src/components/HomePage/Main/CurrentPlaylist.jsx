@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types, max-len */
 import React from 'react';
 import axios from 'axios';
 import CurrentPlaylistSong from './CurrentPlaylistSong';
@@ -10,7 +11,6 @@ class CurrentPlaylist extends React.Component {
     super(props);
     this.state = {
       playlistSongArr: [],
-      playlistObj: this.props.currentPlaylistObj,
     };
 
     this.saveToSpotify = this.saveToSpotify.bind(this);
@@ -18,8 +18,8 @@ class CurrentPlaylist extends React.Component {
     this.getAPlaylist();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currentPlaylistObj.name !== this.props.currentPlaylistObj.name || this.props.currentPlaylistObj.updated ) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentPlaylistObj.name !== this.props.currentPlaylistObj.name || this.props.currentPlaylistObj.updated) {
       this.props.currentPlaylistObj.updated = false;
       this.getAPlaylist();
     }
@@ -38,7 +38,9 @@ class CurrentPlaylist extends React.Component {
 
   songMapFunction(spotifyUserId) {
     let songObj;
-    this.state.playlistSongArr.forEach((item) => { if (item.spotifyId === spotifyUserId) songObj = item; });
+    this.state.playlistSongArr.forEach((item) => {
+      if (item.spotifyId === spotifyUserId) songObj = item;
+    });
     return (<CurrentPlaylistSong
       key={songObj.currentMySong.trackID}
       user={songObj.mySongUsername}
