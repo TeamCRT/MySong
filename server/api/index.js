@@ -4,6 +4,7 @@ const User = require('../../db/model/user.js');
 const path = require('path');
 require('dotenv').config({ path: '../../env.env' });
 const jwt = require('jwt-simple');
+const $ = require('jquery');
 // const btoa = require('btoa');
 // const helpers = require('./helpers.js');
 const passport = require('passport');/* http://www.passportjs.org/docs */
@@ -339,5 +340,32 @@ router.get(
   },
 );
 
+
+
+
+router.get(
+  '/spotifyAPI/search',
+  (req, res) => {
+    console.log('/spotifyAPI/search req.query ', req.query.track);
+    const token = req.session.passport.user.spotifyToken;
+    axios({ 
+      method: 'GET',
+      url: `https://api.spotify.com/v1/search?q=${req.query.track}&type=track&market=US&limit=15&offset=0`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((success) => {
+        console.log('success is ', success.data);
+        res.send(success.data);
+        
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+  },
+);
 
 module.exports = router;

@@ -57,33 +57,32 @@ class MySongModal extends Component {
   	var query = this.state.formData.split(' ').join('+');
   	var context = this;
     var spotifyToken = this.props.spotifyToken;
+    console.log('Search Button Pressed!');
 
-  	 	$.ajax({
-				type:'GET',
-				url:`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=15&offset=0`,
-				contentType:'application/json',
-				headers: {
-                'Authorization': 'Bearer ' + spotifyToken
-            },
-				success:function(resp) {
-					console.log('GET request to https://api.spotify.com/v1/search successful!');
-          context.setState({
-            showError: resp.tracks.items.length !== 0 ? false : true
+     axios({
+          method: 'GET',
+          url: `/api/spotifyAPI/search?track=${query}`,
+        })
+          .then((response) => {
+            console.log('axios MySong search response is ', response.data);
+            var resp = response.data;
+            context.setState({
+              showError: resp.tracks.items.length !== 0 ? false : true
+            });
+            var searchResults = [];
+            for (var i = 0; i < resp.tracks.items.length; i++) {
+              var result = {
+                track_name: resp.tracks.items[i].name,
+                track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
+                track_artist: resp.tracks.items[i].artists[0].name,
+                track_album: resp.tracks.items[i].album.name,
+                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
+              }
+              searchResults.push(result);
+            }  
+            context.addSearchResults(searchResults);
           })
-					var searchResults = [];
-					for (var i = 0; i < resp.tracks.items.length; i++) {
-						var result = {
-							track_name: resp.tracks.items[i].name,
-							track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
-							track_artist: resp.tracks.items[i].artists[0].name,
-              track_album: resp.tracks.items[i].album.name,
-							track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
-					  }
-					 searchResults.push(result);
-					}
-					context.addSearchResults(searchResults);
-				}
-			});
+          .catch(err => console.error(err, err));
   }
 
   handleFormChange(e) {
