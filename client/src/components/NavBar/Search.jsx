@@ -63,10 +63,14 @@ class SearchExampleStandard extends Component {
 
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
       const isMatch = result => re.test(result.title);
-
+      let results = _.filter(source, isMatch);
+      results.unshift({
+          title: "closeButton"
+        });
       this.setState({
         isLoading: false,
-        results: _.filter(source, isMatch),
+        following: [],
+        results: results,
       });
       return true; // this is only here to satisfy ESLint
     }, 500);
@@ -96,6 +100,14 @@ class SearchExampleStandard extends Component {
       text = 'Following!';
       disable = true;
     }
+    if (title === 'closeButton') {
+      return (
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Button color={'red'} onClick={() => {this.setState({ openStatus: false })}}>Close Search</Button>
+        </div>
+      )
+
+    }
     return (
       <div>
         {title}
@@ -110,15 +122,18 @@ class SearchExampleStandard extends Component {
     return (
       <Search
         onFocus={() => {
-          console.log('ON FOCUS CALLED: ', this.state.openStatus);
-          this.setState({openStatus: !this.state.openStaus}); } }
+          this.setState(
+            {
+              openStatus: true,
+            });
+        }}
+        onBlur={() => {console.log('ON BLUR');}}
         placeholder={'Search for users to follow'}
         loading={isLoading}
         onSearchChange={this.handleSearchChange}
         results={results}
         value={value}
         resultRenderer={this.resultRenderer}
-        multiple
         open={openStatus}
       />
     );
