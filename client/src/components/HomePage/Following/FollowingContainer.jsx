@@ -10,7 +10,8 @@ class FollowingContainer extends React.Component {
       following: null,
       spotifyId: null,
     };
-    this.getFollowing(this.props.spotifyId);
+    this.getFollowing = this.getFollowing.bind(this);
+    this.getFollowing();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -18,20 +19,26 @@ class FollowingContainer extends React.Component {
       this.getFollowing(this.props.spotifyId);
     }
   }
+
   getFollowing(spotifyId) {
-    axios.post('/api/getFollowing', { spotifyId })
+    axios.get('/api/getFollowing', { spotifyId })
       .then((response) => {
         if (response.data[0]) { // if user has any followers, user could have none
           this.setState({
             spotifyId,
             following: response.data,
           });
+        } else{
+          // this.setState({
+          //   following: null,
+          // })
         }
       })
       .catch((err) => {
         throw err;
       });
   }
+
   mapFollowing(follow) {
     return (
       <Following
@@ -41,7 +48,8 @@ class FollowingContainer extends React.Component {
         key={follow.mySongUsername}
         newPlaylistHandleClick={this.props.newPlaylistHandleClick}
         handleRemoveFollow={this.props.handleRemoveFollow}
-        getFollowing={this.props.getFollowing}
+        getFollowing={this.getFollowing}
+        spotifyId={this.props.spotifyId}
       />
     );
   }

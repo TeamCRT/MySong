@@ -50,7 +50,7 @@ router.get('/users', (req, res) => {
 
 
 router.get('/me', (req, res) => {
-  console.log('GET ME SESSION PASSPORT: \n', req.session.passport.user.spotifyToken);
+  // console.log('GET ME SESSION PASSPORT: \n', req.session);
   const saveToken = req.session.passport.user.spotifyToken;
   User.getUser(req.session.passport.user.spotifyId)
     .then((user) => {
@@ -169,10 +169,10 @@ router.put(
   },
 );
 
-router.post(
+router.get(
   '/getFollowing',
   (req, res) => {
-    User.getFollowing(req.body.spotifyId)
+    User.getFollowing(req.session.passport.user.spotifyId)
       .then((result) => {
         // INPUT: array of spotifyIds OUTPUT: object containing mySongUsername
         // and CurrentSong for each spotifyId
@@ -193,7 +193,6 @@ router.delete('/removeFollow', (req, res) => {
   console.log('handle follow delete', req.query);
   User.removeFollow(req.session.passport.user.spotifyId, req.query.removeSpotifyId)
     .then((newFollowing) => {
-      console.log('New following: ', newFollowing);
       res.send(newFollowing);
     })
     .catch((err) => {
@@ -249,7 +248,6 @@ router.get(
   (req, res) => {
     User.getAllUsers()
       .then((users) => {
-        console.log("SEDNING ALL USERS: \n", users);
         res.send(users);
       })
       .catch(err => res.send(err));
@@ -321,7 +319,7 @@ router.get(
   (req, res) => {
     console.log('req.query', req.query);
     const token = req.session.passport.user.spotifyToken;
-    axios({ 
+    axios({
       method: 'GET',
       url: `https://api.spotify.com/v1/tracks/${req.query.trackID}`,
       headers: {
