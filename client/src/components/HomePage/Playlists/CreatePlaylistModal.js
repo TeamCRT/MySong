@@ -154,8 +154,13 @@ class CreatePlaylistModal extends Component {
                 spotifyId={this.props.spotifyId}
                 newPlaylistHandleClick = {this.newPlaylistHandleClick}
                 following={this.props.following}
+                refreshFollowing={this.props.refreshFollowing}
               /> ) }
             </Grid.Column>
+
+           
+
+
 
             <Header>
               {this.state.noPlaylistNameError &&
