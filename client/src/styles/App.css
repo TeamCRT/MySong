@@ -116,7 +116,7 @@ body * :not(i) {
   margin-right: 1%;
 }
 
-#playlists {
+#playlist-container {
   grid-column: 1;
   grid-row: 3;
   padding: 0;
@@ -124,12 +124,26 @@ body * :not(i) {
   border-top: none;
   border-bottom: none;
   border-left: none;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+#playlist-list {
+}
+
+#my-playlists {
+  color: red;
+  text-align: center;
+  font-size: 200%;
+  line-height: 200%;
+  border-bottom: 1px solid black;
 }
 
 #create-playlist-button {
-  position: absolute;
+  position: sticky;
   bottom: 0;
   border-radius: 0px;
+  width: 100%;
 }
 
 

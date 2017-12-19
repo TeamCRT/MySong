@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Divider, Grid } from 'semantic-ui-react';
 import PlaylistContainer from './Playlists/PlaylistContainer';
 import CurrentPlaylist from './Main/CurrentPlaylist';
 import FollowingContainer from './Following/FollowingContainer';
