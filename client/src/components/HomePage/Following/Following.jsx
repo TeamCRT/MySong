@@ -1,4 +1,4 @@
-/* eslint-disable no-console, react/prop-types */
+/* eslint-disable no-console */
 import React from 'react';
 import axios from 'axios';
 import { Icon, Label, Popup } from 'semantic-ui-react';

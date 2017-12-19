@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types, max-len */
+/* eslint-disable max-len */
 import React from 'react';
 import axios from 'axios';
 import CurrentPlaylistSong from './CurrentPlaylistSong';
