@@ -202,6 +202,9 @@ class HomePage extends React.Component {
         <div className="current-playlist">current-playlist</div>
         <div className="friends">friends</div>
         <div className="bottom-player">bottom-player</div>
+        {this.state.songToPlay.trackID ? <BottomPlayer URI={`spotify:track:${this.state.songToPlay.trackID}`} /> :
+          this.state.currentMySong.trackID && <BottomPlayer URI={`spotify:track:${this.state.currentMySong.trackID}`} />
+        }
       </div>
     );
   }
