@@ -198,10 +198,17 @@ class HomePage extends React.Component {
           spotifyToken={this.state.spotifyToken}
           onMySongChange={this.handleMySongChange}
         />
-        <div className="playlists">playlists</div>
+        {this.state.spotifyId && (<PlaylistContainer
+          playlists={this.state.playlists}
+          clickHandler={this.handlePlaylistEntryClick}
+          spotifyId={this.state.spotifyId}
+          following={this.state.following}
+          updatePlaylists={this.updatePlaylists}
+          refreshFollowing={this.handleFollowingRefresh}
+          view="playlist"
+        />)}
         <div className="current-playlist">current-playlist</div>
         <div className="friends">friends</div>
-        <div className="bottom-player">bottom-player</div>
         {this.state.songToPlay.trackID ? <BottomPlayer URI={`spotify:track:${this.state.songToPlay.trackID}`} /> :
           this.state.currentMySong.trackID && <BottomPlayer URI={`spotify:track:${this.state.currentMySong.trackID}`} />
         }
