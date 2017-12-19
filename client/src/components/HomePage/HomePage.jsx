@@ -42,7 +42,6 @@ class HomePage extends React.Component {
     this.handleMySongChange = this.handleMySongChange.bind(this);
     this.playFollowingTrack = this.playFollowingTrack.bind(this);
     this.handleMySongChange = this.handleMySongChange.bind(this);
-    this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
     this.handleFollowingRefresh = this.handleFollowingRefresh.bind(this);
     this.getFollowing = this.getFollowing.bind(this);
     this.updatePlaylists = this.updatePlaylists.bind(this);
@@ -53,6 +52,7 @@ class HomePage extends React.Component {
     axios.get('/api/me')
       .then((res) => {
         const user = res.data.passport.user;
+        console.log('HOMEPAGE MYSONG: ', user.currentMySong);
         this.setState({
           mySongUsername: user.mySongUsername,
           spotifyDisplayName: user.spotifyDisplayName,
@@ -156,8 +156,8 @@ class HomePage extends React.Component {
               playlists: response.data[0].playlists
             });
           }
-          
-            
+
+
           }
       })
       .catch(err => err);
@@ -184,9 +184,6 @@ class HomePage extends React.Component {
         trackID,
       },
     });
-  }
-
-  newPlaylistHandleClick() {
   }
 
   render() {

@@ -49,6 +49,7 @@ class Following extends React.Component {
   }
 
   render() {
+    console.log('FOLLOWING CONTAINTER RENDER');
     return (
       <div style={{ margin: 'none' }}>
         <Label style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }} color="red">
@@ -72,7 +73,7 @@ class Following extends React.Component {
               />)
 
 
-      
+
             }
             content={this.props.view === 'following' && `Stop following ${this.props.follow.mySongUsername}` || this.props.view === 'playlist' && `Add/remove ${this.props.follow.mySongUsername}'s MySong to playlist`  }
             position="top center"

@@ -93,35 +93,28 @@ class MySongModal extends Component {
   show = dimmer => () => this.setState({ dimmer, open: true })
   handleSave () {
     if (this.state.trackName === '' && this.state.noteData === '') {
-      this.setState({noSongSelectedError :true});
-      this.setState({noNoteError: true});
+      this.setState({noSongSelectedError :true, noNoteError: true});
       return;
     }
 
     if (this.state.trackName === '') {
-      this.setState({noSongSelectedError: true});
-      this.setState({noNoteError :false});
+      this.setState({noSongSelectedError: true, noNoteError :false});
       return;
     }
 
     if (this.state.noteData === '') {
-      this.setState({noNoteError :true});
-      this.setState({noSongSelectedError: false});
+      this.setState({noNoteError :true, noSongSelectedError: false});
       return;
     }
 
     if (this.state.noteData.length > 180) {
-      this.setState({noteTooLongError: true});
-      this.setState({noNoteError :false});
-      this.setState({noSongSelectedError: false});
+      this.setState({noteTooLongError: true, noNoteError :false, noSongSelectedError: false});
       return;
     }
 
     if (this.state.noteData !== '' && this.state.trackName !== '' && this.state.noteData.length <= 180 ) {
-      this.setState({noNoteError :false});
-      this.setState({noSongSelectedError: false});
-      this.setState({noteTooLongError: false});
-
+      this.setState({noNoteError :false, noSongSelectedError: false, noteTooLongError: false});
+      let createdAt = this.props.currentMySong.createdAt;
       var mySong = {
         trackSummary: this.state.trackSummary,
         trackID: this.state.trackID,
@@ -129,6 +122,7 @@ class MySongModal extends Component {
         trackName: this.state.trackName,
         trackArtist: this.state.trackArtist,
         note: this.state.noteData,
+        createdAt,
       };
       var mySongPayload = {
         mySong: mySong,
@@ -136,28 +130,32 @@ class MySongModal extends Component {
       }
 
       axios.post('/api/currentmysong', mySongPayload)
-        .then((response) => {
-            this.props.onMySongChange(mySongPayload.mySong);
+        .then((updatedMySong) => {
+          if (updatedMySong.data === 'Not enough time has passed') {
+            alert('Not enough time has passed')
+          } else {
+            this.props.onMySongChange(updatedMySong.data);
+          }
         })
         .catch((err) => {
           throw err;
         });
-
-
     }
     this.setState({ open: false });
   }
 
   handleCancel = () => {
-    this.setState({noNoteError :false});
-    this.setState({noSongSelectedError: false});
-    this.setState({noteTooLongError: false});
-    this.setState({ open: false });
+    this.setState({
+        noNoteError :false,
+        noSongSelectedError: false,
+        noteTooLongError: false,
+        open: false
+      });
   };
 
   render() {
     const { open, dimmer } = this.state
-
+    console.log('MY CURRENT MYSONG: ', this.props.currentMySong);
     return (
       <div style={{textAlign:'center'}}>
         <Button onClick={this.show(true)}>Edit your current MySong</Button>
