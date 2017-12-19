@@ -142,7 +142,7 @@ class CreatePlaylistModal extends Component {
 
     return (
       <div>
-        <Button color='red' onClick={this.show(true)}>Create</Button>
+        <Button id="create-playlist-button" color='red' onClick={this.show(true)}>Create</Button>
         <Modal dimmer={false} open={open} onClose={this.close}>
           <Modal.Header>Create a Playlist</Modal.Header>
           <Modal.Content image>

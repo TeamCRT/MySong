@@ -40,7 +40,9 @@
 }
 
 .wrapper > div {
-  border: 1px solid;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
 }
 
 #navbar {
@@ -50,6 +52,7 @@
   margin: 0;
   padding: 0;
   grid-template-columns: 1fr 10fr 1fr 1fr;
+  border: none;
 }
 
 #navbar > * {
@@ -71,6 +74,8 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  border-left: none;
+  border-right: none;
 }
 
 .my-song-modal {
@@ -85,7 +90,8 @@
 }
 
 .current-song-artwork {
-  margin: .6em;
+  margin: auto;
+  margin-right: .6em;
   grid-column: 1;
   height: 125px;
 }
@@ -110,10 +116,20 @@
 #current-song-details > .song-note {
 }
 
-.playlists {
+#playlists {
   grid-column: 1;
   grid-row: 3;
   padding: 0;
+  position: relative;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+#create-playlist-button {
+  position: absolute;
+  bottom: 0;
+  border-radius: 0px;
 }
 
 
@@ -122,9 +138,12 @@
   grid-row: 3;
 }
 
-.friends {
+#following {
   grid-column: 3;
   grid-row: 3;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
 
 }
 

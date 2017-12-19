@@ -217,7 +217,15 @@ class HomePage extends React.Component {
             view="playlist"
           />
         )}
-        <div className="friends">friends</div>
+        {this.state.spotifyId && (<FollowingContainer
+          spotifyId={this.state.spotifyId}
+          playFollowingTrack={this.playFollowingTrack}
+          newPlaylistHandleClick={this.newPlaylistHandleClick}
+          following={this.state.following}
+          getFollowing={this.getFollowing}
+          refreshFollowing={this.handleFollowingRefresh}
+          view="following"
+        />)}
         {this.state.songToPlay.trackID ? <BottomPlayer URI={`spotify:track:${this.state.songToPlay.trackID}`} /> :
           this.state.currentMySong.trackID && <BottomPlayer URI={`spotify:track:${this.state.currentMySong.trackID}`} />
         }
