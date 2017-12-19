@@ -154,7 +154,6 @@ User.changeCurrentSong = (spotifyId, mySong) => {
 User.getUser = (spotifyId) => {
   return User.findOne({ spotifyId: spotifyId }).exec()
     .then((user) => {
-      console.log('USER', user);
       return user;
     })
     .catch(err => err);
@@ -167,8 +166,6 @@ User.getAllUsers = () => {
 };
 
 User.updatePlaylist = (spotifyId, originalName, newPlaylist) => {
-  console.log('User.updatePlaylist endpoint reached!');
-  console.log('arguments are ', spotifyId, originalName, newPlaylist);
   return User.update(
     { spotifyId: spotifyId, 'playlists.playlistName': originalName },
     {

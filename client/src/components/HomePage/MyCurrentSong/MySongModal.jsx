@@ -35,14 +35,12 @@ class MySongModal extends Component {
    handleChange(e) {
     e.preventDefault();
     var $element = $(e.target);
-    console.log('button pressed ', $element.text());
-    console.log('value attr is ', $element.attr('trackID'))
     this.setState({
       trackSummary: $element.text(),
-      trackID: $element.attr('trackID'),
-      trackAlbum: $element.attr('trackAlbum'),
-      trackArtist: $element.attr('trackArtist'),
-      trackName: $element.attr('trackName')
+      trackID: $element.attr('track_id'),
+      trackAlbum: $element.attr('track_album'),
+      trackArtist: $element.attr('track_artist'),
+      trackName: $element.attr('track_name')
     });
   }
 
@@ -53,11 +51,9 @@ class MySongModal extends Component {
    handleFormSubmit(e) {
   	e.preventDefault();
   	this.setState({showNote:true});
-  	console.log('Form was submitted!', this.state.formData);
   	var query = this.state.formData.split(' ').join('+');
   	var context = this;
     var spotifyToken = this.props.spotifyToken;
-    console.log('Search Button Pressed!');
 
      axios({
           method: 'GET',
@@ -78,7 +74,7 @@ class MySongModal extends Component {
                 track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
               }
               searchResults.push(result);
-            }  
+            }
             context.addSearchResults(searchResults);
           })
           .catch(err => console.error(err, err));
@@ -96,25 +92,21 @@ class MySongModal extends Component {
 
   show = dimmer => () => this.setState({ dimmer, open: true })
   handleSave () {
-    console.log('note is ', this.state.noteData);
     if (this.state.trackName === '' && this.state.noteData === '') {
       this.setState({noSongSelectedError :true});
       this.setState({noNoteError: true});
-      console.log('No song selected && no note added');
       return;
     }
 
     if (this.state.trackName === '') {
       this.setState({noSongSelectedError: true});
       this.setState({noNoteError :false});
-      console.log('No song selected!');
       return;
     }
 
     if (this.state.noteData === '') {
       this.setState({noNoteError :true});
       this.setState({noSongSelectedError: false});
-      console.log('No note added!');
       return;
     }
 
@@ -122,12 +114,10 @@ class MySongModal extends Component {
       this.setState({noteTooLongError: true});
       this.setState({noNoteError :false});
       this.setState({noSongSelectedError: false});
-      console.log('No note added!');
       return;
     }
 
     if (this.state.noteData !== '' && this.state.trackName !== '' && this.state.noteData.length <= 180 ) {
-      console.log('All conditions met!');
       this.setState({noNoteError :false});
       this.setState({noSongSelectedError: false});
       this.setState({noteTooLongError: false});
@@ -147,7 +137,6 @@ class MySongModal extends Component {
 
       axios.post('/api/currentmysong', mySongPayload)
         .then((response) => {
-            console.log('axios POST to /api/currentmysong successful', response);
             this.props.onMySongChange(mySongPayload.mySong);
         })
         .catch((err) => {
@@ -185,10 +174,10 @@ class MySongModal extends Component {
               	<div> Add Song Note
               	  <div>
               	    <textarea
-                    placeholder="Add Song Note" 
-                    type='text' 
-                    style={{width: '90%', height: '150px', resize: 'none', backgroundColor: '#f8f8f8', boxSizing: 'border-box'}} 
-                    onChange={this.handleNoteChange} 
+                    placeholder="Add Song Note"
+                    type='text'
+                    style={{width: '90%', height: '150px', resize: 'none', backgroundColor: '#f8f8f8', boxSizing: 'border-box'}}
+                    onChange={this.handleNoteChange}
                     value={this.state.noteData}></textarea>
               	  </div>
               	</div>
@@ -196,8 +185,8 @@ class MySongModal extends Component {
             </Modal.Description>
             <div>
     					{this.state.searchResults.map((result, index) => (
-    					 <div>{index+1 + '. '}
-      					<button onClick = {this.handleChange} key={result.track_id} trackID={result.track_id} trackAlbum={result.track_album} trackArtist={result.track_artist} trackName={result.track_name} >{result.track_summary}</button>
+    					 <div key={result.track_id}>{index+1 + '. '}
+      					<button onClick = {this.handleChange} key={result.track_id} track_id={result.track_id} track_album={result.track_album} track_artist={result.track_artist} track_name={result.track_name} >{result.track_summary}</button>
       				 </div>
     						))}
   					</div>

@@ -97,8 +97,7 @@ router.get(
   (req, res) => {
     // req.user contains the data sent back from db/passport.js SpotifyStrategy
     const user = req.user;
-    console.log('User for session \n', user, '\n\n')
-    console.log('User for passport session \n', req.session.passport.user, '\n\n')
+    // console.log('User for passport session \n', req.session.passport.user, '\n\n')
 
     const token = jwt.encode(user, secret);
     const session = req.session;
@@ -148,7 +147,6 @@ router.get(
 router.post(
   '/aplaylist',
   (req, res) => {
-    console.log('POST to /aplaylist detected!');
     User.createPlaylist(req.body.spotifyId, req.body.newPlaylist)
       .then(result => res.send(result))
       .catch(err => res.send(err));
@@ -158,7 +156,6 @@ router.post(
 router.put(
   '/aplaylist',
   (req, res) => {
-    console.log('PUT to /aplaylist detected!');
     var originalName = req.body.originalName;
     var updatedPlaylist = req.body.newPlaylist;
     var spotifyId = req.body.spotifyId;
@@ -190,7 +187,6 @@ router.get(
 );
 
 router.delete('/removeFollow', (req, res) => {
-  console.log('handle follow delete', req.query);
   User.removeFollow(req.session.passport.user.spotifyId, req.query.removeSpotifyId)
     .then((newFollowing) => {
       res.send(newFollowing);
@@ -317,7 +313,6 @@ router.put(
 router.get(
   '/spotifyAPI/albumArtwork',
   (req, res) => {
-    console.log('req.query', req.query);
     const token = req.session.passport.user.spotifyToken;
     axios({
       method: 'GET',
@@ -344,9 +339,8 @@ router.get(
 router.get(
   '/spotifyAPI/search',
   (req, res) => {
-    console.log('/spotifyAPI/search req.query ', req.query.track);
     const token = req.session.passport.user.spotifyToken;
-    axios({ 
+    axios({
       method: 'GET',
       url: `https://api.spotify.com/v1/search?q=${req.query.track}&type=track&market=US&limit=15&offset=0`,
       headers: {
@@ -356,7 +350,7 @@ router.get(
     })
       .then((success) => {
         res.send(success.data);
-        
+
       })
       .catch((err) => {
         console.error(err);

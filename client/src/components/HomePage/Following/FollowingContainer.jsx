@@ -56,7 +56,6 @@ class FollowingContainer extends React.Component {
     );
   }
   render() {
-    console.log('this.state.following in FollowingContainer: \n', this.state.following);
     return (
       <div>
         <Label.Group style={{ width: '100%' }}>
