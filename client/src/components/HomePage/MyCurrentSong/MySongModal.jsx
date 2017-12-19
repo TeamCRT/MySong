@@ -178,7 +178,7 @@ class MySongModal extends Component {
   render() {
     const { open, dimmer } = this.state
     return (
-      <div style={{textAlign:'center'}}>
+      <div className="my-song-modal" style={{textAlign:'center'}}>
         <Button onClick={this.handleEditMySongClick}>Edit your current MySong</Button>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>

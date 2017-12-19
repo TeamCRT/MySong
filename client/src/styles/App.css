@@ -42,7 +42,6 @@
 .wrapper > div {
   padding-top: 1em;
   border: 1px solid;
-  text-align: center;
 }
 
 #navbar {
@@ -56,6 +55,7 @@
 
 #navbar > * {
   margin: auto;
+  margin-left: 1%;
 }
 
 #navbar > .logo {
@@ -69,6 +69,46 @@
   grid-column: 1/4;
   grid-row: 2;
   margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.my-song-modal {
+  margin: auto;
+  margin-right: 1%;
+}
+
+.current-song-info {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+}
+
+.current-song-artwork {
+  margin: 1em;
+  grid-column: 1;
+  height: 125px;
+}
+
+#current-song-details {
+  grid-column: 2;
+  text-align: left;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#current-song-details > .song-title {
+  font-size: 200%;
+  line-height: 120%;
+}
+
+#current-song-details > .song-artist {
+  font-size: 150%;
+  line-height: 140%;
+}
+
+#current-song-details > .song-note {
 }
 
 .playlists {

@@ -1,6 +1,5 @@
 /* eslint-disable max-len, no-console */
 import React from 'react';
-import { Segment, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import Countdown from 'react-countdown-clock';
 import MySongModal from './MySongModal';
