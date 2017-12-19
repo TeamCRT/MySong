@@ -155,6 +155,7 @@ class CreatePlaylistModal extends Component {
                 newPlaylistHandleClick = {this.newPlaylistHandleClick}
                 following={this.props.following}
                 refreshFollowing={this.props.refreshFollowing}
+                view={this.props.view}
               /> ) }
             </Grid.Column>
 
