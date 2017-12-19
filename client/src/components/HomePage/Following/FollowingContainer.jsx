@@ -14,7 +14,7 @@ class FollowingContainer extends React.Component {
     this.getFollowing();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.following && prevProps.following.length !== this.props.following.length) {
       this.getFollowing(this.props.spotifyId);
     }
@@ -58,7 +58,7 @@ class FollowingContainer extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div id="following">
         <Label.Group style={{ width: '100%' }}>
           <Label style={
             {
