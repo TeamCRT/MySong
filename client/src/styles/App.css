@@ -27,6 +27,10 @@
   to { transform: rotate(360deg); }
 }
 
+* {
+  background: whitesmoke;
+}
+
 .wrapper {
   display: grid;
   height: 100vh;
@@ -36,17 +40,29 @@
 }
 
 .wrapper > div {
-  background: #eee;
   padding-top: 1em;
   border: 1px solid;
   text-align: center;
 }
 
-#header {
+#navbar {
   grid-column: 1/4;
   grid-row: 1;
+  display: grid;
   margin: 0;
   padding: 0;
+  grid-template-columns: 1fr 10fr 1fr 1fr;
+}
+
+#navbar > * {
+  margin: auto;
+}
+
+#navbar > .logo {
+  color: #ff0000;
+  font-family: Bungee;
+  font-size: 300%;
+  grid-column: 2;
 }
 
 #current-song {
