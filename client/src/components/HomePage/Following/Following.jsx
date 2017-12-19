@@ -18,8 +18,6 @@ class Following extends React.Component {
     this.setState({
       isVisible: !this.state.isVisible,
     });
-
-    this.props.newPlaylistHandleClick(this.props.follow);
   }
 
   handleRemoveFollow(spotifyId) { // eslint-disable-line
@@ -57,12 +55,24 @@ class Following extends React.Component {
           {this.props.follow.mySongUsername}
           <Popup
             trigger={
-              <Icon
+              (this.props.view === 'following' &&
+                <Icon
                 style={{ display: 'inline-block', float: 'right' }}
                 size="large"
                 onClick={this.handleRemoveFollow}
                 name="close"
-              />
+              />) ||
+
+              (this.props.view === 'playlist' &&
+                <Icon
+                style={{ display: 'inline-block', float: 'right' }}
+                size="large"
+                onClick={()=>this.props.newPlaylistHandleClick(this.props.follow)}
+                name="plus"
+              />)
+
+
+      
             }
             content={`Stop following ${this.props.follow.mySongUsername}`}
             position="top center"

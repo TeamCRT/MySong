@@ -52,6 +52,7 @@ class FollowingContainer extends React.Component {
         handleRemoveFollow={this.props.handleRemoveFollow}
         getFollowing={this.getFollowing}
         spotifyId={this.props.spotifyId}
+        view={this.props.view}
       />
     );
   }

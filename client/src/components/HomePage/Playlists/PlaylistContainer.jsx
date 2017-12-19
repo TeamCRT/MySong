@@ -37,6 +37,7 @@ class PlaylistContainer extends React.Component {
               updatePlaylists={this.props.updatePlaylists}
               playlists = {this.props.playlists}
               refreshFollowing={this.props.refreshFollowing}
+              view={this.props.view}
             />
           </Button.Group>
         </div>

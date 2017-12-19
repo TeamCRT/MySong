@@ -218,6 +218,7 @@ class HomePage extends React.Component {
                 following={this.state.following}
                 updatePlaylists={this.updatePlaylists}
                 refreshFollowing={this.handleFollowingRefresh}
+                view="playlist"
               />)}
             </Grid.Column>
 
@@ -241,6 +242,7 @@ class HomePage extends React.Component {
                 following={this.state.following}
                 getFollowing={this.getFollowing}
                 refreshFollowing={this.handleFollowingRefresh}
+                view="following"
               />)}
             </Grid.Column>
 
