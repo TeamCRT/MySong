@@ -178,8 +178,9 @@ class CreatePlaylistModal extends Component {
             <div style={{flexGrow: '2', display: 'flex', flexDirection: 'column', alignItems: 'stretch', maxWidth: '50%'}}>
 
               
-                <div style={{flexGrow: '1', padding: '0px 0px 10px 0px'}}>
+                <div style={{flexGrow: '1', padding: '0px 0px 10px 0px', flexDirection: 'row', display: 'flex'}}>
                 <Input onChange={this.handlePlaylistNameChange} style={{fontSize: '20px'}} focus placeholder='Playlist Name' />
+                {this.state.noPlaylistNameError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Your password must be 6 characters or more</Label>}
                 </div>
                 <div style={{flexGrow: '4', height: '100%'}}>
                   {this.state.followObjectArray.map((result, index) => (
