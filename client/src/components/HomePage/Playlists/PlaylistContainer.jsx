@@ -33,7 +33,7 @@ class PlaylistContainer extends React.Component {
               color="red"
               following={this.props.following}
               updatePlaylists={this.props.updatePlaylists}
-              playlists = {this.props.playlists}
+              playlists={this.props.playlists}
               refreshFollowing={this.props.refreshFollowing}
               view={this.props.view}
             />
