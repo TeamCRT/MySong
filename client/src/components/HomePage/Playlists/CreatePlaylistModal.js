@@ -102,6 +102,7 @@ class CreatePlaylistModal extends Component {
         .then((results) => {
            this.setState({newPlaylistName: ''});
            this.setState({newPlaylist: []});
+           this.setState({followObjectArray: []});
            this.props.updatePlaylists(newPlaylist);
         })
         .catch((err) => {
@@ -116,6 +117,7 @@ class CreatePlaylistModal extends Component {
   handleCancel() {
     this.setState({newPlaylistName: ''});
     this.setState({newPlaylist: []});
+    this.setState({followObjectArray: []});
     this.setState({open:false});
 
     this.setState({noPlaylistNameError :false});
@@ -127,19 +129,28 @@ class CreatePlaylistModal extends Component {
 
 
   newPlaylistHandleClick(follow) {
-    // var songsArray = this.state.newPlaylist;
-    // if (!songsArray.includes(follow.spotifyId)) {
-    //   songsArray.push(follow.spotifyId);
-    //   this.setState({newPlaylist: songsArray})
-    // }  else {
-    //   var index = songsArray.indexOf(follow.spotifyId);
-    //   songsArray.splice(index, 1);
-    //   this.setState({newPlaylist: songsArray});
-    // }
-    console.log('follow is', follow);
+    var songsArray = this.state.newPlaylist;
     var followObjectArray = this.state.followObjectArray;
-    followObjectArray.push(follow);
-    this.setState({followObjectArray: followObjectArray});
+
+    if (!songsArray.includes(follow.spotifyId)) {
+      songsArray.push(follow.spotifyId);
+      followObjectArray.push(follow);
+      this.setState({newPlaylist: songsArray});
+      this.setState({followObjectArray: followObjectArray});
+
+    }  else {
+      var index = songsArray.indexOf(follow.spotifyId);
+      songsArray.splice(index, 1);
+      followObjectArray.splice(index, 1);
+      this.setState({newPlaylist: songsArray});
+      this.setState({followObjectArray: followObjectArray});
+    }
+
+///////////////
+    // console.log('follow is', follow);
+    // var followObjectArray = this.state.followObjectArray;
+    // followObjectArray.push(follow);
+    // this.setState({followObjectArray: followObjectArray});
   }
 
   show = dimmer => () => this.setState({ dimmer, open: true })
