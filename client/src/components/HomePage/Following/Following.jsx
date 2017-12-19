@@ -78,7 +78,7 @@ class Following extends React.Component {
             position="top center"
           />
         </Label>
-        <Label style={{ display: 'flex', order: '0', borderRadius: '0px', width: '100%', textAlign: 'center' }}>
+        <Label style={{ display: 'flex', order: '0', borderRadius: '0px', width: '100%', textAlign: 'center', marginLeft: 0 }}>
           {this.props.follow.currentMySong.trackName}
           <Popup
             trigger={
