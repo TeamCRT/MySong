@@ -86,7 +86,7 @@
 }
 
 .current-song-artwork {
-  margin: 1em;
+  margin: .6em;
   grid-column: 1;
   height: 125px;
 }
