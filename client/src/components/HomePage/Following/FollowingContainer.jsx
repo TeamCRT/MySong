@@ -73,14 +73,7 @@ class FollowingContainer extends React.Component {
           >
           Following
           </Label>
-          <div style={
-            {
-              paddingBottom: '80px',
-              maxHeight: '500px',
-              overflow: 'scroll',
-              overflowX: 'hidden',
-            }}
-          >
+          <div>
             {this.state.following && this.state.following.map(this.mapFollowing.bind(this))}
             {this.state.following === null &&
               (<Label>
