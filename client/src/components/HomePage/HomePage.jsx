@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import axios from 'axios';
 import { Container, Divider, Grid } from 'semantic-ui-react';
@@ -193,7 +192,12 @@ class HomePage extends React.Component {
           options={this.state.options}
           username={this.state.mySongUsername}
         />
-        <div className="current-song">current-song</div>
+        <MyCurrentSongContainer
+          currentMySong={this.state.currentMySong}
+          spotifyId={this.state.spotifyId}
+          spotifyToken={this.state.spotifyToken}
+          onMySongChange={this.handleMySongChange}
+        />
         <div className="playlists">playlists</div>
         <div className="current-playlist">current-playlist</div>
         <div className="friends">friends</div>

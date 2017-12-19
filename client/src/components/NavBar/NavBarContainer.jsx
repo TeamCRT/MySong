@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, Menu, Header } from 'semantic-ui-react';
-import Search from './Search.jsx'
-import './NavBarContainer.css';
+import Search from './Search';
 
 const HOME = 'http://127.0.0.1:3000';
 
@@ -15,6 +14,7 @@ class NavBarContainer extends React.Component {
     axios.delete('/api/deleteSession');
     window.location.href = HOME;
   }
+
   render() {
     return (
       <Menu id="header">
@@ -26,7 +26,7 @@ class NavBarContainer extends React.Component {
             options={this.props.options}
           />
         </Menu.Item>
-        <Header size="large" color="red" style={{float:'left', fontFamily:'Bungee', fontSize:'50px'}} >mysong.io </Header>
+        <Header size="large" color="red" style={{ float: 'left', fontFamily: 'Bungee', fontSize: '50px' }} >mysong.io </Header>
         <Menu.Item name={this.props.username} position="right" />
         <Menu.Item>
           <Button onClick={this.handleLogOut}> Log Out </Button>
@@ -34,6 +34,6 @@ class NavBarContainer extends React.Component {
       </Menu>
     );
   }
-};
+}
 
 export default NavBarContainer;
