@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema({
     trackName: String,
     trackArtist: String,
     note: String,
+    createdAt: Object,
   },
 
   following: {

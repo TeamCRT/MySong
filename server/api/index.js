@@ -197,8 +197,8 @@ router.delete('/removeFollow', (req, res) => {
 });
 
 router.delete('/deletePlaylist', (req, res) => {
-  console.log('/deletePlaylist endpoint reached!');  
-  console.log('req.query.playlistName ', req.query.playlistName);  
+  console.log('/deletePlaylist endpoint reached!');
+  console.log('req.query.playlistName ', req.query.playlistName);
   User.deletePlaylist(req.session.passport.user.spotifyId, req.query.playlistName)
     .then((response) => {
       console.log('delete playlist response is: ', response);
@@ -220,11 +220,21 @@ router.get('/currentmysong/:spotifyId', (req, res) => {
 
 router.post('/currentmysong', (req, res) => {
   const spotifyId = req.body.spotifyId;
-  const mySong = req.body.mySong;
-
-  User.changeCurrentSong(spotifyId, mySong)
-    .then(result => res.status(200).json(result))
-    .catch(err => res.send(err));
+  let mySong = req.body.mySong;
+  let currentTimeAndDate = new Date();
+  currentTimeAndDate = Date.parse(currentTimeAndDate);
+  let mySongExpiration = Date.parse(mySong.createdAt);
+  // = currentTimeAndDate - Date.parse(mySong.createdAt);
+  console.log('CURRENT TIME', currentTimeAndDate, '\nPrevious My Song created at :', mySongExpiration );
+  console.log('TIME ELAPSED: ', currentTimeAndDate - mySongExpiration);
+  if (currentTimeAndDate - mySongExpiration > 20000) {
+    mySong.createdAt = new Date();
+    User.changeCurrentSong(spotifyId, mySong)
+      .then(result => res.status(200).json(mySong))
+      .catch(err => res.send(err));
+  } else {
+    res.json('Not enough time has passed')
+  }
 });
 
 router.put('/addToFollowing', (req, res) => {
@@ -354,7 +364,7 @@ router.get(
   '/spotifyAPI/search',
   (req, res) => {
     const token = req.session.passport.user.spotifyToken;
-    axios({ 
+    axios({
       method: 'GET',
       url: `https://api.spotify.com/v1/search?q=${req.query.track}&type=track&market=US&limit=15&offset=0`,
       headers: {

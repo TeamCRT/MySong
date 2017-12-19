@@ -3,7 +3,7 @@ import React from 'react';
 import { Segment, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import MySongModal from './MySongModal';
-// import stylesheet from 
+// import stylesheet from
 
 class MyCurrentSongContainer extends React.Component {
   constructor(props) {
@@ -47,6 +47,7 @@ class MyCurrentSongContainer extends React.Component {
             spotifyId={this.props.spotifyId}
             spotifyToken={this.props.spotifyToken}
             onMySongChange={this.props.onMySongChange}
+            currentMySong={this.props.currentMySong}
           />
         </Segment>
       </div>
