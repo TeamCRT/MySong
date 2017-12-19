@@ -23,6 +23,7 @@ class DeletePlaylistModal extends Component {
     axios.delete(`/api/deletePlaylist?playlistName=${this.props.playlistName}`)
       .then((response) => {
         console.log('Playlist successfully deleted!');
+        this.props.updatePlaylists();
       })
       .catch((err) => {
         throw err;
