@@ -161,13 +161,12 @@ class MySongModal extends Component {
     return (
       <div style={{textAlign:'center'}}>
         <Button onClick={this.show(true)}>Edit your current MySong</Button>
-        <Modal dimmer={dimmer} open={open} onClose={this.close}>
+        <Modal size='large'dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
           <Modal.Content image>
             <Modal.Description>
-              <p>Pick a new MySong</p>
               <form onSubmit={this.handleFormSubmit} >
-                <input type='text' value={this.state.formData} onChange={this.handleFormChange}></input>
+                <input placeholder='search for a song' type='text' value={this.state.formData} onChange={this.handleFormChange}></input>
               	<input type='submit'></input>
               </form>
               {this.state.showNote &&

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Header, Modal, Grid } from 'semantic-ui-react'
+import { Button, Header, Modal, Grid, Input, Icon } from 'semantic-ui-react'
 import FollowingContainer from '../Following/FollowingContainer'
 import axios from 'axios'
 
@@ -10,11 +10,13 @@ class CreatePlaylistModal extends Component {
     this.state = {
       newPlaylistName: '',
       newPlaylist: [],
+      followObjectArray: [],
       open: false,
       noPlaylistNameError: false,
       noSongsInPlaylistError: false,
       playlistNameAlreadyExistsError: false,
       illegalCharError: false,
+      name: 'Bob'
     };
 
     this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this);
@@ -34,6 +36,7 @@ class CreatePlaylistModal extends Component {
   handlePlaylistNameChange(e) {
     e.preventDefault();
     this.setState({newPlaylistName: e.target.value});
+    console.log('new playlist name is ', this.state.newPlaylistName);
   }
 
   handleSave() {
@@ -121,17 +124,22 @@ class CreatePlaylistModal extends Component {
     this.setState({illegalCharError: false});
   }
 
-  newPlaylistHandleClick(follow) {
-    var songsArray = this.state.newPlaylist;
-    if (!songsArray.includes(follow.spotifyId)) {
-      songsArray.push(follow.spotifyId);
-      this.setState({newPlaylist: songsArray})
-    }  else {
-      var index = songsArray.indexOf(follow.spotifyId);
-      songsArray.splice(index, 1);
-      this.setState({newPlaylist: songsArray});
-    }
 
+
+  newPlaylistHandleClick(follow) {
+    // var songsArray = this.state.newPlaylist;
+    // if (!songsArray.includes(follow.spotifyId)) {
+    //   songsArray.push(follow.spotifyId);
+    //   this.setState({newPlaylist: songsArray})
+    // }  else {
+    //   var index = songsArray.indexOf(follow.spotifyId);
+    //   songsArray.splice(index, 1);
+    //   this.setState({newPlaylist: songsArray});
+    // }
+    console.log('follow is', follow);
+    var followObjectArray = this.state.followObjectArray;
+    followObjectArray.push(follow);
+    this.setState({followObjectArray: followObjectArray});
   }
 
   show = dimmer => () => this.setState({ dimmer, open: true })
@@ -141,83 +149,47 @@ class CreatePlaylistModal extends Component {
     const { open } = this.state
 
     return (
+
       <div>
         <Button color='red' onClick={this.show(true)}>Create</Button>
-        <Modal dimmer={false} open={open} onClose={this.close}>
+        <Modal dimmer={true} open={open} onClose={this.close}>
           <Modal.Header>Create a Playlist</Modal.Header>
-          <Modal.Content image>
-
-
-          <Grid columns={3}
-                centered={true} 
-                divided={true}
-                padded="horizontally"
-                stretched={true}
-                >
-            <Grid.Column>
-              {this.props.spotifyId && ( <FollowingContainer
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch'}}>
+            <div style={{padding: '20px 20px', flexGrow: '1'}}>
+            <FollowingContainer
                 spotifyId={this.props.spotifyId}
                 newPlaylistHandleClick = {this.newPlaylistHandleClick}
                 following={this.props.following}
                 refreshFollowing={this.props.refreshFollowing}
                 view={this.props.view}
-              /> ) }
-            </Grid.Column>
+              /> 
+            </div>
+            <div style={{flexGrow: '2', display: 'flex', flexDirection: 'column', alignItems: 'stretch', maxWidth: '50%'}}>
 
-           
+              
+                <div style={{flexGrow: '1', padding: '0px 0px 10px 0px'}}>
+                <Input onChange={this.handlePlaylistNameChange} style={{fontSize: '20px'}} focus placeholder='Playlist Name' />
+                </div>
+                <div style={{flexGrow: '4', height: '100%'}}>
+                  {this.state.followObjectArray.map((result, index) => (
+                   <div style={{fontSize: '40px', wordWrap: 'break-word'}}>
+                   <Icon name="circle" />
+                   {result.currentMySong.trackSummary}
+                   </div>
+                 ))}
+                </div>
+          
 
-
-
-            <Header>
-              {this.state.noPlaylistNameError &&
-                <div style={{color:'red'}}>No Playlist Name</div>
-              }
-            </Header>
-
-
-
-            <Grid.Column>
-            <Header>{this.state.newPlaylistName}</Header>
-
-
-            <Header>
-              {this.state.noSongsInPlaylistError &&
-                <div style={{color:'red'}}>No Songs in Playlist</div>
-              }
-            </Header>
-
-            <Header>
-              {this.state.playlistNameAlreadyExistsError &&
-                <div style={{color:'red'}}>Playlist Name Already Exists</div>
-              }
-            </Header>
-
-
-            <Header>
-              {this.state.illegalCharError &&
-                <div style={{color:'red'}}>Illegal Character(s) In Playlist Name!</div>
-              }
-            </Header>
-              New Playlist Name
-              <input value={this.state.newPlaylistName} onChange={this.handlePlaylistNameChange}></input>
-              {this.state.newPlaylist.map((result, index) => (
-               <div> {'-'}
-                {result}
-               </div>
-                ))}
-            </Grid.Column>
+              
 
 
 
+                
 
-
-          </Grid>
-
-          </Modal.Content>
+            </div>
+          </div>
           <Modal.Actions>
-            <Button color='black' onClick={this.handleCancel}>
-              Cancel
-            </Button>
+            <Button color='black' onClick={this.handleCancel} content="Cancel"/>
             <Button positive icon='checkmark' labelPosition='right' content="Save" onClick={this.handleSave} />
           </Modal.Actions>
         </Modal>

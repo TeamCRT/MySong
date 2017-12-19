@@ -75,7 +75,6 @@ class FollowingContainer extends React.Component {
           </Label>
           <div style={
             {
-              paddingBottom: '80px',
               maxHeight: '500px',
               overflow: 'scroll',
               overflowX: 'hidden',
