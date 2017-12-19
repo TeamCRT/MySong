@@ -148,7 +148,12 @@ class CreatePlaylistModal extends Component {
           <Modal.Content image>
 
 
-          <Grid columns={2} stackable>
+          <Grid columns={3}
+                centered={true} 
+                divided={true}
+                padded="horizontally"
+                stretched={true}
+                >
             <Grid.Column>
               {this.props.spotifyId && ( <FollowingContainer
                 spotifyId={this.props.spotifyId}
@@ -172,7 +177,6 @@ class CreatePlaylistModal extends Component {
 
 
             <Grid.Column>
-            <Header>{this.state.newPlaylist.length}</Header>
             <Header>{this.state.newPlaylistName}</Header>
 
 
@@ -194,9 +198,6 @@ class CreatePlaylistModal extends Component {
                 <div style={{color:'red'}}>Illegal Character(s) In Playlist Name!</div>
               }
             </Header>
-
-            <Header>
-            </Header>
               New Playlist Name
               <input value={this.state.newPlaylistName} onChange={this.handlePlaylistNameChange}></input>
               {this.state.newPlaylist.map((result, index) => (
@@ -205,6 +206,8 @@ class CreatePlaylistModal extends Component {
                </div>
                 ))}
             </Grid.Column>
+
+
 
 
 

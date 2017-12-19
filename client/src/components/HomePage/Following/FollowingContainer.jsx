@@ -63,7 +63,7 @@ class FollowingContainer extends React.Component {
           <Label style={
             {
               borderRadius: '0px',
-              posistion: 'sticky',
+              position: 'sticky',
               width: '100%',
               textAlign: 'center',
               color: 'black',
