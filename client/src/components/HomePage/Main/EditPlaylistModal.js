@@ -173,6 +173,7 @@ class EditPlaylistModal extends Component {
                 spotifyId={this.props.spotifyId} 
                 newPlaylistHandleClick={this.newPlaylistHandleClick}
                 refreshFollowing={this.props.refreshFollowing}
+                view={this.props.view}
               /> ) }
             </Grid.Column>
 

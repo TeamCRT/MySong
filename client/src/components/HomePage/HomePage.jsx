@@ -230,6 +230,7 @@ class HomePage extends React.Component {
                   updatePlaylists={this.updatePlaylists}
                   playlists={this.state.playlists}
                   refreshFollowing={this.handleFollowingRefresh}
+                  view="playlist"
                 />
               )}
             </Grid.Column>
