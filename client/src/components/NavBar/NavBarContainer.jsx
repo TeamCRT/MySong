@@ -17,7 +17,7 @@ class NavBarContainer extends React.Component {
   }
   render() {
     return (
-      <Menu>
+      <Menu id="header">
         <Menu.Item>
           <Search
             spotifyId={this.props.spotifyId}

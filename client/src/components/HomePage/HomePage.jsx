@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import axios from 'axios';
 import { Container, Divider, Grid } from 'semantic-ui-react';
@@ -104,7 +105,7 @@ class HomePage extends React.Component {
         })
       })
       .catch((err) => {
-        throw err
+        throw err;
       });
   }
 
@@ -183,7 +184,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <NavBarContainer
           spotifyId={this.state.spotifyId}
           following={this.state.following}
@@ -191,60 +192,12 @@ class HomePage extends React.Component {
           history={this.props.history}
           options={this.state.options}
           username={this.state.mySongUsername}
-          style={{ border: '10px', width: '100%' }}
         />
-        <Container style={{ marginTop: '3em', width: '100%' }}>
-          <MyCurrentSongContainer
-            currentMySong={this.state.currentMySong}
-            spotifyId={this.state.spotifyId}
-            spotifyToken={this.state.spotifyToken}
-            onMySongChange={this.handleMySongChange}
-          />
-          <Divider />
-          <Grid columns={3} stackable>
-            <Grid.Column style={{ width: '20%', maxWidth: 300}}>
-              {this.state.spotifyId && (<PlaylistContainer
-                playlists = {this.state.playlists}
-                clickHandler={this.handlePlaylistEntryClick}
-                spotifyId={this.state.spotifyId}
-                following={this.state.following}
-                updatePlaylists={this.updatePlaylists}
-                refreshFollowing={this.handleFollowingRefresh}
-                view="playlist"
-              />)}
-            </Grid.Column>
-
-            <Grid.Column style={{ width: '55%', margin: 'auto', marginTop: '0'}}>
-              {this.state.currentPlaylistObj.name && (
-                <CurrentPlaylist
-                  currentPlaylistObj={this.state.currentPlaylistObj}
-                  spotifyUserId={this.state.spotifyId}
-                  updatePlaylists={this.updatePlaylists}
-                  playlists={this.state.playlists}
-                  refreshFollowing={this.handleFollowingRefresh}
-                  view="playlist"
-                />
-              )}
-            </Grid.Column>
-
-            <Grid.Column style={{ width: '25%', maxWidth: 500, right: 0 }}>
-              {this.state.spotifyId && (<FollowingContainer
-                spotifyId={this.state.spotifyId}
-                playFollowingTrack={this.playFollowingTrack}
-                newPlaylistHandleClick={this.newPlaylistHandleClick}
-                following={this.state.following}
-                getFollowing={this.getFollowing}
-                refreshFollowing={this.handleFollowingRefresh}
-                view="following"
-              />)}
-            </Grid.Column>
-
-          </Grid>
-          {this.state.songToPlay.trackID ?
-            <BottomPlayer URI={`spotify:track:${this.state.songToPlay.trackID}`} /> :
-            this.state.currentMySong.trackID && <BottomPlayer URI={`spotify:track:${this.state.currentMySong.trackID}`} />
-          }
-        </Container>
+        <div className="current-song">current-song</div>
+        <div className="playlists">playlists</div>
+        <div className="current-playlist">current-playlist</div>
+        <div className="friends">friends</div>
+        <div className="bottom-player">bottom-player</div>
       </div>
     );
   }
