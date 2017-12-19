@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Header, Modal, Grid, Input, Icon } from 'semantic-ui-react'
+import { Button, Header, Modal, Grid, Input, Icon, Label } from 'semantic-ui-react'
 import FollowingContainer from '../Following/FollowingContainer'
 import axios from 'axios'
 
@@ -172,9 +172,13 @@ class CreatePlaylistModal extends Component {
                 </div>
                 <div style={{flexGrow: '4', height: '100%'}}>
                   {this.state.followObjectArray.map((result, index) => (
-                   <div style={{fontSize: '40px', wordWrap: 'break-word'}}>
-                   <Icon name="circle" />
-                   {result.currentMySong.trackSummary}
+                   <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px'}}>
+                   <Label style={{ borderRadius: '10px', width: '80%', textAlign: 'center' }} color="blue">
+                    {result.mySongUsername + '\'s MySong'}
+                   </Label>
+                   <Label style={{ borderRadius: '10px', width: '80%', textAlign: 'center' }} color="yellow">
+                    {result.currentMySong.trackSummary}
+                   </Label>
                    </div>
                  ))}
                 </div>
