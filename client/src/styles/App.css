@@ -40,7 +40,7 @@
 }
 
 .wrapper > div {
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
   border-color: black;
 }
@@ -78,11 +78,6 @@
   border-right: none;
 }
 
-.my-song-modal {
-  margin: auto;
-  margin-right: 1%;
-}
-
 .current-song-info {
   grid-column: 2;
   display: grid;
@@ -116,6 +111,11 @@
 #current-song-details > .song-note {
 }
 
+.my-song-modal {
+  margin: auto;
+  margin-right: 1%;
+}
+
 #playlists {
   grid-column: 1;
   grid-row: 3;
@@ -144,10 +144,13 @@
   border-top: none;
   border-right: none;
   border-bottom: none;
+  overflow: auto;
+  overflow-x: hidden;
 
 }
 
 .bottom-player {
   grid-column: 1/4;
   grid-row: 4;
+  border: none;
 }
