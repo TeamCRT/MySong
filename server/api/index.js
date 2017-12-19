@@ -50,7 +50,6 @@ router.get('/users', (req, res) => {
 
 
 router.get('/me', (req, res) => {
-  // console.log('GET ME SESSION PASSPORT: \n', req.session);
   const saveToken = req.session.passport.user.spotifyToken;
   User.getUser(req.session.passport.user.spotifyId)
     .then((user) => {
@@ -197,6 +196,20 @@ router.delete('/removeFollow', (req, res) => {
     });
 });
 
+router.delete('/deletePlaylist', (req, res) => {
+  console.log('/deletePlaylist endpoint reached!');  
+  console.log('req.query.playlistName ', req.query.playlistName);  
+  User.deletePlaylist(req.session.passport.user.spotifyId, req.query.playlistName)
+    .then((response) => {
+      console.log('delete playlist response is: ', response);
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log('DELETE PLAYLIST ERROR: ', err);
+      res.send(err);
+    });
+});
+
 
 router.get('/currentmysong/:spotifyId', (req, res) => {
   const spotifyId = req.params.spotifyId;
@@ -256,6 +269,7 @@ router.post(
     const URIArray = req.body.songURIs;
     const spotifyUserID = req.body.spotifyUserID;
     const token = req.session.passport.user.spotifyToken;
+    console.log('token is ', token);
     axios({
       method: 'post',
       url: `https://api.spotify.com/v1/users/${spotifyUserID}/playlists`,
@@ -282,9 +296,9 @@ router.post(
           },
         })
           .then(success => res.send(success))
-          .catch(err => console.error(err.response.data));
+          .catch(err => err);
       })
-      .catch(err => console.error(err));
+      .catch(err => err);
   },
 );
 
@@ -340,7 +354,7 @@ router.get(
   '/spotifyAPI/search',
   (req, res) => {
     const token = req.session.passport.user.spotifyToken;
-    axios({
+    axios({ 
       method: 'GET',
       url: `https://api.spotify.com/v1/search?q=${req.query.track}&type=track&market=US&limit=15&offset=0`,
       headers: {

@@ -117,6 +117,17 @@ User.removeFollow = (currentUserSpotifyId, removeSpotifyId) => {
   ).exec();
 };
 
+User.deletePlaylist = (currentUserSpotifyId, playlistName) => {
+  return User.update(
+    {
+      spotifyId: currentUserSpotifyId
+    },
+    {
+      $pull: { playlists: { playlistName: playlistName } }
+    }
+  ).exec();
+};
+
 User.populateFollowing = (following) => {
   const followingIds = following.map((follow) => { // eslint-disable-line
     return follow.spotifyId;
