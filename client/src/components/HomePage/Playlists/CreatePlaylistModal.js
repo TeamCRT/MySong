@@ -19,6 +19,7 @@ class CreatePlaylistModal extends Component {
       name: 'Bob'
     };
 
+
     this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this);
     this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
@@ -180,7 +181,8 @@ class CreatePlaylistModal extends Component {
               
                 <div style={{flexGrow: '1', padding: '0px 0px 10px 0px', flexDirection: 'row', display: 'flex'}}>
                 <Input onChange={this.handlePlaylistNameChange} style={{fontSize: '20px'}} focus placeholder='Playlist Name' />
-                {this.state.noPlaylistNameError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Your password must be 6 characters or more</Label>}
+                {this.state.noPlaylistNameError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Please include playlist name</Label> ||
+                this.state.illegalCharError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Playlist name can not include special characters</Label>}
                 </div>
                 <div style={{flexGrow: '4', height: '100%'}}>
                   {this.state.followObjectArray.map((result, index) => (
