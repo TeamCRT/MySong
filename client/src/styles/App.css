@@ -40,7 +40,6 @@
 }
 
 .wrapper > div {
-  padding-top: 1em;
   border: 1px solid;
 }
 
@@ -114,6 +113,7 @@
 .playlists {
   grid-column: 1;
   grid-row: 3;
+  padding: 0;
 }
 
 
@@ -131,5 +131,4 @@
 .bottom-player {
   grid-column: 1/4;
   grid-row: 4;
-
 }

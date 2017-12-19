@@ -23,8 +23,7 @@ class PlaylistContainer extends React.Component {
 
   render() {
     return (
-      <div>
-
+      <div className="playlists">
         <div>
           <Button.Group vertical style={{ width: '100%' }}>
             <Button disabled >My Playlists</Button>
