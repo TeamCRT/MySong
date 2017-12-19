@@ -81,9 +81,9 @@ class CurrentPlaylist extends React.Component {
             playlistName={this.props.currentPlaylistObj.name}
             spotifyId={this.props.spotifyUserId}
             playlistSongArr={this.state.playlistSongArr}
-            refreshFollowing={this.props.refreshFollowing} />
+            refreshFollowing={this.props.refreshFollowing}
+            view={this.props.view} />
 
-          
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {this.state.playlistSongArr.length > 0 && this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)}
