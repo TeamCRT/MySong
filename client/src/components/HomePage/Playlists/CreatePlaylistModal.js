@@ -34,7 +34,6 @@ class CreatePlaylistModal extends Component {
   handlePlaylistNameChange(e) {
     e.preventDefault();
     this.setState({newPlaylistName: e.target.value});
-    console.log('Playlists from state are ', this.props.playlists);
   }
 
   handleSave() {
@@ -73,7 +72,7 @@ class CreatePlaylistModal extends Component {
     }
 
     if (userPlaylists.includes(this.state.newPlaylistName)) {
-      this.setState({playlistNameAlreadyExistsError: true}); 
+      this.setState({playlistNameAlreadyExistsError: true});
       this.setState({noPlaylistNameError :false});
       this.setState({noSongsInPlaylistError: false});
       return;
@@ -115,7 +114,7 @@ class CreatePlaylistModal extends Component {
     this.setState({newPlaylistName: ''});
     this.setState({newPlaylist: []});
     this.setState({open:false});
-    
+
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
     this.setState({playlistNameAlreadyExistsError: false});
@@ -183,7 +182,7 @@ class CreatePlaylistModal extends Component {
               }
             </Header>
 
-              
+
             <Header>
               {this.state.illegalCharError &&
                 <div style={{color:'red'}}>Illegal Character(s) In Playlist Name!</div>

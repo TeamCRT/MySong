@@ -9,17 +9,17 @@ class EditPlaylistModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newPlaylistName: '', 
+      newPlaylistName: '',
       newPlaylist: this.props.playlistSongArr,
       open: false,
-      noPlaylistNameError: false, 
+      noPlaylistNameError: false,
       noSongsInPlaylistError: false,
       playlistNameAlreadyExistsError: false,
        illegalCharError: false,
     };
 
-    this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this); 
-    this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this); 
+    this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this);
+    this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handlePlaylistChange = this.handlePlaylistChange.bind(this);
@@ -55,8 +55,7 @@ class EditPlaylistModal extends Component {
     var illegalChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     var originalPlaylistName = this.props.playlistName;
     var originalPlaylistNameIndex = userPlaylists.indexOf(originalPlaylistName);
-    userPlaylists.splice(originalPlaylistNameIndex, 1);
-    console.log('userPlaylists is ', userPlaylists);
+    userPlaylists.splice(originalPlaylistNameIndex, 1)
 
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
@@ -69,7 +68,7 @@ class EditPlaylistModal extends Component {
       this.setState({playlistNameAlreadyExistsError: false});
       return;
     }
-    
+
     if (this.state.newPlaylist.length === 0) {
       this.setState({noSongsInPlaylistError: true});
       this.setState({noPlaylistNameError :false});
@@ -90,7 +89,7 @@ class EditPlaylistModal extends Component {
     }
 
     if (userPlaylists.includes(this.state.newPlaylistName)) {
-      this.setState({playlistNameAlreadyExistsError: true}); 
+      this.setState({playlistNameAlreadyExistsError: true});
       this.setState({noPlaylistNameError :false});
       this.setState({noSongsInPlaylistError: false});
       return;
@@ -130,7 +129,6 @@ class EditPlaylistModal extends Component {
   }
 
   handleCancel() {
-    console.log('current playlist name is ', this.props.playlistName);
     this.setState({newPlaylistName: ''});
     this.setState({newPlaylist: []});
     this.setState({open:false});
@@ -151,7 +149,7 @@ class EditPlaylistModal extends Component {
       songsArray.splice(index, 1);
       this.setState({newPlaylist: songsArray});
     }
-  
+
   }
 
   show = dimmer => () => this.setState({ dimmer, open: true })
@@ -218,7 +216,7 @@ class EditPlaylistModal extends Component {
                 ))}
             </Grid.Column>
 
-            
+
 
           </Grid>
 

@@ -34,7 +34,6 @@ class SearchExampleStandard extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('UPDATE SEARCH RESULTS');
     const followingSpotifyIds = [];
     let newOptions = [];
     if (this.props.options && this.props.following.constructor === Array) {
@@ -118,7 +117,6 @@ class SearchExampleStandard extends Component {
 
   render() {
     const { openStatus, isLoading, value, results } = this.state;
-    console.log('SEARCH RENDER');
     return (
       <Search
         onFocus={() => {
@@ -127,7 +125,6 @@ class SearchExampleStandard extends Component {
               openStatus: true,
             });
         }}
-        onBlur={() => {console.log('ON BLUR');}}
         placeholder={'Search for users to follow'}
         loading={isLoading}
         onSearchChange={this.handleSearchChange}

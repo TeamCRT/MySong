@@ -31,7 +31,7 @@ module.exports = (passport) => {
           existingUser.spotifyToken = accessToken;
           return done(null, existingUser);
         }
-        const newUser = new User();
+        let newUser = new User();
         newUser.spotifyId = profile.id;
         newUser.spotifyUsername = profile.username;
         newUser.spotifyDisplayName = profile.displayName;
@@ -57,9 +57,10 @@ module.exports = (passport) => {
             throw err1;
           }
           // don't need to store accessToken into DB, only need refreshToken
-          newUser.spotifyToken = accessToken;
-          return done(null, newUser);
         });
+        let userWithToken = Object.assign({}, newUser._doc);
+        userWithToken.spotifyToken = accessToken;
+        return done(null, userWithToken);
       });
     },
   ));
