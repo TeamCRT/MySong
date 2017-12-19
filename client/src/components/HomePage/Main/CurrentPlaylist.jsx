@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import React from 'react';
 import axios from 'axios';
+import { Button } from 'semantic-ui-react';
 import CurrentPlaylistSong from './CurrentPlaylistSong';
 import EditPlaylistModal from './EditPlaylistModal';
 import DeletePlaylistModal from './DeletePlaylistModal';
-import { Button } from 'semantic-ui-react';
 
 class CurrentPlaylist extends React.Component {
   constructor(props) {
@@ -64,13 +64,13 @@ class CurrentPlaylist extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="current-playlist">
         <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}
-          <button
+          <Button
             onClick={this.saveToSpotify}
             style={{ fontSize: 15, marginLeft: 20 }}
           >Save this Playlist on Spotify
-          </button>
+          </Button>
           <DeletePlaylistModal
             playlists={this.props.playlists}
             updatePlaylists={this.props.updatePlaylists}
