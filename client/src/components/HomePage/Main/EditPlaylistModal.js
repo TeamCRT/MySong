@@ -170,7 +170,9 @@ class EditPlaylistModal extends Component {
           <Grid columns={2} stackable>
             <Grid.Column>
               {this.props.spotifyId && ( <FollowingContainer
-                spotifyId={this.props.spotifyId} newPlaylistHandleClick = {this.newPlaylistHandleClick}
+                spotifyId={this.props.spotifyId} 
+                newPlaylistHandleClick={this.newPlaylistHandleClick}
+                refreshFollowing={this.props.refreshFollowing}
               /> ) }
             </Grid.Column>
 

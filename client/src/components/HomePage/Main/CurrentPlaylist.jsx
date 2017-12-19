@@ -80,7 +80,9 @@ class CurrentPlaylist extends React.Component {
             updatePlaylists={this.props.updatePlaylists}
             playlistName={this.props.currentPlaylistObj.name}
             spotifyId={this.props.spotifyUserId}
-            playlistSongArr={this.state.playlistSongArr} />
+            playlistSongArr={this.state.playlistSongArr}
+            refreshFollowing={this.props.refreshFollowing} />
+
           
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
