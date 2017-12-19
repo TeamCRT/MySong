@@ -217,6 +217,7 @@ class HomePage extends React.Component {
                 spotifyId={this.state.spotifyId}
                 following={this.state.following}
                 updatePlaylists={this.updatePlaylists}
+                refreshFollowing={this.handleFollowingRefresh}
               />)}
             </Grid.Column>
 
@@ -237,7 +238,6 @@ class HomePage extends React.Component {
                 playFollowingTrack={this.playFollowingTrack}
                 newPlaylistHandleClick={this.newPlaylistHandleClick}
                 following={this.state.following}
-                handleRemoveFollow={this.handleRemoveFollow}
                 getFollowing={this.getFollowing}
                 refreshFollowing={this.handleFollowingRefresh}
               />)}
