@@ -36,7 +36,7 @@ class CreatePlaylistModal extends Component {
 
   handlePlaylistNameChange(e) {
     e.preventDefault();
-    this.setState({newPlaylistName: e.target.value});
+    this.setState({newPlaylistName: e.target.value, noPlaylistNameError: false});
     console.log('new playlist name is ', this.state.newPlaylistName);
   }
 
@@ -147,6 +147,10 @@ class CreatePlaylistModal extends Component {
       this.setState({followObjectArray: followObjectArray});
     }
 
+    if (this.state.newPlaylist.length > 0) {
+      this.setState({noSongsInPlaylistError: false});
+    }
+
 ///////////////
     // console.log('follow is', follow);
     // var followObjectArray = this.state.followObjectArray;
@@ -186,6 +190,7 @@ class CreatePlaylistModal extends Component {
                 this.state.playlistNameAlreadyExistsError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Playlist name already exists</Label>}
                 </div>
                 <div style={{flexGrow: '4', height: '100%'}}>
+                 {this.state.noSongsInPlaylistError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>No songs in playlist</Label>}
                   {this.state.followObjectArray.map((result, index) => (
                    <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px'}}>
                    <Label style={{ borderRadius: '10px', width: '80%', textAlign: 'center' }} color="blue">
