@@ -19,10 +19,21 @@ class DeletePlaylistModal extends Component {
 
   handleDelete() {
     console.log('Delete playlist button confirmed!');
+    // console.log('current playlist name is ', this.props.playlistName);
+    axios.delete(`/api/deletePlaylist?playlistName=${this.props.playlistName}`)
+      .then((response) => {
+        console.log('Playlist successfully deleted!');
+      })
+      .catch((err) => {
+        throw err;
+      })
+
+      this.setState({open:false});
   }
 
   handleCancel() {
     console.log('Cancel delete modal button pressed!');
+    this.setState({open:false});
   }
 
   show = dimmer => () => this.setState({ dimmer, open: true })
