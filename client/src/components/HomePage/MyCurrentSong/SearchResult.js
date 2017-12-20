@@ -36,6 +36,7 @@ class SearchResult extends React.Component {
     return (
        <div>
        <img src={this.props.result.track_image} />
+       {this.props.result.track_summary}
       </div>
     )
   }
