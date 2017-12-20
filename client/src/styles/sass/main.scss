@@ -68,11 +68,6 @@ body > * {
     grid-column: 2;
   }
 
-  * :not(<i>) {
-    background-color: $primaryColor;
-    color: whitesmoke;
-  }
-
   .user-and-logout {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -87,7 +82,6 @@ body > * {
   }
 
   #logout-button {
-    border: 2px solid whitesmoke;
     grid-column: 2;
     margin: auto;
   }
