@@ -353,6 +353,7 @@ router.get(
 router.get(
   '/spotifyAPI/search',
   (req, res) => {
+    console.log('spotify search for tracks endpoint reached ************************************');
     const token = req.session.passport.user.spotifyToken;
     axios({ 
       method: 'GET',

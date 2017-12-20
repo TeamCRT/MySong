@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal, Header, Input } from 'semantic-ui-react'
 import axios from 'axios';
 import $ from 'jquery';
+import SearchResults from './SearchResults'
 
 class MySongModal extends Component {
 	constructor(props) {
@@ -168,6 +169,37 @@ class MySongModal extends Component {
   handleSongSubmit() {
     console.log('Submit button pressed!');
     console.log(this.state.songSearchValue);
+    var query = this.state.songSearchValue.split(' ').join('+');
+    var context = this;
+    var spotifyToken = this.props.spotifyToken;
+
+     axios({
+          method: 'GET',
+          url: `/api/spotifyAPI/search?track=${query}`,
+        })
+          .then((response) => {
+            var resp = response.data;
+            context.setState({
+              //showError: resp.tracks.items.length !== 0 ? false : true
+            });
+            var searchResults = [];
+            for (var i = 0; i < resp.tracks.items.length; i++) {
+              var result = {
+                track_name: resp.tracks.items[i].name,
+                track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
+                track_artist: resp.tracks.items[i].artists[0].name,
+                track_album: resp.tracks.items[i].album.name,
+                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
+              }
+              searchResults.push(result);
+            }
+            //context.addSearchResults(searchResults);
+            this.setState({searchResults: searchResults});
+            console.log('Search results from handleSongSubmit are', this.state.searchResults);
+
+          })
+          .catch(err => console.error(err, err));
+
   }
 
   render() {
@@ -179,19 +211,16 @@ class MySongModal extends Component {
         <Modal size='large'dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch'}}>
+            
             <div style={{backgroundColor: 'yellow'}}>
              <Input type='text' placeholder='Search for songs...' action onChange={this.handleSongSearch}>
                <input />
               <Button onClick={this.handleSongSubmit} type='submit'>Search</Button>
-             </Input>
-
-
-
-
-
+             </Input> 
             </div>
 
-            <div style={{backgroundColor: 'pink'}}>Good Morning</div>
+            <SearchResults searchResults={this.state.searchResults}/>
+
           </div>
           <Modal.Actions>
             <Button color='black' onClick={this.handleCancel}>Cancel</Button>
