@@ -9,8 +9,9 @@ class SelectedSong extends React.Component {
       hovering: false
     }
 
-
     this.onHandleClick = this.onHandleClick.bind(this);
+    this.onListItemMouseEnter = this.onListItemMouseEnter.bind(this);
+    this.onListItemMouseLeave = this.onListItemMouseLeave.bind(this);
   }
 
   onHandleClick() {
@@ -30,10 +31,8 @@ class SelectedSong extends React.Component {
   }
 
   render() {
-    var style = {
-      fontWeight: this.state.hovering ? 'bold' : 'normal'
-    };
-
+    var color = this.state.hovering ? 'green' : 'pink';
+    
     return (
         <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px', maxHeight: '500px',
                     overflow: 'scroll', overflowX: 'hidden'}}>
@@ -44,8 +43,10 @@ class SelectedSong extends React.Component {
                       style={{ display: 'inline-block', float: 'right' }}
                       size="large"
                       name="minus"
-                      color='green'
+                      color={color}
                       onClick={this.onHandleClick}
+                      onMouseEnter={this.onListItemMouseEnter}
+                      onMouseLeave={this.onListItemMouseLeave}
                     />
                    </Label>
                    <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center' }} color="yellow">
