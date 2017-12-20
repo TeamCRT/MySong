@@ -29,7 +29,7 @@ class NavBarContainer extends React.Component {
         <div className="logo">MySong.io</div>
         <div className="username">{this.props.username}</div>
         <div>
-          <Button onClick={this.handleLogOut}> Log Out </Button>
+          <Button id="logout-button" onClick={this.handleLogOut}> Log Out </Button>
         </div>
       </div>
     );

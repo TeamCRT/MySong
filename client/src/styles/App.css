@@ -36,35 +36,43 @@ body * :not(i) {
   height: 100vh;
   width: 100vw;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 1fr 2fr 10fr 80px;
+  grid-template-rows: auto auto 10fr 80px;
 }
 
 .wrapper > div {
   border-width: 1px;
   border-style: solid;
-  border-color: black;
+  border-color: lightgray;
 }
 
 #navbar {
   grid-column: 1/4;
   grid-row: 1;
   display: grid;
-  margin: 0;
   padding: 0;
   grid-template-columns: 1fr 10fr 1fr 1fr;
   border: none;
+  padding: .4em;
+  box-shadow: 10px, 10px;
 }
 
 #navbar > * {
   margin: auto;
   margin-left: 1%;
 }
+#navbar, #navbar * {
+  background-color: #3D0F30;
+  color: whitesmoke;
+}
 
 #navbar > .logo {
-  color: #ff0000;
-  font-family: Bungee;
+  font-family: Trebuchet MS;
   font-size: 300%;
   grid-column: 2;
+}
+
+#logout-button {
+  border: 2px solid whitesmoke;
 }
 
 #current-song {
@@ -73,9 +81,13 @@ body * :not(i) {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 3fr;
   border-left: none;
   border-right: none;
+}
+
+#current-song, #current-song * {
+  /*background: white;*/
 }
 
 .current-song-info {
@@ -85,10 +97,10 @@ body * :not(i) {
 }
 
 .current-song-artwork {
-  margin: auto;
-  margin-right: .6em;
+  margin: .5em;
   grid-column: 1;
   height: 125px;
+  float: right;
 }
 
 #current-song-details {
@@ -132,11 +144,11 @@ body * :not(i) {
 }
 
 #my-playlists {
-  color: red;
+  color: #3D0F30;
   text-align: center;
   font-size: 200%;
   line-height: 200%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid lightgray;
 }
 
 #create-playlist-button {
@@ -144,6 +156,7 @@ body * :not(i) {
   bottom: 0;
   border-radius: 0px;
   width: 100%;
+  background-color: #3D0F30;
 }
 
 
