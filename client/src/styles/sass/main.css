@@ -53,9 +53,6 @@ body > * {
     font-family: Trebuchet MS;
     font-size: 3em;
     grid-column: 2; }
-  #navbar * :not(i) {
-    background-color: #4D1D3F;
-    color: whitesmoke; }
   #navbar .user-and-logout {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -66,7 +63,6 @@ body > * {
     padding-right: 2em;
     margin: auto; }
   #navbar #logout-button {
-    border: 2px solid whitesmoke;
     grid-column: 2;
     margin: auto; }
 
