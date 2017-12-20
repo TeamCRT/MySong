@@ -34,9 +34,11 @@ class SearchResult extends React.Component {
     var color = this.state.hovering ? 'red' : 'green';
     
     return (
-       <div>
-       <img src={this.props.result.track_image} />
-       {this.props.result.track_summary}
+       <div style={{display: 'flex', flexDirection: 'row', 'justifyContent': 'stretch', backgroundColor: 'pink', maxWidth: '50%'}}>
+         <img src={this.props.result.track_image} />
+         <Button style={{flexGrow: '1', maxWidth: '70%', wordWrap: 'break-word' }}>{this.props.result.track_name}
+         </Button>
+         <Button style={{minWidth: '35%' }}>{this.props.result.track_artist}</Button>
       </div>
     )
   }
