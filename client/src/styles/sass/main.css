@@ -53,7 +53,7 @@ body > * {
     grid-column: 2; }
 
 #navbar, #navbar * {
-  background-color: #4D1D3F;
+  background-color: #3D0F30;
   color: whitesmoke; }
 
 #navbar .user-and-logout {
@@ -129,7 +129,7 @@ body > * {
 
 #my-playlists {
   font-family: Trebuchet MS;
-  color: #4D1D3F;
+  color: #3D0F30;
   text-align: center;
   font-size: 200%;
   line-height: 200%;
@@ -140,7 +140,7 @@ body > * {
   bottom: 0;
   border-radius: 0px;
   width: 100%;
-  background-color: #4D1D3F; }
+  background-color: #3D0F30; }
 
 .current-playlist {
   grid-column: 2/3;
