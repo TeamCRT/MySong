@@ -194,7 +194,7 @@ class CreatePlaylistModal extends Component {
         <Modal dimmer={true} open={open} onClose={this.close}>
           <Modal.Header>Create a Playlist</Modal.Header>
           <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch'}}>
-            <div style={{padding: '20px 20px', flexGrow: '1'}}>
+            <div style={{padding: '20px 20px', flexGrow: '1', maxWidth: '50%'}}>
             <FollowingContainer
                 spotifyId={this.props.spotifyId}
                 newPlaylistHandleClick = {this.newPlaylistHandleClick}

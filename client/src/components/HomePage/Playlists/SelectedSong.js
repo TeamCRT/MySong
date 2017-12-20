@@ -10,28 +10,28 @@ class SelectedSong extends React.Component {
     }
 
     this.onHandleClick = this.onHandleClick.bind(this);
-    this.onListItemMouseEnter = this.onListItemMouseEnter.bind(this);
-    this.onListItemMouseLeave = this.onListItemMouseLeave.bind(this);
+    this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
+    this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
   }
 
   onHandleClick() {
     this.props.handleMinusClick(this.props.result);
   }
 
-  onListItemMouseEnter() {
+  onItemMouseEnter() {
     this.setState({
       hovering: true
     });
   }
 
-  onListItemMouseLeave() {
+  onItemMouseLeave() {
     this.setState({
       hovering: false
     })
   }
 
   render() {
-    var color = this.state.hovering ? 'green' : 'pink';
+    var color = this.state.hovering ? 'red' : 'green';
     
     return (
         <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px', maxHeight: '500px',
@@ -42,11 +42,11 @@ class SelectedSong extends React.Component {
                       key='hello'
                       style={{ display: 'inline-block', float: 'right' }}
                       size="large"
-                      name="minus"
+                      name="minus circle"
                       color={color}
                       onClick={this.onHandleClick}
-                      onMouseEnter={this.onListItemMouseEnter}
-                      onMouseLeave={this.onListItemMouseLeave}
+                      onMouseEnter={this.onItemMouseEnter}
+                      onMouseLeave={this.onItemMouseLeave}
                     />
                    </Label>
                    <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center' }} color="yellow">
