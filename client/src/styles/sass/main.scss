@@ -68,7 +68,7 @@ body > * {
     grid-column: 2;
   }
 
-  * {
+  * :not(<i>) {
     background-color: $primaryColor;
     color: whitesmoke;
   }
@@ -91,7 +91,7 @@ body > * {
     grid-column: 2;
     margin: auto;
   }
-  
+
 }
 
 #current-song {
