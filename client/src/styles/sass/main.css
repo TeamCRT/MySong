@@ -148,11 +148,12 @@ body * :not(i) {
 
 .current-playlist-song {
   display: grid;
-  grid-template-columns: 20%, 80%;
+  grid-template-columns: 1fr 3fr;
   border: 1px solid lightgray; }
 
 .current-playlist-song > .artwork {
-  grid-column: 1; }
+  grid-column: 1;
+  margin: auto; }
 
 .current-playlist-song > .song-info {
   grid-column: 2; }
