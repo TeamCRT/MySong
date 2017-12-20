@@ -7,7 +7,7 @@ import 'semantic-ui-css/semantic.min.css';
 import createHistory from 'history/createBrowserHistory';
 import HomePage from './HomePage/HomePage';
 import LandingPage from './LandingPage/LandingPage';
-import '../styles/App.css';
+import '../styles/sass/main.css';
 
 const history = createHistory();
 
