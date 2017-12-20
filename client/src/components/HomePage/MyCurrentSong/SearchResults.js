@@ -11,6 +11,11 @@ class SearchResults extends React.Component {
     
     return (
            <div >
+                  <div style={{display: 'flex', flexDirection: 'row', 'justifyContent': 'stretch', backgroundColor: 'pink', maxWidth: '50%'}}>
+                    <Label style={{borderRadius: '0px', flexGrow: '1', maxWidth: '70%', wordWrap: 'break-word' }}>Track
+                    </Label>
+                    <Label style={{borderRadius: '0px', minWidth: '30%' }}>Artist</Label>
+                  </div>
                  {this.props.searchResults.map((result, index) => (
                   <SearchResult
                   result={result}

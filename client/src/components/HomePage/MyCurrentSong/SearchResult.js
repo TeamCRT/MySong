@@ -36,9 +36,9 @@ class SearchResult extends React.Component {
     return (
        <div style={{display: 'flex', flexDirection: 'row', 'justifyContent': 'stretch', backgroundColor: 'pink', maxWidth: '50%'}}>
          <img src={this.props.result.track_image} />
-         <Button style={{flexGrow: '1', maxWidth: '70%', wordWrap: 'break-word' }}>{this.props.result.track_name}
-         </Button>
-         <Button style={{minWidth: '35%' }}>{this.props.result.track_artist}</Button>
+         <Label style={{borderRadius: '0px', flexGrow: '1', maxWidth: '70%', wordWrap: 'break-word' }}>{this.props.result.track_name}
+         </Label>
+         <Label style={{borderRadius: '0px', minWidth: '30%' }}>{this.props.result.track_artist}</Label>
       </div>
     )
   }
