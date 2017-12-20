@@ -211,16 +211,28 @@ class MySongModal extends Component {
         <Button onClick={this.show(true)}>Edit your current MySong</Button>
         <Modal size='large'dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
-          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch'}}>
-            
-            <div style={{backgroundColor: 'yellow'}}>
-             <Input type='text' placeholder='Search for songs...' action onChange={this.handleSongSearch}>
-               <input />
-              <Button onClick={this.handleSongSubmit} type='submit'>Search</Button>
-             </Input> 
+
+          <div id="maincontainer"style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+  
+            <div id="top-half" style={{backgroundColor: 'yellow', width: '1080px', height:'100px'}}>
+                <Input type='text' placeholder='Search for songs...' action onChange={this.handleSongSearch}>
+                  <input />
+                  <Button onClick={this.handleSongSubmit} type='submit'>Search</Button>
+                </Input> 
             </div>
 
-            <SearchResults searchResults={this.state.searchResults}/>
+            
+            <div id="bottom-half" style={{backgroundColor: 'blue', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
+              <SearchResults />
+              <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
+                <div id="song-selection" style={{backgroundColor: 'purple', width: '100%', height:'50%'}}></div>
+                <div id="song-note" style={{backgroundColor: 'orange', width: '100%', height:'50%'}}></div>
+              </div>
+                
+            </div>
+
+
+
 
           </div>
           <Modal.Actions>

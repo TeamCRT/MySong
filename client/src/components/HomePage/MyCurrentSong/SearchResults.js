@@ -10,17 +10,18 @@ class SearchResults extends React.Component {
   render() {
     
     return (
-           <div >
-                  <div style={{display: 'flex', flexDirection: 'row', 'justifyContent': 'stretch', backgroundColor: 'pink', maxWidth: '50%'}}>
-                    <Label style={{borderRadius: '0px', flexGrow: '1', maxWidth: '70%', wordWrap: 'break-word' }}>Track
-                    </Label>
-                    <Label style={{borderRadius: '0px', minWidth: '30%' }}>Artist</Label>
-                  </div>
-                 {this.props.searchResults.map((result, index) => (
-                  <SearchResult
-                  result={result}
-                  />))
-                  }  
+
+           <div id="search-results" style={{backgroundColor: 'red', display: 'flex', flexDirection: 'column', width: '50%', height: '100%'}} >
+             <div id="searchresult1" style={{backgroundColor: 'aqua', display: 'flex', flexDirection: 'row', width: '100%', height: '10%'}}>
+               <Label id="track-header" style={{width: '60%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Track</Label>
+               <Label id="artist-header" style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Artist</Label>
+               <Label id="album-header" style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Album</Label>
+             </div>
+
+             <div id="searchresult2" style={{backgroundColor: 'yellow', width: '100%', height: '10%'}}></div>
+             <div id="searchresult3" style={{backgroundColor: 'blue', width: '100%', height: '10%'}}></div>
+             <div id="searchresult4" style={{backgroundColor: 'green', width: '100%', height: '10%'}}></div>
+             <div id="searchresult5" style={{backgroundColor: 'yellow', width: '100%', height: '10%'}}></div>
            </div>
     )
   }
