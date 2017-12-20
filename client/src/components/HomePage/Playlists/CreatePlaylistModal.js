@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Header, Modal, Grid, Input, Icon, Label } from 'semantic-ui-react'
 import FollowingContainer from '../Following/FollowingContainer'
+import CreatedPlaylist from './CreatedPlaylist'
 import axios from 'axios'
 import $ from 'jquery';
 
@@ -18,6 +19,7 @@ class CreatePlaylistModal extends Component {
       playlistNameAlreadyExistsError: false,
       illegalCharError: false,
       name: 'Bob',
+      hover: false,
     };
 
 
@@ -25,7 +27,7 @@ class CreatePlaylistModal extends Component {
     this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    //this.handleMinusClick = this.handleMinusClick.bind(this);
+    this.toggleHover = this.toggleHover.bind(this);
 
   }
 
@@ -143,6 +145,11 @@ class CreatePlaylistModal extends Component {
     
   }
 
+  toggleHover() {
+    this.setState({hover: !this.state.hover});
+    console.log('hover is', this.state.hover);
+  }
+
   newPlaylistHandleClick(follow) {
     var songsArray = this.state.newPlaylist;
     var followObjectArray = this.state.followObjectArray;
@@ -176,7 +183,8 @@ class CreatePlaylistModal extends Component {
   close = () => this.setState({ open: false })
 
   render() {
-    const { open } = this.state
+    const { open } = this.state;
+    var myStyle;
 
     return (
 
@@ -203,38 +211,13 @@ class CreatePlaylistModal extends Component {
                 this.state.illegalCharError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Playlist name can not include special characters</Label> ||
                 this.state.playlistNameAlreadyExistsError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Playlist name already exists</Label>}
                 </div>
-                <div style={{flexGrow: '4', height: '100%'}}>
-                 {this.state.noSongsInPlaylistError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>No songs in playlist</Label>}
-                  {this.state.followObjectArray.map((result, index) => (
-                   
 
-                   <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px', maxHeight: '500px',
-                    overflow: 'scroll', overflowX: 'hidden'}}>
-                   <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center'}} color="blue">
-                    {result.mySongUsername + '\'s MySong'}
-                    <Icon
-                      key='hello'
-                      style={{ display: 'inline-block', float: 'right' }}
-                      size="large"
-                      name="minus"
-                      onClick={this.handleMinusClick.bind(this, result)}
-                    />
-                   </Label>
-                   <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center' }} color="yellow">
-                    {result.currentMySong.trackSummary}
-                   </Label>
-                   </div>
-
-
-                 ))}
-                </div>
+                <CreatedPlaylist 
+                style={{flexGrow: '4', height: '100%'}}
+                noSongsInPlaylistError={this.state.noSongsInPlaylistError}
+                followObjectArray={this.state.followObjectArray}
+                />
           
-
-              
-
-
-
-                
 
             </div>
           </div>
