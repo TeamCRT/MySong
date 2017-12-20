@@ -49,17 +49,17 @@ body * :not(i) {
   grid-column: 1/4;
   grid-row: 1;
   display: grid;
-  padding: 0;
-  grid-template-columns: 1fr 10fr 1fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   border: none;
   padding: .4em;
-  box-shadow: 10px, 10px;
 }
+
 
 #navbar > * {
   margin: auto;
   margin-left: 1%;
 }
+
 #navbar, #navbar * {
   background-color: #3D0F30;
   color: whitesmoke;
@@ -67,12 +67,30 @@ body * :not(i) {
 
 #navbar > .logo {
   font-family: Trebuchet MS;
-  font-size: 300%;
+  font-size: 3em;
   grid-column: 2;
 }
 
-#logout-button {
+#navbar .user-and-logout {
+  position: fixed;
+  right: 1em;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: auto;
+}
+
+#navbar .username {
+  font-size: 2em;
+  grid-column: 1;
+  padding-right: 2em;
+  margin: auto;
+}
+
+#navbar #logout-button {
   border: 2px solid whitesmoke;
+  grid-column: 2;
+  margin: auto;
+
 }
 
 #current-song {
@@ -140,10 +158,8 @@ body * :not(i) {
   overflow-x: hidden;
 }
 
-#playlist-list {
-}
-
 #my-playlists {
+  font-family: Trebuchet MS;
   color: #3D0F30;
   text-align: center;
   font-size: 200%;
@@ -163,6 +179,20 @@ body * :not(i) {
 .current-playlist {
   grid-column: 2/3;
   grid-row: 3;
+}
+
+.current-playlist-song {
+  display: grid;
+  grid-template-columns: 20%, 80%;
+  border: 1px solid lightgray;
+}
+
+.current-playlist-song > .artwork {
+  grid-column: 1;
+}
+
+.current-playlist-song > .song-info {
+  grid-column: 2;
 }
 
 #following {
