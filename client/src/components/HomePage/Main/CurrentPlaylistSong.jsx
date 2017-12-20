@@ -19,6 +19,7 @@ const CurrentPlaylistSong = props => (
         <div>{`Note: ${props.trackObj.note}`}</div>
       </div>
     </div>
+    <div className="note">{props.trackObj.note}</div>
   </div>
 );
 
