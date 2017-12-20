@@ -53,7 +53,7 @@ body > * {
     font-family: Trebuchet MS;
     font-size: 3em;
     grid-column: 2; }
-  #navbar * {
+  #navbar * :not(i) {
     background-color: #4D1D3F;
     color: whitesmoke; }
   #navbar .user-and-logout {

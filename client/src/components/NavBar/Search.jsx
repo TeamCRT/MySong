@@ -126,7 +126,7 @@ class SearchExampleStandard extends Component {
               openStatus: true,
             });
         }}
-        placeholder="Search for users to follow"
+        placeholder="Search for users"
         loading={isLoading}
         onSearchChange={this.handleSearchChange}
         results={results}
