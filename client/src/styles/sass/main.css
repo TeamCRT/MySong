@@ -56,13 +56,10 @@ body > * {
   #navbar * {
     background-color: #4D1D3F;
     color: whitesmoke; }
-
-#navbar .user-and-logout {
-  position: fixed;
-  right: 1em;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  margin: auto; }
+  #navbar .user-and-logout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin: auto; }
 
 #navbar .username {
   font-size: 2em;
