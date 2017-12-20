@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Header, Modal, Grid, Input, Icon, Label } from 'semantic-ui-react'
 import FollowingContainer from '../Following/FollowingContainer'
 import axios from 'axios'
+import $ from 'jquery';
 
 class CreatePlaylistModal extends Component {
 
@@ -16,7 +17,7 @@ class CreatePlaylistModal extends Component {
       noSongsInPlaylistError: false,
       playlistNameAlreadyExistsError: false,
       illegalCharError: false,
-      name: 'Bob'
+      name: 'Bob',
     };
 
 
@@ -24,6 +25,7 @@ class CreatePlaylistModal extends Component {
     this.newPlaylistHandleClick = this.newPlaylistHandleClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    //this.handleMinusClick = this.handleMinusClick.bind(this);
 
   }
 
@@ -127,7 +129,19 @@ class CreatePlaylistModal extends Component {
     this.setState({illegalCharError: false});
   }
 
+  handleMinusClick(result) {
+    console.log('minus clicked', result);
 
+    var songsArray = this.state.newPlaylist;
+    var followObjectArray = this.state.followObjectArray;
+
+    var index = songsArray.indexOf(result.spotifyId);
+    songsArray.splice(index, 1);
+    followObjectArray.splice(index, 1);
+    this.setState({newPlaylist: songsArray});
+    this.setState({followObjectArray: followObjectArray});
+    
+  }
 
   newPlaylistHandleClick(follow) {
     var songsArray = this.state.newPlaylist;
@@ -138,14 +152,14 @@ class CreatePlaylistModal extends Component {
       followObjectArray.push(follow);
       this.setState({newPlaylist: songsArray});
       this.setState({followObjectArray: followObjectArray});
-
-    }  else {
-      var index = songsArray.indexOf(follow.spotifyId);
-      songsArray.splice(index, 1);
-      followObjectArray.splice(index, 1);
-      this.setState({newPlaylist: songsArray});
-      this.setState({followObjectArray: followObjectArray});
-    }
+    }  
+    // else {
+    //   var index = songsArray.indexOf(follow.spotifyId);
+    //   songsArray.splice(index, 1);
+    //   followObjectArray.splice(index, 1);
+    //   this.setState({newPlaylist: songsArray});
+    //   this.setState({followObjectArray: followObjectArray});
+    // }
 
     if (this.state.newPlaylist.length > 0) {
       this.setState({noSongsInPlaylistError: false});
@@ -192,14 +206,26 @@ class CreatePlaylistModal extends Component {
                 <div style={{flexGrow: '4', height: '100%'}}>
                  {this.state.noSongsInPlaylistError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>No songs in playlist</Label>}
                   {this.state.followObjectArray.map((result, index) => (
-                   <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px'}}>
-                   <Label style={{ borderRadius: '10px', width: '80%', textAlign: 'center' }} color="blue">
+                   
+
+                   <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px', maxHeight: '500px',
+                    overflow: 'scroll', overflowX: 'hidden'}}>
+                   <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center'}} color="blue">
                     {result.mySongUsername + '\'s MySong'}
+                    <Icon
+                      key='hello'
+                      style={{ display: 'inline-block', float: 'right' }}
+                      size="large"
+                      name="minus"
+                      onClick={this.handleMinusClick.bind(this, result)}
+                    />
                    </Label>
-                   <Label style={{ borderRadius: '10px', width: '80%', textAlign: 'center' }} color="yellow">
+                   <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center' }} color="yellow">
                     {result.currentMySong.trackSummary}
                    </Label>
                    </div>
+
+
                  ))}
                 </div>
           
