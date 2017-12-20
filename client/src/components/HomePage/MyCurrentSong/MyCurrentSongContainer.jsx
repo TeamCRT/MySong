@@ -48,9 +48,9 @@ class MyCurrentSongContainer extends React.Component {
           {this.state.albumArtworkLink &&
             <img src={this.state.albumArtworkLink} style={{ float: 'left', height: 150 }} alt="Album Artwork" />
           }
-          <Header as="h1" style={{ textAlign: 'center' }}>
+          <h1 style={{ textAlign: 'center' }}>
             Current My Song is : {this.props.currentMySong.trackSummary}
-          </Header>
+          </h1>
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems:'center' }}>
             <div >
               <div style={{fontSize: '15px'}}>
