@@ -27,7 +27,7 @@ class EditPlaylistModal extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.playlistSongArr !== this.props.playlistSongArr) {
+    if (this.props.playlistSongArr && prevProps.playlistSongArr !== this.props.playlistSongArr) {
       var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
       this.setState({newPlaylist: playlistArray});
       this.setState({newPlaylistName: this.props.playlistName});
@@ -170,7 +170,7 @@ class EditPlaylistModal extends Component {
           <Grid columns={2} stackable>
             <Grid.Column>
               {this.props.spotifyId && ( <FollowingContainer
-                spotifyId={this.props.spotifyId} 
+                spotifyId={this.props.spotifyId}
                 newPlaylistHandleClick={this.newPlaylistHandleClick}
                 refreshFollowing={this.props.refreshFollowing}
                 view={this.props.view}
