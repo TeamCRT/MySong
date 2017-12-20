@@ -1,3 +1,5 @@
+$primaryColor: #3D0F30;
+
 .App {
   text-align: center;
 }
@@ -37,13 +39,13 @@ body * :not(i) {
   width: 100vw;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: auto auto 10fr 80px;
-}
-
-.wrapper > div {
+  > div {
   border-width: 1px;
   border-style: solid;
   border-color: lightgray;
+  }
 }
+
 
 #navbar {
   grid-column: 1/4;
@@ -52,23 +54,20 @@ body * :not(i) {
   grid-template-columns: 1fr 3fr 1fr;
   border: none;
   padding: .4em;
-}
-
-
-#navbar > * {
+  > * {
   margin: auto;
   margin-left: 1%;
-}
-
-#navbar, #navbar * {
-  background-color: #3D0F30;
-  color: whitesmoke;
-}
-
-#navbar > .logo {
+  }
+  > .logo {
   font-family: Trebuchet MS;
   font-size: 3em;
   grid-column: 2;
+}
+}
+
+#navbar, #navbar * {
+  background-color: $primaryColor;
+  color: whitesmoke;
 }
 
 #navbar .user-and-logout {
@@ -160,7 +159,7 @@ body * :not(i) {
 
 #my-playlists {
   font-family: Trebuchet MS;
-  color: #3D0F30;
+  color: $primaryColor;
   text-align: center;
   font-size: 200%;
   line-height: 200%;
@@ -172,7 +171,7 @@ body * :not(i) {
   bottom: 0;
   border-radius: 0px;
   width: 100%;
-  background-color: #3D0F30;
+  background-color: $primaryColor;
 }
 
 

@@ -13,10 +13,10 @@ const CurrentPlaylistSong = props => (
     </div>
     <div className="song-info">
       <div>
-          <h3>{`${props.user}'s song: ${props.trackObj.trackName}`}</h3>
-          <div>{`Artist: ${props.trackObj.trackArtist}`}</div>
-          <div>{`Album: ${props.trackObj.trackAlbum}`}</div>
-          <div>{`Note: ${props.trackObj.note}`}</div>
+        <h3>{`${props.user}'s song: ${props.trackObj.trackName}`}</h3>
+        <div>{`Artist: ${props.trackObj.trackArtist}`}</div>
+        <div>{`Album: ${props.trackObj.trackAlbum}`}</div>
+        <div>{`Note: ${props.trackObj.note}`}</div>
       </div>
     </div>
   </div>
