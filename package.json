@@ -11,7 +11,8 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
     "start dev": "concurrently \"cd server && nodemon --watch ../db --watch . index.js \" \"cd client && npm start\"",
     "setup": "npm install && cd client && npm install",
-    "build": "cd client && npm install && npm run build"
+    "build": "cd client && npm install && npm run build",
+    "build-css": "node-sass -o client/src/styles/sass/ client/src/styles/sass/main.scss"
   },
   "repository": {
     "type": "git",
@@ -65,6 +66,7 @@
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint-plugin-react": "^7.5.1",
+    "node-sass": "^4.7.2"
   }
 }
