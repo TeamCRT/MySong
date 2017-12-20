@@ -18,7 +18,7 @@ router.use('/spotifyAPI/:id', (req, res, next) => {
   currentTimeAndDate = Date.parse(currentTimeAndDate);
   let tokenExpiration = Date.parse(req.session.tokenExpirationDate);
   let compare = currentTimeAndDate - tokenExpiration;
-  if (compare > 3000000) { //3000000
+  if (compare > 3000000) { // 3000000, number of miliseconds in 50 mins
     const refreshToken = req.session.passport.user.spotifyRefreshToken;
     axios({
       method: 'post',
@@ -197,11 +197,8 @@ router.delete('/removeFollow', (req, res) => {
 });
 
 router.delete('/deletePlaylist', (req, res) => {
-  console.log('/deletePlaylist endpoint reached!');
-  console.log('req.query.playlistName ', req.query.playlistName);
   User.deletePlaylist(req.session.passport.user.spotifyId, req.query.playlistName)
     .then((response) => {
-      console.log('delete playlist response is: ', response);
       res.send(response);
     })
     .catch((err) => {
@@ -218,23 +215,28 @@ router.get('/currentmysong/:spotifyId', (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.post('/currentMySongWaitTime', (req, res) => {
+  const mySong = req.body;
+  let currentTimeAndDate = new Date();
+  currentTimeAndDate = Date.parse(currentTimeAndDate);
+  const mySongExpiration = Date.parse(mySong.createdAt);
+  const gracePeriod = 2000;
+  const waitPeriod = 6000;
+  const timeElapsed = currentTimeAndDate - mySongExpiration;
+  if (timeElapsed > waitPeriod || timeElapsed < gracePeriod) {
+    res.send(false);
+  } else {
+    res.json({ timeElapsed, waitPeriod });
+  }
+});
+
 router.post('/currentmysong', (req, res) => {
   const spotifyId = req.body.spotifyId;
   let mySong = req.body.mySong;
-  let currentTimeAndDate = new Date();
-  currentTimeAndDate = Date.parse(currentTimeAndDate);
-  let mySongExpiration = Date.parse(mySong.createdAt);
-  // = currentTimeAndDate - Date.parse(mySong.createdAt);
-  console.log('CURRENT TIME', currentTimeAndDate, '\nPrevious My Song created at :', mySongExpiration );
-  console.log('TIME ELAPSED: ', currentTimeAndDate - mySongExpiration);
-  if (currentTimeAndDate - mySongExpiration > 20000) {
-    mySong.createdAt = new Date();
-    User.changeCurrentSong(spotifyId, mySong)
-      .then(result => res.status(200).json(mySong))
-      .catch(err => res.send(err));
-  } else {
-    res.json('Not enough time has passed')
-  }
+  mySong.createdAt = new Date();
+  User.changeCurrentSong(spotifyId, mySong)
+    .then(result => res.status(200).json(mySong))
+    .catch(err => res.send(err));
 });
 
 router.put('/addToFollowing', (req, res) => {
@@ -279,7 +281,6 @@ router.post(
     const URIArray = req.body.songURIs;
     const spotifyUserID = req.body.spotifyUserID;
     const token = req.session.passport.user.spotifyToken;
-    console.log('token is ', token);
     axios({
       method: 'post',
       url: `https://api.spotify.com/v1/users/${spotifyUserID}/playlists`,

@@ -49,7 +49,6 @@ class Following extends React.Component {
   }
 
   render() {
-    console.log('FOLLOWING CONTAINTER RENDER');
     return (
       <div style={{ margin: 'none' }}>
         <Label style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }} color="red">

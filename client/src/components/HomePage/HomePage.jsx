@@ -52,7 +52,6 @@ class HomePage extends React.Component {
     axios.get('/api/me')
       .then((res) => {
         const user = res.data.passport.user;
-        console.log('HOMEPAGE MYSONG: ', user.currentMySong);
         this.setState({
           mySongUsername: user.mySongUsername,
           spotifyDisplayName: user.spotifyDisplayName,
