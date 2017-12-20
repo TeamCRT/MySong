@@ -92,6 +92,8 @@ class HomePage extends React.Component {
       .catch((err) => {
         throw err;
       });
+
+    this.updatePlaylists();
   }
 
   getFollowing() {
@@ -117,11 +119,10 @@ class HomePage extends React.Component {
   }
 
   updatePlaylists(newPlaylist) {
-    console.log('updatePlaylists called!', newPlaylist);
-    axios.get(`/api/playlists?spotifyUserID=${this.state.spotifyId}`)
+    axios.get('/api/playlists')
       .then((response) => {
         if (newPlaylist) {
-          var newPlaylistObj = {
+          const newPlaylistObj = {
             name: newPlaylist.playlistName,
             playlistID: newPlaylist.spotifyPlaylistID,
             playlistURI: newPlaylist.spotifyPlaylistURI,
@@ -130,14 +131,12 @@ class HomePage extends React.Component {
 
           this.setState({
             currentPlaylistObj: newPlaylistObj,
-            playlists: response.data[0].playlists
+            playlists: response.data[0].playlists,
           });
         } else {
-          var playlistResults = response.data[0].playlists;
-          console.log('playlistResults are ', playlistResults);
-
+          const playlistResults = response.data[0].playlists;
           if (playlistResults.length) {
-            var firstPlaylistObj = {
+            const firstPlaylistObj = {
               name: playlistResults[0].playlistName,
               playlistID: playlistResults[0].spotifyPlaylistID,
               playlistURI: playlistResults[0].spotifyPlaylistURI,
@@ -146,18 +145,15 @@ class HomePage extends React.Component {
 
             this.setState({
               currentPlaylistObj: firstPlaylistObj,
-              playlists: response.data[0].playlists
+              playlists: response.data[0].playlists,
             });
-
-          }  else {
-             this.setState({
+          } else {
+            this.setState({
               currentPlaylistObj: {},
-              playlists: response.data[0].playlists
+              playlists: response.data[0].playlists,
             });
           }
-
-
-          }
+        }
       })
       .catch(err => err);
   }

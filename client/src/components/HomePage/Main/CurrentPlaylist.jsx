@@ -74,7 +74,8 @@ class CurrentPlaylist extends React.Component {
             updatePlaylists={this.props.updatePlaylists}
             playlistName={this.props.currentPlaylistObj.name}
             spotifyId={this.props.spotifyUserId}
-            playlistSongArr={this.state.playlistSongArr} />
+            playlistSongArr={this.state.playlistSongArr}
+          />
           <EditPlaylistModal
             playlists={this.props.playlists}
             updatePlaylists={this.props.updatePlaylists}
@@ -82,11 +83,15 @@ class CurrentPlaylist extends React.Component {
             spotifyId={this.props.spotifyUserId}
             playlistSongArr={this.state.playlistSongArr}
             refreshFollowing={this.props.refreshFollowing}
-            view={this.props.view} />
+            view={this.props.view}
+          />
 
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>
-        {this.state.playlistSongArr.length > 0 && this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)}
+        {
+          this.state.playlistSongArr && this.state.playlistSongArr.length > 0 &&
+          this.state.songsArrayBySpotifyUserID.map(this.songMapFunction)
+        }
       </div>
     );
   }
