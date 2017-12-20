@@ -45,7 +45,7 @@ class DeletePlaylistModal extends Component {
 
     return (
       <div>
-        <Button style={{float: 'right'}} color='grey' onClick={this.show(true)}>Delete</Button>
+        <Button color='grey' onClick={this.show(true)}>Delete</Button>
         <Modal dimmer={false} open={open} onClose={this.close}>
           <Modal.Header>Delete Playlist?</Modal.Header>
           <Modal.Content image>
