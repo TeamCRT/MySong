@@ -51,7 +51,7 @@ class Following extends React.Component {
   render() {
     return (
       <div style={{ margin: 'none' }}>
-        <Label style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }} color="red">
+        <Label style={{ borderRadius: '0px', width: '100%', textAlign: 'center', backgroundColor: '#3D0F30', color: 'whitesmoke' }}>
           {this.props.follow.mySongUsername}
           <Popup
             trigger={
