@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, Header } from 'semantic-ui-react'
+import { Button, Modal, Header, Input } from 'semantic-ui-react'
 import axios from 'axios';
 import $ from 'jquery';
 
@@ -22,6 +22,7 @@ class MySongModal extends Component {
       noSongSelectedError: false,
       noNoteError: false,
       noteTooLongError: false,
+      songSearchValue: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -30,6 +31,9 @@ class MySongModal extends Component {
     this.addSearchResults = this.addSearchResults.bind(this);
     this.handleCancel= this.handleCancel.bind(this);
     this.handleSave= this.handleSave.bind(this);
+
+    this.handleSongSearch = this.handleSongSearch.bind(this);
+    this.handleSongSubmit = this.handleSongSubmit.bind(this);
   }
 
    handleChange(e) {
@@ -155,6 +159,17 @@ class MySongModal extends Component {
     this.setState({ open: false });
   };
 
+  handleSongSearch(e) {
+    e.preventDefault();
+    this.setState({songSearchValue: e.target.value});
+    
+  }
+
+  handleSongSubmit() {
+    console.log('Submit button pressed!');
+    console.log(this.state.songSearchValue);
+  }
+
   render() {
     const { open, dimmer } = this.state
 
@@ -163,58 +178,21 @@ class MySongModal extends Component {
         <Button onClick={this.show(true)}>Edit your current MySong</Button>
         <Modal size='large'dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
-          <Modal.Content image>
-            <Modal.Description>
-              <form onSubmit={this.handleFormSubmit} >
-                <input placeholder='search for a song' type='text' value={this.state.formData} onChange={this.handleFormChange}></input>
-              	<input type='submit'></input>
-              </form>
-              {this.state.showNote &&
-              	<div> Add Song Note
-              	  <div>
-              	    <textarea
-                    placeholder="Add Song Note"
-                    type='text'
-                    style={{width: '90%', height: '150px', resize: 'none', backgroundColor: '#f8f8f8', boxSizing: 'border-box'}}
-                    onChange={this.handleNoteChange}
-                    value={this.state.noteData}></textarea>
-              	  </div>
-              	</div>
-              }
-            </Modal.Description>
-            <div>
-    					{this.state.searchResults.map((result, index) => (
-    					 <div key={result.track_id}>{index+1 + '. '}
-      					<button onClick = {this.handleChange} key={result.track_id} track_id={result.track_id} track_album={result.track_album} track_artist={result.track_artist} track_name={result.track_name} >{result.track_summary}</button>
-      				 </div>
-    						))}
-  					</div>
-            <Header>{this.state.trackName}</Header>
+          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch'}}>
+            <div style={{backgroundColor: 'yellow'}}>
+             <Input type='text' placeholder='Search for songs...' action onChange={this.handleSongSearch}>
+               <input />
+              <Button onClick={this.handleSongSubmit} type='submit'>Search</Button>
+             </Input>
 
-            <div>
-            {this.state.noSongSelectedError &&
-                <div style={{color:'red'}}>Select a Song</div>
-            }
+
+
+
+
             </div>
 
-            <div>
-            {this.state.noNoteError &&
-                <div style={{color:'red'}}>Add a Note</div>
-            }
-            </div>
-
-            <div>
-            {this.state.noteTooLongError &&
-                <div style={{color:'red'}}>Note Exceeds 180 characters</div>
-            }
-            </div>
-
-            <span>
-            {this.state.showError &&
-             <span style={{fontSize:'40px'}}>No search results</span>
-            }
-            </span>
-          </Modal.Content>
+            <div style={{backgroundColor: 'pink'}}>Good Morning</div>
+          </div>
           <Modal.Actions>
             <Button color='black' onClick={this.handleCancel}>Cancel</Button>
             <Button positive icon='checkmark' labelPosition='right' content="OK" onClick={this.handleSave} />
