@@ -136,7 +136,23 @@ body > * {
 
 .current-playlist {
   grid-column: 2/3;
-  grid-row: 3; }
+  grid-row: 3;
+  overflow: scroll;
+  overflow-x: hidden; }
+  .current-playlist .title {
+    font-family: Trebuchet MS;
+    font-size: 3em;
+    text-align: center; }
+  .current-playlist .save-to-spotify {
+    text-align: center;
+    margin-bottom: 1em; }
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 1em; }
+  .button-row > * {
+    margin: auto; }
 
 .current-playlist-song {
   display: grid;

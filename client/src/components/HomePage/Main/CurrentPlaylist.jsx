@@ -65,12 +65,7 @@ class CurrentPlaylist extends React.Component {
   render() {
     return (
       <div className="current-playlist">
-        <h1 style={{ textAlign: 'center' }}>{this.props.currentPlaylistObj.name}
-          <Button
-            onClick={this.saveToSpotify}
-            style={{ fontSize: 15, marginLeft: 20 }}
-          >Save this Playlist on Spotify
-          </Button>
+        <div className="button-row">
           <DeletePlaylistModal
             playlists={this.props.playlists}
             updatePlaylists={this.props.updatePlaylists}
@@ -78,6 +73,7 @@ class CurrentPlaylist extends React.Component {
             spotifyId={this.props.spotifyUserId}
             playlistSongArr={this.state.playlistSongArr}
           />
+          <h1 className="title">{this.props.currentPlaylistObj.name}</h1>
           <EditPlaylistModal
             playlists={this.props.playlists}
             updatePlaylists={this.props.updatePlaylists}
@@ -87,8 +83,10 @@ class CurrentPlaylist extends React.Component {
             refreshFollowing={this.props.refreshFollowing}
             view={this.props.view}
           />
-
-        </h1>
+        </div>
+        <div className="save-to-spotify">
+          <Button onClick={this.saveToSpotify}>Save this Playlist on Spotify</Button>
+        </div>
         <div>{this.state.tracksBySpotifyUserId}</div>
         {
           this.state.playlistSongArr && this.state.playlistSongArr.length > 0 &&
