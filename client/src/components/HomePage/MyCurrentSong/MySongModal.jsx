@@ -189,7 +189,8 @@ class MySongModal extends Component {
                 track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
                 track_artist: resp.tracks.items[i].artists[0].name,
                 track_album: resp.tracks.items[i].album.name,
-                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
+                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name,
+                track_image: resp.tracks.items[i].album.images[2].url
               }
               searchResults.push(result);
             }

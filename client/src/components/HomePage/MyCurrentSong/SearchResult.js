@@ -35,7 +35,7 @@ class SearchResult extends React.Component {
     
     return (
        <div>
-       {this.props.result.track_name + ' by ' + this.props.result.track_artist}
+       <img src={this.props.result.track_image} />
       </div>
     )
   }
