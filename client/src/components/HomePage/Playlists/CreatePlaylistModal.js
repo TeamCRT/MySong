@@ -28,6 +28,7 @@ class CreatePlaylistModal extends Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.toggleHover = this.toggleHover.bind(this);
+    this.handleMinusClick = this.handleMinusClick.bind(this);
 
   }
 
@@ -216,6 +217,7 @@ class CreatePlaylistModal extends Component {
                 style={{flexGrow: '4', height: '100%'}}
                 noSongsInPlaylistError={this.state.noSongsInPlaylistError}
                 followObjectArray={this.state.followObjectArray}
+                handleMinusClick={this.handleMinusClick}
                 />
           
 

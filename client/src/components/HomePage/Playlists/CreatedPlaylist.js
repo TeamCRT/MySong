@@ -13,7 +13,12 @@ class CreatedPlaylist extends React.Component {
            <div style={{flexGrow: '4', height: '100%'}}>
                  {this.props.noSongsInPlaylistError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>No songs in playlist</Label>}
                   {this.props.followObjectArray.map((result, index) => (
-                  <SelectedSong mySongUsername={result.mySongUsername} trackSummary={result.currentMySong.trackSummary} />
+                  <SelectedSong 
+                  result={result}
+                  mySongUsername={result.mySongUsername} 
+                  trackSummary={result.currentMySong.trackSummary}
+                  handleMinusClick={this.props.handleMinusClick} 
+                  />
                  ))}
            </div>
     )

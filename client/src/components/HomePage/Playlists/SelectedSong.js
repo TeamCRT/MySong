@@ -8,6 +8,13 @@ class SelectedSong extends React.Component {
     this.state = {
       hovering: false
     }
+
+
+    this.onHandleClick = this.onHandleClick.bind(this);
+  }
+
+  onHandleClick() {
+    this.props.handleMinusClick(this.props.result);
   }
 
   onListItemMouseEnter() {
@@ -38,6 +45,7 @@ class SelectedSong extends React.Component {
                       size="large"
                       name="minus"
                       color='green'
+                      onClick={this.onHandleClick}
                     />
                    </Label>
                    <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center' }} color="yellow">
