@@ -30,6 +30,7 @@ class MySongModal extends Component {
     this.addSearchResults = this.addSearchResults.bind(this);
     this.handleCancel= this.handleCancel.bind(this);
     this.handleSave= this.handleSave.bind(this);
+    this.handleEditMySongClick = this.handleEditMySongClick.bind(this);
   }
 
    handleChange(e) {
@@ -48,36 +49,32 @@ class MySongModal extends Component {
     this.setState({searchResults: searchResults});
   }
 
-   handleFormSubmit(e) {
-  	e.preventDefault();
-  	this.setState({showNote:true});
-  	var query = this.state.formData.split(' ').join('+');
-  	var context = this;
-    var spotifyToken = this.props.spotifyToken;
+  handleFormSubmit(e) {
+    e.preventDefault();
+    this.setState({ showNote: true });
+    const query = this.state.formData.split(' ').join('+');
+    const context = this;
 
-     axios({
-          method: 'GET',
-          url: `/api/spotifyAPI/search?track=${query}`,
-        })
-          .then((response) => {
-            var resp = response.data;
-            context.setState({
-              showError: resp.tracks.items.length !== 0 ? false : true
-            });
-            var searchResults = [];
-            for (var i = 0; i < resp.tracks.items.length; i++) {
-              var result = {
-                track_name: resp.tracks.items[i].name,
-                track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
-                track_artist: resp.tracks.items[i].artists[0].name,
-                track_album: resp.tracks.items[i].album.name,
-                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
-              }
-              searchResults.push(result);
-            }
-            context.addSearchResults(searchResults);
-          })
-          .catch(err => console.error(err, err));
+    axios({ method: 'GET', url: `/api/spotifyAPI/search?track=${query}` })
+      .then((response) => {
+        const resp = response.data;
+        context.setState({
+          showError: resp.tracks.items.length !== 0 ? false : true
+        });
+        const searchResults = [];
+        for (let i = 0; i < resp.tracks.items.length; i++) {
+          const result = {
+            track_name: resp.tracks.items[i].name,
+            track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
+            track_artist: resp.tracks.items[i].artists[0].name,
+            track_album: resp.tracks.items[i].album.name,
+            track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
+          };
+          searchResults.push(result);
+        }
+        context.addSearchResults(searchResults);
+      })
+      .catch(err => console.error(err, err));
   }
 
   handleFormChange(e) {
@@ -90,8 +87,33 @@ class MySongModal extends Component {
   	this.setState({noteData: e.target.value});
   }
 
-  show = dimmer => () => this.setState({ dimmer, open: true })
-  handleSave () {
+  handleEditMySongClick() {
+    const createdAt = this.props.currentMySong.createdAt;
+    const mySong = {
+      trackSummary: this.state.trackSummary,
+      trackID: this.state.trackID,
+      trackAlbum: this.state.trackAlbum,
+      trackName: this.state.trackName,
+      trackArtist: this.state.trackArtist,
+      note: this.state.noteData,
+      createdAt,
+    };
+    axios.post('/api/currentMySongWaitTime', mySong)
+      .then((time) => {
+        if (time.data) {
+          console.log('TIME DATA', time.data);
+          // const timeInMins = Math.ceil(((time.data.waitPeriod - time.data.timeElapsed) / 1000) / 60);
+          const timeInSecs = Math.ceil(((time.data.waitPeriod - time.data.timeElapsed) / 1000));
+          this.props.setWait(true, timeInSecs);
+        } else {
+          this.props.setWait(false);
+          this.setState({open:true});
+        }
+      })
+      .catch( err => console.error(err))
+  };
+
+  handleSave() {
     if (this.state.trackName === '' && this.state.noteData === '') {
       this.setState({noSongSelectedError :true, noNoteError: true});
       return;
@@ -115,7 +137,7 @@ class MySongModal extends Component {
     if (this.state.noteData !== '' && this.state.trackName !== '' && this.state.noteData.length <= 180 ) {
       this.setState({noNoteError :false, noSongSelectedError: false, noteTooLongError: false});
       let createdAt = this.props.currentMySong.createdAt;
-      var mySong = {
+      const mySong = {
         trackSummary: this.state.trackSummary,
         trackID: this.state.trackID,
         trackAlbum: this.state.trackAlbum,
@@ -124,15 +146,15 @@ class MySongModal extends Component {
         note: this.state.noteData,
         createdAt,
       };
-      var mySongPayload = {
-        mySong: mySong,
+      const mySongPayload = {
+        mySong,
         spotifyId: this.props.spotifyId,
       }
 
       axios.post('/api/currentmysong', mySongPayload)
         .then((updatedMySong) => {
           if (updatedMySong.data === 'Not enough time has passed') {
-            alert('Not enough time has passed')
+            this.props.setWait(true);
           } else {
             this.props.onMySongChange(updatedMySong.data);
           }
@@ -144,29 +166,28 @@ class MySongModal extends Component {
     this.setState({ open: false });
   }
 
-  handleCancel = () => {
+  handleCancel() {
     this.setState({
-        noNoteError :false,
-        noSongSelectedError: false,
-        noteTooLongError: false,
-        open: false
-      });
-  };
+      noNoteError: false,
+      noSongSelectedError: false,
+      noteTooLongError: false,
+      open: false,
+    });
+  }
 
   render() {
     const { open, dimmer } = this.state
-    console.log('MY CURRENT MYSONG: ', this.props.currentMySong);
     return (
       <div style={{textAlign:'center'}}>
-        <Button onClick={this.show(true)}>Edit your current MySong</Button>
+        <Button onClick={this.handleEditMySongClick}>Edit your current MySong</Button>
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
           <Modal.Content image>
             <Modal.Description>
               <p>Pick a new MySong</p>
               <form onSubmit={this.handleFormSubmit} >
-                <input type='text' value={this.state.formData} onChange={this.handleFormChange}></input>
-              	<input type='submit'></input>
+                <input type="text" value={this.state.formData} onChange={this.handleFormChange}/>
+                <input type="submit"/>
               </form>
               {this.state.showNote &&
               	<div> Add Song Note
@@ -198,7 +219,7 @@ class MySongModal extends Component {
 
             <div>
             {this.state.noNoteError &&
-                <div style={{color:'red'}}>Add a Note</div>
+              <div style={{color:'red'}}>Add a Note</div>
             }
             </div>
 
