@@ -34,13 +34,11 @@ class SearchResult extends React.Component {
     var color = this.state.hovering ? 'red' : 'green';
     
     return (
-       <div style={{display: 'flex', flexDirection: 'row', 'justifyContent': 'center', backgroundColor: 'pink', maxWidth: '50%'}}>
-         <img src={this.props.result.track_image} />
-         <Label style={{borderRadius: '0px', flexGrow: '1', maxWidth: '70%', wordWrap: 'break-word', fontSize: '15px'}}>{this.props.result.track_name}
-         </Label>
-         <Label style={{borderRadius: '0px', minWidth: '30%', fontSize: '15px', textAlign: 'center', }}>{this.props.result.track_artist}</Label>
-         
-      </div>
+       <div style={{backgroundColor: 'brown', display: 'flex', flexDirection: 'row', width: '100%', height: '10%'}}>
+         <Label style={{width: '60%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Track</Label>
+         <Label style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Artist</Label>
+         <Label style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Album</Label>
+       </div>
     )
   }
 }

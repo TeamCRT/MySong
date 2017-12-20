@@ -19,9 +19,9 @@ class SearchResults extends React.Component {
              </div>
 
              <div id="searchresult2" style={{backgroundColor: 'yellow', width: '100%', height: '10%'}}></div>
-             <div id="searchresult3" style={{backgroundColor: 'blue', width: '100%', height: '10%'}}></div>
-             <div id="searchresult4" style={{backgroundColor: 'green', width: '100%', height: '10%'}}></div>
-             <div id="searchresult5" style={{backgroundColor: 'yellow', width: '100%', height: '10%'}}></div>
+             <SearchResult />
+             <div id="searchresult3" style={{backgroundColor: 'yellow', width: '100%', height: '10%'}}></div>
+             <SearchResult />
            </div>
     )
   }
