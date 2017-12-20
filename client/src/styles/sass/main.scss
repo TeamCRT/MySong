@@ -29,7 +29,7 @@ $primaryColor: #3D0F30;
   to { transform: rotate(360deg); }
 }
 
-body * :not(i) {
+body > * {
   background: whitesmoke;
 }
 
