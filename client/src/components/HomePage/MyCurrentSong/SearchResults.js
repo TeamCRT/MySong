@@ -13,7 +13,7 @@ class SearchResults extends React.Component {
 
            <div id="search-results" style={{backgroundColor: 'red', display: 'flex', flexDirection: 'column', width: '50%', height: '100%'}} >
              <div id="searchresult1" style={{backgroundColor: 'aqua', display: 'flex', flexDirection: 'row', width: '100%', height: '10%'}}>
-               <Label id="track-header" style={{width: '60%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Track</Label>
+               <Label id="track-header" style={{width: '60%', maxWidth: '60%', minWidth: '60%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Track</Label>
                <Label id="artist-header" style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Artist</Label>
                <Label id="album-header" style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Album</Label>
              </div>
