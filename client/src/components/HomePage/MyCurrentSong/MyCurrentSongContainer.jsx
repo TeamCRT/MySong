@@ -43,36 +43,23 @@ class MyCurrentSongContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* <Segment attached="top" className='wrapper'> */}
-          {this.state.albumArtworkLink &&
-            <img src={this.state.albumArtworkLink} style={{ float: 'left', height: 150 }} alt="Album Artwork" />
-          }
-          <h1 style={{ textAlign: 'center' }}>
-            Current My Song is : {this.props.currentMySong.trackSummary}
-          </h1>
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems:'center' }}>
-            <div >
-              <div style={{fontSize: '15px'}}>
-                Note: {this.props.currentMySong.note}
-              </div>
-              <div style={{fontSize: '15px'}}>
-                {this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}
-              </div>
-            </div>
-
+      <div id="current-song">
+        <MySongModal
+          spotifyId={this.props.spotifyId}
+          spotifyToken={this.props.spotifyToken}
+          onMySongChange={this.props.onMySongChange}
+          currentMySong={this.props.currentMySong}
+          setWait={this.setWait}
+        />
+        <div className="current-song-info">
+          {this.state.albumArtworkLink && <img className="current-song-artwork" src={this.state.albumArtworkLink} alt="Album Artwork" />}
+          <div id="current-song-details">
+            <div className="song-title">{this.props.currentMySong.trackName}</div>
+            <div className="song-artist">{this.props.currentMySong.trackArtist}</div>
+            <div className="song-note">Note: {this.props.currentMySong.note}</div>
+            <div style={{fontSize: '15px'}}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
           </div>
-          <div>
-            <MySongModal
-              spotifyId={this.props.spotifyId}
-              spotifyToken={this.props.spotifyToken}
-              onMySongChange={this.props.onMySongChange}
-              currentMySong={this.props.currentMySong}
-              setWait={this.setWait}
-            />
-
-          </div>
-        {/* </Segment> */}
+        </div>
       </div>
     );
   }
