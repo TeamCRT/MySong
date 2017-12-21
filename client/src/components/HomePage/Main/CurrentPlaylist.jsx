@@ -41,7 +41,7 @@ class CurrentPlaylist extends React.Component {
     this.state.playlistSongArr.forEach((item) => {
       if (item.spotifyId === spotifyUserId) songObj = item;
     });
-    return (<CurrentPlaylistSong
+    return (songObj && <CurrentPlaylistSong
       key={songObj.currentMySong.trackID}
       user={songObj.mySongUsername}
       trackObj={songObj.currentMySong}
