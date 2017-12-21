@@ -102,8 +102,8 @@ class SearchExampleStandard extends Component {
     }
     if (title === 'closeButton') {
       return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Button color="red" onClick={() => { this.setState({ openStatus: false }); }}>Close Search</Button>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Button color={'red'} onClick={() => {this.setState({ openStatus: false, value: '' }); }}>Close Search</Button>
         </div>
       );
     }
@@ -126,13 +126,14 @@ class SearchExampleStandard extends Component {
               openStatus: true,
             });
         }}
-        placeholder="Search for users"
+        placeholder={'Find users to follow'}
         loading={isLoading}
         onSearchChange={this.handleSearchChange}
         results={results}
         value={value}
         resultRenderer={this.resultRenderer}
         open={openStatus}
+        showNoResults={false}
       />
     );
   }
