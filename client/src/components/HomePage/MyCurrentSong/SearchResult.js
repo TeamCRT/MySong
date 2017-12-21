@@ -34,7 +34,7 @@ class SearchResult extends React.Component {
   }
 
   handleClick() {
-  	console.log('SearchResults click now detected!!');
+  	console.log('SearchResults click now detected!!', this.props.result.track_name);
   }
 
   render() {

@@ -3,6 +3,7 @@ import { Button, Modal, Header, Input } from 'semantic-ui-react'
 import axios from 'axios';
 import $ from 'jquery';
 import SearchResults from './SearchResults'
+import CurrentSongSelection from './CurrentSongSelection'
 
 class MySongModal extends Component {
 	constructor(props) {
@@ -233,11 +234,7 @@ class MySongModal extends Component {
             <div id="bottom-half" style={{backgroundColor: 'black', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
               <SearchResults searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
-                <div id="song-selection" style={{backgroundColor: 'purple', width: '100%', height:'50%', display:'flex', flexDirection: 'column'}}>
-                  
-                  <div style={{backgroundColor: 'brown', width: '100%'}}></div>
-                </div>
-
+                <CurrentSongSelection />
                 <div id="song-note" style={{backgroundColor: 'orange', width: '100%', height:'50%'}}></div>
               </div>
                 
