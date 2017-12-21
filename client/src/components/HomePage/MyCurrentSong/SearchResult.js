@@ -9,15 +9,11 @@ class SearchResult extends React.Component {
       hovering: false
     }
 
-    this.onHandleClick = this.onHandleClick.bind(this);
     this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
     this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  onHandleClick() {
-    this.props.handleMinusClick(this.props.result);
-  }
 
   onItemMouseEnter() {
     this.setState({
@@ -34,7 +30,8 @@ class SearchResult extends React.Component {
   }
 
   handleClick() {
-  	console.log('SearchResults click now detected!!', this.props.result.track_name);
+  	//console.log('SearchResults click now detected!!', this.props.result.track_name);
+  	this.props.handleSongSelection(this.props.result);
   }
 
   render() {

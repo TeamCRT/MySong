@@ -20,12 +20,19 @@ class MySongModal extends Component {
       trackAlbum:'',
       trackArist: '',
       trackName: '',
+      trackImage64: '',
+      trackImage300:'',
       note:'',
       showError: false,
       noSongSelectedError: false,
       noNoteError: false,
       noteTooLongError: false,
       songSearchValue: '',
+      selectedSong: {
+        trackName: '',
+        trackArtist: '',
+        trackImage300: ''
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -38,6 +45,7 @@ class MySongModal extends Component {
     this.handleSongSearch = this.handleSongSearch.bind(this);
     this.handleSongSubmit = this.handleSongSubmit.bind(this);
     this.dataFormat = this.dataFormat.bind(this);
+    this.handleSongSelection = this.handleSongSelection.bind(this);
   }
 
    handleChange(e) {
@@ -174,6 +182,25 @@ class MySongModal extends Component {
     return output;
   }
 
+  handleSongSelection(song) {
+    // this.setState({trackName: song.track_name,
+    //   trackArtist: song.track_artist, 
+    //   trackAlbum: song.track_album, 
+    //   trackID: song.track_id, 
+    //   trackSummary: song.track_summary, 
+    //   trackImage64: song.track_image64,
+    //   trackImage300: song.track_image300
+    // });
+    var selectedSong = {
+      trackName: song.track_name,
+      trackArtist: song.track_artist, 
+      trackImage300: song.track_image300
+    };
+
+    this.setState({selectedSong: selectedSong});
+    
+  }
+
   handleSongSubmit() {
     console.log('Submit button pressed!');
     console.log(this.state.songSearchValue);
@@ -233,9 +260,9 @@ class MySongModal extends Component {
 
             
             <div id="bottom-half" style={{backgroundColor: 'black', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
-              <SearchResults searchResults={this.state.searchResults} />
+              <SearchResults handleSongSelection={this.handleSongSelection} searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
-                <CurrentSongSelection />
+                <CurrentSongSelection selectedSong={this.state.selectedSong} />
                 <CurrentSongNote />
               </div>
                 

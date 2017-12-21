@@ -17,7 +17,9 @@ class SearchResults extends React.Component {
                <div id="artist-header" style={{width: '20%', maxWidth: '20%', minWidth: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: 'black', padding: '.5em .5em'}}>Artist</div>
                <div id="album-header" style={{width: '20%', maxWidth: '20%', minWidth: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: 'black', padding: '.5em .5em'}}>Album</div>
              </div>
-             {this.props.searchResults.map((result, index) => (<SearchResult result={result} />))}  
+             {this.props.searchResults.map((result, index) => (<SearchResult 
+              handleSongSelection={this.props.handleSongSelection}
+              result={result} />))}  
            </div>
     )
   }
