@@ -9,14 +9,11 @@ class CurrentSongNote extends React.Component {
       hovering: false
     }
 
-    this.onHandleClick = this.onHandleClick.bind(this);
+    
     this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
     this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+    this.onChange = this.onChange.bind(this);
 
-  onHandleClick() {
-    this.props.handleMinusClick(this.props.result);
   }
 
   onItemMouseEnter() {
@@ -33,8 +30,9 @@ class CurrentSongNote extends React.Component {
 
   }
 
-  handleClick() {
-  	console.log('SearchResults click now detected!!', this.props.result.track_name);
+  onChange(e) {
+    e.preventDefault();
+    this.props.handleSongNoteChange(e.target.value);
   }
 
   render() {
@@ -44,7 +42,7 @@ class CurrentSongNote extends React.Component {
     return (
        <div id="song-note" style={{display: 'flex', flexDirection: 'column', backgroundColor: '#eff0f2', width: '100%', height:'50%', alignItems: 'center'}}>
          <Form>
-           <TextArea placeholder='Write your song note here...' style={{ minHeight: 300, maxWidth: 400, fontSize: '35px', borderRadius: '40px' }} />
+           <TextArea onChange={this.onChange} placeholder='Write your song note here...' style={{ minHeight: 300, maxWidth: 400, fontSize: '35px', borderRadius: '40px' }} />
          </Form>
        </div>
     )

@@ -46,6 +46,7 @@ class MySongModal extends Component {
     this.handleSongSubmit = this.handleSongSubmit.bind(this);
     this.dataFormat = this.dataFormat.bind(this);
     this.handleSongSelection = this.handleSongSelection.bind(this);
+    this.handleSongNoteChange = this.handleSongNoteChange.bind(this);
   }
 
    handleChange(e) {
@@ -108,30 +109,31 @@ class MySongModal extends Component {
 
   show = dimmer => () => this.setState({ dimmer, open: true })
   handleSave () {
-    if (this.state.trackName === '' && this.state.noteData === '') {
-      this.setState({noSongSelectedError :true});
-      this.setState({noNoteError: true});
-      return;
-    }
+    console.log('save button pressed!');
+    // if (this.state.trackName === '' && this.state.noteData === '') {
+    //   this.setState({noSongSelectedError :true});
+    //   this.setState({noNoteError: true});
+    //   return;
+    // }
 
-    if (this.state.trackName === '') {
-      this.setState({noSongSelectedError: true});
-      this.setState({noNoteError :false});
-      return;
-    }
+    // if (this.state.trackName === '') {
+    //   this.setState({noSongSelectedError: true});
+    //   this.setState({noNoteError :false});
+    //   return;
+    // }
 
-    if (this.state.noteData === '') {
-      this.setState({noNoteError :true});
-      this.setState({noSongSelectedError: false});
-      return;
-    }
+    // if (this.state.noteData === '') {
+    //   this.setState({noNoteError :true});
+    //   this.setState({noSongSelectedError: false});
+    //   return;
+    // }
 
-    if (this.state.noteData.length > 180) {
-      this.setState({noteTooLongError: true});
-      this.setState({noNoteError :false});
-      this.setState({noSongSelectedError: false});
-      return;
-    }
+    // if (this.state.noteData.length > 180) {
+    //   this.setState({noteTooLongError: true});
+    //   this.setState({noNoteError :false});
+    //   this.setState({noSongSelectedError: false});
+    //   return;
+    // }
 
     if (this.state.noteData !== '' && this.state.trackName !== '' && this.state.noteData.length <= 180 ) {
       this.setState({noNoteError :false});
@@ -197,8 +199,31 @@ class MySongModal extends Component {
       trackImage300: song.track_image300
     };
 
-    this.setState({selectedSong: selectedSong});
+
+     var mySong = {
+        trackSummary: this.state.trackSummary,
+        trackID: this.state.trackID,
+        trackAlbum: this.state.trackAlbum,
+        trackName: this.state.trackName,
+        trackArtist: this.state.trackArtist,
+        note: this.state.noteData,
+      };
+
+
+
+    this.setState({selectedSong: selectedSong, 
+      trackSummary: song.track_summary, 
+      trackName: song.track_name,
+      trackID: song.track_id, 
+      trackAlbum: song.track_album, 
+      trackArtist: song.track_artist, 
+    });
     
+  }
+
+  handleSongNoteChange(note){
+    console.log('Note value is ', note);
+    this.setState({noteData: note});
   }
 
   handleSongSubmit() {
@@ -263,7 +288,7 @@ class MySongModal extends Component {
               <SearchResults handleSongSelection={this.handleSongSelection} searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
                 <CurrentSongSelection selectedSong={this.state.selectedSong} />
-                <CurrentSongNote />
+                <CurrentSongNote handleSongNoteChange={this.handleSongNoteChange} />
               </div>
                 
             </div>
