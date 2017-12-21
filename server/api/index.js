@@ -219,6 +219,10 @@ router.post('/currentMySongWaitTime', (req, res) => {
   const mySong = req.body;
   let currentTimeAndDate = new Date();
   currentTimeAndDate = Date.parse(currentTimeAndDate);
+  if (!mySong.createdAt) {
+    const message = 'no createdAt';
+    res.json({ message });
+  }
   const mySongExpiration = Date.parse(mySong.createdAt);
   const gracePeriod = 2000;
   const waitPeriod = 6000;

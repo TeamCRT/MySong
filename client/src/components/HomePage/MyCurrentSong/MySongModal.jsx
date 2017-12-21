@@ -100,7 +100,7 @@ class MySongModal extends Component {
     };
     axios.post('/api/currentMySongWaitTime', mySong)
       .then((time) => {
-        if (time.data) {
+        if (time.data && !time.data.message) {
           console.log('TIME DATA', time.data);
           // const timeInMins = Math.ceil(((time.data.waitPeriod - time.data.timeElapsed) / 1000) / 60);
           const timeInSecs = Math.ceil(((time.data.waitPeriod - time.data.timeElapsed) / 1000));
