@@ -196,7 +196,9 @@ class MySongModal extends Component {
                 track_artist: this.dataFormat(resp.tracks.items[i].artists[0].name),
                 track_album: this.dataFormat(resp.tracks.items[i].album.name),
                 track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name,
-                track_image: resp.tracks.items[i].album.images[2].url
+                track_image64: resp.tracks.items[i].album.images[2].url,
+                track_image300: resp.tracks.items[i].album.images[1].url
+
               }
               searchResults.push(result);
             }
@@ -233,13 +235,7 @@ class MySongModal extends Component {
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
                 <div id="song-selection" style={{backgroundColor: 'purple', width: '100%', height:'50%', display:'flex', flexDirection: 'column'}}>
                   
-                  <div style={{backgroundColor: 'brown', width: '100%', flexGrow: '1', display: 'flex', flexDirection: 'row', alignItems: 'stretch'}}>
-                    <div style={{backgroundColor: 'blue', flexGrow: '1'}}>See</div>
-                    <div style={{backgroundColor: 'pink', flexGrow: '1'}}>Me</div>
-                  </div>
-                  <div style={{backgroundColor: 'grey', width: '100%', flexGrow: '1'}}></div>
-                  <div style={{backgroundColor: 'white', width: '100%', flexGrow: '1'}}></div>
-                  <div style={{backgroundColor: 'green', width: '100%', flexGrow: '1'}}></div>
+                  <div style={{backgroundColor: 'brown', width: '100%'}}></div>
                 </div>
 
                 <div id="song-note" style={{backgroundColor: 'orange', width: '100%', height:'50%'}}></div>
