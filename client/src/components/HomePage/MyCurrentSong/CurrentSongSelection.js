@@ -42,9 +42,9 @@ class CurrentSongSelection extends React.Component {
     var cursor = this.state.hovering ? 'pointer' : 'default';
     
     return (
-       <div id="song-selection" style={{display: 'flex', flexDirection: 'column', backgroundColor: 'purple', width: '100%', height:'50%', alignItems: 'center'}}>
+       <div id="song-selection" style={{display: 'flex', flexDirection: 'column', backgroundColor: '#eff0f2', width: '100%', height:'50%', alignItems: 'center'}}>
         <div id="song-selection-bar" style={{backgroundColor: 'black', width: '100%', minHeight: '43.32px', maxHeight: '43.32px', color: 'white', fontSize: '28px', textAlign: 'center', padding: '0.2em 0.5em'}}>MySong</div>
-        <img style={{padding: '2em 0 0 0'}} src="https://i.scdn.co/image/671fb0a2ecb0c77cb693eb150bde7b6fa94b3f32"/>
+        <img style={{padding: '2em 0 0 0'}} src="https://i.scdn.co/image/ead73f726959b82d78c41d28ca41edfef92b1c87"/>
         <div style={{fontSize: '40px', padding: '.5em 0 0 0'}}>Viva La Vida</div>
         <div style={{fontSize: '20px', padding: '5px .5px'}}>By Coldplay</div>
        </div>
