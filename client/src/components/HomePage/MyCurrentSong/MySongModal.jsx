@@ -56,30 +56,30 @@ class MySongModal extends Component {
 
   handleSave () {
     console.log('save button pressed!');
-    // if (this.state.trackName === '' && this.state.noteData === '') {
-    //   this.setState({noSongSelectedError :true});
-    //   this.setState({noNoteError: true});
-    //   return;
-    // }
+    if (this.state.trackName === '' && this.state.noteData === '') {
+      this.setState({noSongSelectedError :true});
+      this.setState({noNoteError: true});
+      return;
+    }
 
-    // if (this.state.trackName === '') {
-    //   this.setState({noSongSelectedError: true});
-    //   this.setState({noNoteError :false});
-    //   return;
-    // }
+    if (this.state.trackName === '') {
+      this.setState({noSongSelectedError: true});
+      this.setState({noNoteError :false});
+      return;
+    }
 
-    // if (this.state.noteData === '') {
-    //   this.setState({noNoteError :true});
-    //   this.setState({noSongSelectedError: false});
-    //   return;
-    // }
+    if (this.state.noteData === '') {
+      this.setState({noNoteError :true});
+      this.setState({noSongSelectedError: false});
+      return;
+    }
 
-    // if (this.state.noteData.length > 180) {
-    //   this.setState({noteTooLongError: true});
-    //   this.setState({noNoteError :false});
-    //   this.setState({noSongSelectedError: false});
-    //   return;
-    // }
+    if (this.state.noteData.length > 180) {
+      this.setState({noteTooLongError: true});
+      this.setState({noNoteError :false});
+      this.setState({noSongSelectedError: false});
+      return;
+    }
 
     if (this.state.noteData !== '' && this.state.trackName !== '' && this.state.noteData.length <= 180 ) {
       this.setState({noNoteError :false});
@@ -120,7 +120,7 @@ class MySongModal extends Component {
       open: false
     });
   }
-  
+
   handleSongSearch(e) {
     e.preventDefault();
     this.setState({songSearchValue: e.target.value});
@@ -202,7 +202,6 @@ class MySongModal extends Component {
           <Modal.Header>Change your MySong</Modal.Header>
 
           <div id="maincontainer"style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-  
             <div id="top-half" style={{backgroundColor: 'white', width: '1080px', height:'100px'}}>
                 <Input type='text' placeholder='Search for songs...' action onChange={this.handleSongSearch}>
                   <input />
@@ -210,24 +209,22 @@ class MySongModal extends Component {
                 </Input> 
             </div>
 
-            
+      
             <div id="bottom-half" style={{backgroundColor: 'black', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
-              <SearchResults handleSongSelection={this.handleSongSelection} searchResults={this.state.searchResults} />
+              <SearchResults showError={this.state.showError} handleSongSelection={this.handleSongSelection} searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
                 <CurrentSongSelection selectedSong={this.state.selectedSong} />
                 <CurrentSongNote handleSongNoteChange={this.handleSongNoteChange} />
               </div>
-                
             </div>
 
-
-
-
           </div>
+
           <Modal.Actions>
             <Button color='black' onClick={this.handleCancel}>Cancel</Button>
             <Button positive icon='checkmark' labelPosition='right' content="OK" onClick={this.handleSave} />
           </Modal.Actions>
+
         </Modal>
       </div>
     )
