@@ -35,6 +35,7 @@ class MySongModal extends Component {
 
     this.handleSongSearch = this.handleSongSearch.bind(this);
     this.handleSongSubmit = this.handleSongSubmit.bind(this);
+    this.dataFormat = this.dataFormat.bind(this);
   }
 
    handleChange(e) {
@@ -166,6 +167,11 @@ class MySongModal extends Component {
     
   }
 
+  dataFormat(input) {
+    var output = input.length > 90 ? input.substring(0,90) + '...' : input;
+    return output;
+  }
+
   handleSongSubmit() {
     console.log('Submit button pressed!');
     console.log(this.state.songSearchValue);
@@ -185,12 +191,12 @@ class MySongModal extends Component {
             var searchResults = [];
             for (var i = 0; i < resp.tracks.items.length; i++) {
               var result = {
-                track_name: resp.tracks.items[i].name,
-                track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
-                track_artist: resp.tracks.items[i].artists[0].name,
-                track_album: resp.tracks.items[i].album.name,
-                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name,
-                track_image: resp.tracks.items[i].album.images[2].url
+                track_name: this.dataFormat(resp.tracks.items[i].name),
+                track_id: this.dataFormat(resp.tracks.items[i].href.split('tracks')[1].substr(1)),
+                track_artist: this.dataFormat(resp.tracks.items[i].artists[0].name),
+                track_album: this.dataFormat(resp.tracks.items[i].album.name),
+                track_summary: this.dataFormat(resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name),
+                track_image: this.dataFormat(resp.tracks.items[i].album.images[2].url)
               }
               searchResults.push(result);
             }
@@ -225,7 +231,17 @@ class MySongModal extends Component {
             <div id="bottom-half" style={{backgroundColor: 'blue', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
               <SearchResults searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
-                <div id="song-selection" style={{backgroundColor: 'purple', width: '100%', height:'50%'}}></div>
+                <div id="song-selection" style={{backgroundColor: 'purple', width: '100%', height:'50%', display:'flex', flexDirection: 'column'}}>
+                  
+                  <div style={{backgroundColor: 'brown', width: '100%', flexGrow: '1', display: 'flex', flexDirection: 'row', alignItems: 'stretch'}}>
+                    <div style={{backgroundColor: 'blue', flexGrow: '1'}}>See</div>
+                    <div style={{backgroundColor: 'pink', flexGrow: '1'}}>Me</div>
+                  </div>
+                  <div style={{backgroundColor: 'grey', width: '100%', flexGrow: '1'}}></div>
+                  <div style={{backgroundColor: 'white', width: '100%', flexGrow: '1'}}></div>
+                  <div style={{backgroundColor: 'green', width: '100%', flexGrow: '1'}}></div>
+                </div>
+
                 <div id="song-note" style={{backgroundColor: 'orange', width: '100%', height:'50%'}}></div>
               </div>
                 

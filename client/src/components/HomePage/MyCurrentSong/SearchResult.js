@@ -35,10 +35,10 @@ class SearchResult extends React.Component {
     
     return (
        <div style={{backgroundColor: 'brown', display: 'flex', flexDirection: 'row', width: '100%', height: '10%'}}>
-
-         <Label style={{width: '60%', maxWidth: '60%', minWidth: '60%',  height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>{this.props.result.track_name}</Label>
-         <Label style={{width: '20%', maxWidth: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>{this.props.result.track_artist}</Label>
-         <Label style={{width: '20%', maxWidth: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>{this.props.result.track_album}</Label>
+       	 <img src={this.props.result.track_image} />
+         <Label style={{width: '47.8%', maxWidth: '47.8%', minWidth: '47.8%', height: '100%', borderRadius: '0px', fontSize: '15px', textAlign: 'center', color: 'white', backgroundColor: '#575159', wordWrap: 'break-word'}}>{this.props.result.track_name}</Label>
+         <Label style={{width: '20%', maxWidth: '20%', minWidth: '20%', height: '100%', borderRadius: '0px', fontSize: '12px', textAlign: 'center', color: 'white', backgroundColor: '#575159', wordWrap: 'break-word'}}>{this.props.result.track_artist}</Label>
+         <Label style={{width: '20%', maxWidth: '20%', minWidth: '20%', height: '100%', borderRadius: '0px', fontSize: '12px', textAlign: 'center', color: 'white', backgroundColor: '#575159', wordWrap: 'break-word'}}>{this.props.result.track_album}</Label>
        </div>
     )
   }
