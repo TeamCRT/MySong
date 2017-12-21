@@ -35,9 +35,9 @@ class SearchResult extends React.Component {
     
     return (
        <div style={{backgroundColor: 'brown', display: 'flex', flexDirection: 'row', width: '100%', height: '10%'}}>
-         <Label style={{width: '60%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Track</Label>
-         <Label style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Artist</Label>
-         <Label style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Album</Label>
+         <Label style={{width: '60%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>{this.props.result.track_name}</Label>
+         <Label style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>{this.props.result.track_artist}</Label>
+         <Label style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>{this.props.result.track_album}</Label>
        </div>
     )
   }

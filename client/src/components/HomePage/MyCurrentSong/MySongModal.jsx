@@ -223,7 +223,7 @@ class MySongModal extends Component {
 
             
             <div id="bottom-half" style={{backgroundColor: 'blue', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
-              <SearchResults />
+              <SearchResults searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
                 <div id="song-selection" style={{backgroundColor: 'purple', width: '100%', height:'50%'}}></div>
                 <div id="song-note" style={{backgroundColor: 'orange', width: '100%', height:'50%'}}></div>

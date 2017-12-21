@@ -17,11 +17,7 @@ class SearchResults extends React.Component {
                <Label id="artist-header" style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Artist</Label>
                <Label id="album-header" style={{width: '20%', height: '100%', borderRadius: '0px', fontSize: '20px', textAlign: 'center', color: 'white', backgroundColor: '#575159'}}>Album</Label>
              </div>
-
-             <div id="searchresult2" style={{backgroundColor: 'yellow', width: '100%', height: '10%'}}></div>
-             <SearchResult />
-             <div id="searchresult3" style={{backgroundColor: 'yellow', width: '100%', height: '10%'}}></div>
-             <SearchResult />
+             {this.props.searchResults.map((result, index) => (<SearchResult result={result} />))}  
            </div>
     )
   }
