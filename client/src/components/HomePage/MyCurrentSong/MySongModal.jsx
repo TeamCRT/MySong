@@ -10,35 +10,38 @@ class MySongModal extends Component {
 	constructor(props) {
     super(props);
     this.state = {
+      //Property that closes and opens modal
       open: false,
-      formData:'',
+      //Properties store note text value and results of song search
       noteData: '',
       searchResults: [],
+      //Toggle conditional rendering of components
       showNote: false,
+
+      //Properties of selected song
+      trackName: '',
+      trackArist: '',
+      trackAlbum:'',
       trackSummary:'',
       trackID:'',
-      trackAlbum:'',
-      trackArist: '',
-      trackName: '',
       trackImage64: '',
       trackImage300:'',
-      note:'',
+      
+      //Currently selected song in modal
+      selectedSong: {
+        trackName: '',
+        trackArtist: '',
+        trackImage300: ''
+      },
+      //Toggle error message state properties
       showError: false,
       noSongSelectedError: false,
       noNoteError: false,
       noteTooLongError: false,
       songSearchValue: '',
-      selectedSong: {
-        trackName: '',
-        trackArtist: '',
-        trackImage300: ''
-      }
+  
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleFormChange = this.handleFormChange.bind(this);
-    this.handleNoteChange = this.handleNoteChange.bind(this);
-    this.addSearchResults = this.addSearchResults.bind(this);
+    
     this.handleCancel= this.handleCancel.bind(this);
     this.handleSave= this.handleSave.bind(this);
 
@@ -49,65 +52,8 @@ class MySongModal extends Component {
     this.handleSongNoteChange = this.handleSongNoteChange.bind(this);
   }
 
-   handleChange(e) {
-    e.preventDefault();
-    var $element = $(e.target);
-    this.setState({
-      trackSummary: $element.text(),
-      trackID: $element.attr('track_id'),
-      trackAlbum: $element.attr('track_album'),
-      trackArtist: $element.attr('track_artist'),
-      trackName: $element.attr('track_name')
-    });
-  }
-
-   addSearchResults(searchResults) {
-    this.setState({searchResults: searchResults});
-  }
-
-   handleFormSubmit(e) {
-  	e.preventDefault();
-  	this.setState({showNote:true});
-  	var query = this.state.formData.split(' ').join('+');
-  	var context = this;
-    var spotifyToken = this.props.spotifyToken;
-
-     axios({
-          method: 'GET',
-          url: `/api/spotifyAPI/search?track=${query}`,
-        })
-          .then((response) => {
-            var resp = response.data;
-            context.setState({
-              showError: resp.tracks.items.length !== 0 ? false : true
-            });
-            var searchResults = [];
-            for (var i = 0; i < resp.tracks.items.length; i++) {
-              var result = {
-                track_name: resp.tracks.items[i].name,
-                track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
-                track_artist: resp.tracks.items[i].artists[0].name,
-                track_album: resp.tracks.items[i].album.name,
-                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name
-              }
-              searchResults.push(result);
-            }
-            context.addSearchResults(searchResults);
-          })
-          .catch(err => console.error(err, err));
-  }
-
-  handleFormChange(e) {
-  	e.preventDefault();
-  	this.setState({formData: e.target.value});
-  }
-
-  handleNoteChange(e) {
-  	e.preventDefault();
-  	this.setState({noteData: e.target.value});
-  }
-
   show = dimmer => () => this.setState({ dimmer, open: true })
+
   handleSave () {
     console.log('save button pressed!');
     // if (this.state.trackName === '' && this.state.noteData === '') {
@@ -167,50 +113,35 @@ class MySongModal extends Component {
   }
 
   handleCancel = () => {
-    this.setState({noNoteError :false});
-    this.setState({noSongSelectedError: false});
-    this.setState({noteTooLongError: false});
-    this.setState({ open: false });
-  };
-
+    this.setState({
+      noNoteError :false,
+      noSongSelectedError: false,
+      noteTooLongError: false,
+      open: false
+    });
+  }
+  
   handleSongSearch(e) {
     e.preventDefault();
     this.setState({songSearchValue: e.target.value});
     
   }
 
+  //function that shortens lengthy album, artist, and track names for optimal rendering on screen
   dataFormat(input) {
     var output = input.length > 90 ? input.substring(0,50) + '...' : input;
     return output;
   }
 
   handleSongSelection(song) {
-    // this.setState({trackName: song.track_name,
-    //   trackArtist: song.track_artist, 
-    //   trackAlbum: song.track_album, 
-    //   trackID: song.track_id, 
-    //   trackSummary: song.track_summary, 
-    //   trackImage64: song.track_image64,
-    //   trackImage300: song.track_image300
-    // });
+    //create selectedSong object to pass into CurrentSongSelection component
     var selectedSong = {
       trackName: song.track_name,
       trackArtist: song.track_artist, 
       trackImage300: song.track_image300
     };
 
-
-     var mySong = {
-        trackSummary: this.state.trackSummary,
-        trackID: this.state.trackID,
-        trackAlbum: this.state.trackAlbum,
-        trackName: this.state.trackName,
-        trackArtist: this.state.trackArtist,
-        note: this.state.noteData,
-      };
-
-
-
+    //save selectedSong object into state, and also individual track attributes for flexible access
     this.setState({selectedSong: selectedSong, 
       trackSummary: song.track_summary, 
       trackName: song.track_name,
@@ -227,8 +158,6 @@ class MySongModal extends Component {
   }
 
   handleSongSubmit() {
-    console.log('Submit button pressed!');
-    console.log(this.state.songSearchValue);
     var query = this.state.songSearchValue.split(' ').join('+');
     var context = this;
     var spotifyToken = this.props.spotifyToken;
@@ -239,30 +168,28 @@ class MySongModal extends Component {
         })
           .then((response) => {
             var resp = response.data;
-            context.setState({
-              //showError: resp.tracks.items.length !== 0 ? false : true
+            this.setState({
+              showError: resp.tracks.items.length !== 0 ? false : true
             });
             var searchResults = [];
             for (var i = 0; i < resp.tracks.items.length; i++) {
               var result = {
+                //relevant track info, using dataFormat function to shorten lengthy strings
                 track_name: this.dataFormat(resp.tracks.items[i].name),
                 track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
                 track_artist: this.dataFormat(resp.tracks.items[i].artists[0].name),
                 track_album: this.dataFormat(resp.tracks.items[i].album.name),
                 track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name,
+                //store both 64 px and 300 px album art
                 track_image64: resp.tracks.items[i].album.images[2].url,
                 track_image300: resp.tracks.items[i].album.images[1].url
 
               }
               searchResults.push(result);
             }
-            //context.addSearchResults(searchResults);
             this.setState({searchResults: searchResults});
-            console.log('Search results from handleSongSubmit are', this.state.searchResults);
-
           })
           .catch(err => console.error(err, err));
-
   }
 
   render() {
