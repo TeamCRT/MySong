@@ -4,6 +4,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import SearchResults from './SearchResults'
 import CurrentSongSelection from './CurrentSongSelection'
+import CurrentSongNote from './CurrentSongNote'
 
 class MySongModal extends Component {
 	constructor(props) {
@@ -235,7 +236,7 @@ class MySongModal extends Component {
               <SearchResults searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
                 <CurrentSongSelection />
-                <div id="song-note" style={{backgroundColor: 'orange', width: '100%', height:'50%'}}></div>
+                <CurrentSongNote />
               </div>
                 
             </div>
