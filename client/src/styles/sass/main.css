@@ -185,6 +185,13 @@ body > * {
   overflow: auto;
   overflow-x: hidden; }
 
+#following-label {
+  border-radius: 0px;
+  width: 100%;
+  text-align: center;
+  background-color: #4D1D3F;
+  color: whitesmoke; }
+
 .bottom-player {
   grid-column: 1/4;
   grid-row: 4;
