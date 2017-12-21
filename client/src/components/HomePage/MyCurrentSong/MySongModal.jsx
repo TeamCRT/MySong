@@ -168,7 +168,7 @@ class MySongModal extends Component {
   }
 
   dataFormat(input) {
-    var output = input.length > 90 ? input.substring(0,90) + '...' : input;
+    var output = input.length > 90 ? input.substring(0,50) + '...' : input;
     return output;
   }
 
@@ -192,11 +192,11 @@ class MySongModal extends Component {
             for (var i = 0; i < resp.tracks.items.length; i++) {
               var result = {
                 track_name: this.dataFormat(resp.tracks.items[i].name),
-                track_id: this.dataFormat(resp.tracks.items[i].href.split('tracks')[1].substr(1)),
+                track_id: resp.tracks.items[i].href.split('tracks')[1].substr(1),
                 track_artist: this.dataFormat(resp.tracks.items[i].artists[0].name),
                 track_album: this.dataFormat(resp.tracks.items[i].album.name),
-                track_summary: this.dataFormat(resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name),
-                track_image: this.dataFormat(resp.tracks.items[i].album.images[2].url)
+                track_summary: resp.tracks.items[i].name + ' by ' + resp.tracks.items[i].artists[0].name,
+                track_image: resp.tracks.items[i].album.images[2].url
               }
               searchResults.push(result);
             }
@@ -220,7 +220,7 @@ class MySongModal extends Component {
 
           <div id="maincontainer"style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
   
-            <div id="top-half" style={{backgroundColor: 'yellow', width: '1080px', height:'100px'}}>
+            <div id="top-half" style={{backgroundColor: 'white', width: '1080px', height:'100px'}}>
                 <Input type='text' placeholder='Search for songs...' action onChange={this.handleSongSearch}>
                   <input />
                   <Button onClick={this.handleSongSubmit} type='submit'>Search</Button>
@@ -228,7 +228,7 @@ class MySongModal extends Component {
             </div>
 
             
-            <div id="bottom-half" style={{backgroundColor: 'blue', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
+            <div id="bottom-half" style={{backgroundColor: 'black', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
               <SearchResults searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
                 <div id="song-selection" style={{backgroundColor: 'purple', width: '100%', height:'50%', display:'flex', flexDirection: 'column'}}>
