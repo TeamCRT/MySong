@@ -13,19 +13,19 @@ class MySongModal extends Component {
       //Property that closes and opens modal
       open: false,
       //Properties store note text value and results of song search
-      noteData: '',
+      noteData: this.props.currentMySong.note || '',
       searchResults: [],
       //Toggle conditional rendering of components
       showNote: false,
 
       //Properties of selected song
-      trackName: '',
-      trackArist: '',
-      trackAlbum:'',
-      trackSummary:'',
-      trackID:'',
+      trackName: this.props.currentMySong.trackName || '',
+      trackArist: this.props.currentMySong.trackArtist || '',
+      trackAlbum: this.props.currentMySong.trackAlbum || '',
+      trackSummary: this.props.currentMySong.trackSummary || '',
+      trackID: this.props.currentMySong.trackID || '',
       trackImage64: '',
-      trackImage300:'',
+      trackImage300: this.props.currentAlbumArtwork || '',
       
       //Currently selected song in modal
       selectedSong: {
@@ -52,29 +52,42 @@ class MySongModal extends Component {
     this.handleSongNoteChange = this.handleSongNoteChange.bind(this);
   }
 
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.trackName !== this.props.currentMySong.trackName ) {
+      this.setState({trackName: this.props.currentMySong.trackName, 
+        noteData: this.props.currentMySong.note});
+    }
+  }
+
+
   show = dimmer => () => this.setState({ dimmer, open: true })
 
   handleSave () {
-    console.log('save button pressed!');
+    console.log('save button pressed!', this.state.trackName, this.state.noteData);
     if (this.state.trackName === '' && this.state.noteData === '') {
+      console.log('SAVE ERROR 1');
       this.setState({noSongSelectedError :true});
       this.setState({noNoteError: true});
       return;
     }
 
     if (this.state.trackName === '') {
+      console.log('SAVE ERROR 2');
       this.setState({noSongSelectedError: true});
       this.setState({noNoteError :false});
       return;
     }
 
     if (this.state.noteData === '') {
+      console.log('SAVE ERROR 3');
       this.setState({noNoteError :true});
       this.setState({noSongSelectedError: false});
       return;
     }
 
     if (this.state.noteData.length > 180) {
+      console.log('SAVE ERROR 4');
       this.setState({noteTooLongError: true});
       this.setState({noNoteError :false});
       this.setState({noSongSelectedError: false});
@@ -82,6 +95,7 @@ class MySongModal extends Component {
     }
 
     if (this.state.noteData !== '' && this.state.trackName !== '' && this.state.noteData.length <= 180 ) {
+      console.log('SAVE SUCCESS ');
       this.setState({noNoteError :false});
       this.setState({noSongSelectedError: false});
       this.setState({noteTooLongError: false});
@@ -213,8 +227,8 @@ class MySongModal extends Component {
             <div id="bottom-half" style={{backgroundColor: 'black', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
               <SearchResults showError={this.state.showError} handleSongSelection={this.handleSongSelection} searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
-                <CurrentSongSelection selectedSong={this.state.selectedSong} />
-                <CurrentSongNote handleSongNoteChange={this.handleSongNoteChange} />
+                <CurrentSongSelection currentMySong={this.props.currentMySong} currentAlbumArtwork={this.props.currentAlbumArtwork} selectedSong={this.state.selectedSong} />
+                <CurrentSongNote currentMySong={this.props.currentMySong} handleSongNoteChange={this.handleSongNoteChange} />
               </div>
             </div>
 

@@ -47,6 +47,8 @@ class MyCurrentSongContainer extends React.Component {
             spotifyId={this.props.spotifyId}
             spotifyToken={this.props.spotifyToken}
             onMySongChange={this.props.onMySongChange}
+            currentAlbumArtwork={this.state.albumArtworkLink}
+            currentMySong={this.props.currentMySong}
           />
         </Segment>
       </div>
