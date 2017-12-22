@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Popup, Button, Header, Image, Modal, Grid, Divider } from 'semantic-ui-react'
+import { Popup, Button, Header, Image, Modal, Grid, Divider, Input, Label, TextArea } from 'semantic-ui-react'
 import FollowingContainer from '../Following/FollowingContainer'
+import EditPlaylist from '../Main/EditPlaylist'
 import Following from '../Following/Following'
 import axios from 'axios'
 
@@ -24,6 +25,7 @@ class EditPlaylistModal extends Component {
     this.handleCancel = this.handleCancel.bind(this);
     this.handlePlaylistChange = this.handlePlaylistChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleMinusClick = this.handleMinusClick.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -139,7 +141,19 @@ class EditPlaylistModal extends Component {
     this.setState({illegalCharError: false});
   }
 
+  handleMinusClick(result) {
+    var songsArray = this.state.newPlaylist;
+    var followObjectArray = this.state.followObjectArray;
+    var index = songsArray.indexOf(result.spotifyId);
+    songsArray.splice(index, 1);
+    followObjectArray.splice(index, 1);
+    this.setState({newPlaylist: songsArray,
+      followObjectArray: followObjectArray});
+  }
+
   newPlaylistHandleClick(follow) {
+    console.log('follow is', follow);
+    console.log('playlistSongArr', this.props.playlistSongArr);
     var songsArray = this.state.newPlaylist;
     if (!songsArray.includes(follow.spotifyId)) {
       songsArray.push(follow.spotifyId);
@@ -158,77 +172,40 @@ class EditPlaylistModal extends Component {
   render() {
     const { open, dimmer } = this.state
     return (
-      <div>
-        <Button color='grey' onClick={this.show(true)}>Edit</Button>
-        <Modal dimmer={false} open={open} onClose={this.close}>
-          <Modal.Header>Edit a Playlist</Modal.Header>
-          <Modal.Content image>
-          <div>
-
-          </div>
-
-          <Grid columns={2} stackable>
-            <Grid.Column>
-              {this.props.spotifyId && ( <FollowingContainer
-                spotifyId={this.props.spotifyId} 
-                newPlaylistHandleClick={this.newPlaylistHandleClick}
+       <div>
+        <Button color='red' onClick={this.show(true)}>Edit</Button>
+        <Modal dimmer={true} open={open} onClose={this.close}>
+          <Modal.Header>Create a Playlist</Modal.Header>
+          <div id='outer' style={{display: 'flex', flexDirection: 'row', height: '560px', width: '900px', backgroundColor:'red'}}>
+      
+            <div id='left half' style={{display: 'flex', flexDirection: 'column', backgroundColor: '#9ca6b7', width: '50%', height: '100%'}}>
+              <div id='first child' style={{background: 'linear-gradient(0deg, black, #4f4f51)', color: 'white', height: '10%', fontSize: '20px', textAlign: 'center', padding: '.3em'}}>People You're Following</div>
+              <FollowingContainer
+                spotifyId={this.props.spotifyId}
+                newPlaylistHandleClick = {this.newPlaylistHandleClick}
+                following={this.props.following}
                 refreshFollowing={this.props.refreshFollowing}
                 view={this.props.view}
-              /> ) }
-            </Grid.Column>
+              /> 
+            </div>
 
-            <Header>
-              {this.state.noPlaylistNameError &&
-                <div style={{color:'red'}}>No Playlist Name</div>
-              }
-            </Header>
-
-
-
-            <Grid.Column>
-            <Header>{this.state.newPlaylist.length }</Header>
-            <Header>{this.state.newPlaylistName}</Header>
-
-
-            <Header>
-              {this.state.noSongsInPlaylistError &&
-                <div style={{color:'red'}}>No Songs in Playlist</div>
-              }
-            </Header>
-
-            <Header>
-              {this.state.playlistNameAlreadyExistsError &&
-                <div style={{color:'red'}}>Playlist Name Already Exists</div>
-              }
-            </Header>
-
-            <Header>
-              {this.state.illegalCharError &&
-                <div style={{color:'red'}}>Illegal Character(s) In Playlist Name!</div>
-              }
-            </Header>
-
-            <Header>
-            </Header>
-              Playlist Name
-              <input value={this.state.newPlaylistName} onChange={this.handlePlaylistNameChange}></input>
-               {this.state.newPlaylist.map((result, index) => (
-               <div> {'-'}
-                {result}
-               </div>
-                ))}
-            </Grid.Column>
-
-
-
-          </Grid>
-
-          </Modal.Content>
+            <div id='right half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%'}}>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', maxHeight: '35px'}}>
+                 <div style={{background: 'linear-gradient(0deg, #4f4f51,#939396)', minWidth: '200px', color: 'white', fontSize: '20px', padding: '6px 17px'}}>Playlist Name</div>
+                 <TextArea onChange={this.handlePlaylistNameChange} style={{fontSize: '20px', maxWidth: '240px'}} focus placeholder='Type playlist name...'>{this.props.currentPlaylistObj.name}</TextArea>
+                  {this.state.noPlaylistNameError && <Label style={{padding: '10px', minWidth: '100px', height:'120px', fontSize: '20px'}} basic color='red' pointing='left'>Please include playlist name</Label> ||
+                   this.state.illegalCharError && <Label style={{padding: '15px', fontSize: '20px', minHeight: '160px', minWidth: '130px'}} basic color='red' pointing='left'>Playlist name contains illegal characters</Label> ||
+                   this.state.playlistNameAlreadyExistsError && <Label style={{padding: '15px', fontSize: '20px', minHeight: '120px', minWidth: '110px'}} basic color='red' pointing='left'>Playlist name already exists</Label>}
+              </div>
+              <EditPlaylist
+                noSongsInPlaylistError={this.state.noSongsInPlaylistError}
+                currentPlaylistObjArray={this.props.playlistSongArr}
+                handleMinusClick={this.handleMinusClick}
+              />
+            </div>
+          </div>
           <Modal.Actions>
-            <Button onClick={this.handleUpdate}>Undo All Changes</Button>
-            <Button color='black' onClick={this.handleCancel}>
-              Cancel
-            </Button>
+            <Button color='black' onClick={this.handleCancel} content="Cancel"/>
             <Button positive icon='checkmark' labelPosition='right' content="Save" onClick={this.handleSave} />
           </Modal.Actions>
         </Modal>

@@ -78,7 +78,7 @@ class CurrentPlaylist extends React.Component {
           <EditPlaylistModal
             playlists={this.props.playlists}
             updatePlaylists={this.props.updatePlaylists}
-            playlistName={this.props.currentPlaylistObj.name}
+            currentPlaylistObj={this.props.currentPlaylistObj}
             spotifyId={this.props.spotifyUserId}
             playlistSongArr={this.state.playlistSongArr}
             refreshFollowing={this.props.refreshFollowing}
