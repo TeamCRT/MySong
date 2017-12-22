@@ -64,7 +64,7 @@ class Following extends React.Component {
   }
 
   render() {
-    var color = this.state.hovering ? 'yellow' : 'white';
+    var color = this.state.hovering ? 'white' : 'black';
 
     return (
       <div style={{ margin: 'none' }}>

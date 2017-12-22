@@ -56,9 +56,6 @@ class SelectedSong extends React.Component {
                     content={`Remove ${this.props.mySongUsername}'s MySong from playlist`}
                     />
 
-
-
-
        </div>
     )
   }
