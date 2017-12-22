@@ -37,8 +37,17 @@ class CurrentPlaylist extends React.Component {
   }
 
   songMapFunction(spotifyUserId) {
+    console.log('CurrentPlaylist is being called: this.state.playlistSongArr is', this.state.playlistSongArr);
+    console.log('spotifyUserId: ', spotifyUserId);
     let songObj;
-    this.state.playlistSongArr.forEach((item) => { if (item.spotifyId === spotifyUserId) songObj = item; });
+    this.state.playlistSongArr.forEach((item) => 
+      { 
+        console.log('item is', item);
+        if (item.spotifyId === spotifyUserId) songObj = item; 
+      }
+    );
+
+    if(!songObj) return null
     return (<CurrentPlaylistSong
       key={songObj.currentMySong.trackID}
       user={songObj.mySongUsername}
@@ -82,7 +91,9 @@ class CurrentPlaylist extends React.Component {
             spotifyId={this.props.spotifyUserId}
             playlistSongArr={this.state.playlistSongArr}
             refreshFollowing={this.props.refreshFollowing}
-            view={this.props.view} />
+            view={this.props.view}
+            getAPlaylist={this.getAPlaylist.bind(this)}
+          />
 
         </h1>
         <div>{this.state.tracksBySpotifyUserId}</div>

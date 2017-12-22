@@ -13,6 +13,7 @@ class EditPlaylistModal extends Component {
       newPlaylistName: '',
       newPlaylist: '',
       playlistObjectArray: this.props.playlistSongArr,
+      originalPlaylist: null,
       open: false,
       noPlaylistNameError: false,
       noSongsInPlaylistError: false,
@@ -27,9 +28,12 @@ class EditPlaylistModal extends Component {
     this.handlePlaylistChange = this.handlePlaylistChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleMinusClick = this.handleMinusClick.bind(this);
+    this.handleTest = this.handleTest.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate is CALLED! - this.props.playlistSongArr', this.props.playlistSongArr);
+    console.log('componentDidUpdate is CALLED - prevProps', prevProps);
     if (prevProps.playlistSongArr !== this.props.playlistSongArr) {
       var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
       this.setState({newPlaylist: playlistArray});
@@ -38,10 +42,22 @@ class EditPlaylistModal extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log('componentDidMount is CALLED!', this.props.playlistSongArr);
+  }
+
+  handleTest(e) {
+    e.preventDefault();
+    console.log('handleTest being called!');
+    console.log('this.props.playlistSongArr', this.props.playlistSongArr);
+    console.log('this.playlistObjectArray', this.playlistObjectArray);
+    console.log('this.newPlaylist', this.newPlaylist);
+
+  }
+
   handlePlaylistNameChange(e) {
     e.preventDefault();
     this.setState({newPlaylistName: e.target.value});
-    console.log('new playlist name is', this.state.newPlaylistName);
   }
 
   handleUpdate() {
@@ -53,6 +69,10 @@ class EditPlaylistModal extends Component {
   handlePlaylistChange() {
     var newPlaylistSongsArray = this.props.playlistSongArr && this.props.playlistSongArr.map((result,index)=>result.spotifyId);
     this.setState({ newPlaylist: newPlaylistSongsArray });
+  }
+
+  storeOriginal() {
+
   }
 
   handleSave() {
@@ -133,27 +153,36 @@ class EditPlaylistModal extends Component {
     this.setState({open:false});
   }
 
+
+
   handleCancel() {
+    console.log('HANDLE CANCEL: this.props.playlistSongArr', this.props.playlistSongArr);
+    console.log('HANDLE CANCEL: this.state.originalPlaylist', this.state.originalPlaylist);
+    this.props.getAPlaylist();
     this.setState({newPlaylistName: ''});
     this.setState({newPlaylist: []});
+    this.setState({playlistObjectArray: this.props.playlistSongArr});
     this.setState({open:false});
-
     this.setState({noPlaylistNameError :false});
     this.setState({noSongsInPlaylistError: false});
     this.setState({playlistNameAlreadyExistsError: false});
     this.setState({illegalCharError: false});
   }
 
+
   handleMinusClick(result) {
+    console.log('handleMinusClick called', result);
     var songsArray = this.state.newPlaylist;
     var playlistObjectArray = this.state.playlistObjectArray;
     var index = songsArray.indexOf(result.spotifyId);
     songsArray.splice(index, 1);
     playlistObjectArray.splice(index, 1);
+
+    console.log('songsArray is', songsArray);
+    console.log('playlistObjectArray', playlistObjectArray);
     this.setState({newPlaylist: songsArray,
       playlistObjectArray: playlistObjectArray});
 
-    console.log('this.props.currentPlaylistObj.name', this.props.currentPlaylistObj.name);
   }
 
   newPlaylistHandleClick(follow) {
@@ -171,7 +200,6 @@ class EditPlaylistModal extends Component {
       this.setState({noSongsInPlaylistError: false});
     }
 
-     console.log('this.props.currentPlaylistObj.name', this.props.currentPlaylistObj.name);
 
   }
 
@@ -184,10 +212,11 @@ class EditPlaylistModal extends Component {
        <div>
         <Button color='red' onClick={this.show(true)}>Edit</Button>
         <Modal dimmer={true} open={open} onClose={this.close}>
-          <Modal.Header>Create a Playlist</Modal.Header>
+          <Modal.Header>{`Edit a Playlist`}</Modal.Header>
+          <Button onClick={this.handleTest}/>
           <div id='outer' style={{display: 'flex', flexDirection: 'row', height: '560px', width: '900px', backgroundColor:'red'}}>
       
-            <div id='left half' style={{display: 'flex', flexDirection: 'column', backgroundColor: '#9ca6b7', width: '50%', height: '100%'}}>
+            <div id='left half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%'}}>
               <div id='first child' style={{background: 'linear-gradient(0deg, black, #4f4f51)', color: 'white', height: '10%', fontSize: '20px', textAlign: 'center', padding: '.3em'}}>People You're Following</div>
               <FollowingContainer
                 spotifyId={this.props.spotifyId}
@@ -201,7 +230,7 @@ class EditPlaylistModal extends Component {
             <div id='right half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%'}}>
               <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', maxHeight: '35px'}}>
                  <div style={{background: 'linear-gradient(0deg, #4f4f51,#939396)', minWidth: '200px', color: 'white', fontSize: '20px', padding: '6px 17px'}}>Playlist Name</div>
-                 <TextArea onChange={this.handlePlaylistNameChange} style={{fontSize: '20px', maxWidth: '240px'}} focus placeholder='Type playlist name...'>{this.props.currentPlaylistObj.name}</TextArea>
+                 <TextArea onChange={this.handlePlaylistNameChange} style={{fontSize: '20px', maxWidth: '240px', minWidth: '240px'}} focus placeholder='Type playlist name...'>{this.props.currentPlaylistObj.name}</TextArea>
                   {this.state.noPlaylistNameError && <Label style={{padding: '10px', minWidth: '100px', height:'120px', fontSize: '20px'}} basic color='red' pointing='left'>Please include playlist name</Label> ||
                    this.state.illegalCharError && <Label style={{padding: '15px', fontSize: '20px', minHeight: '160px', minWidth: '130px'}} basic color='red' pointing='left'>Playlist name contains illegal characters</Label> ||
                    this.state.playlistNameAlreadyExistsError && <Label style={{padding: '15px', fontSize: '20px', minHeight: '120px', minWidth: '110px'}} basic color='red' pointing='left'>Playlist name already exists</Label>}
