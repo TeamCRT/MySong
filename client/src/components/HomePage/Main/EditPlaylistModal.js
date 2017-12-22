@@ -15,7 +15,7 @@ class EditPlaylistModal extends Component {
       noPlaylistNameError: false,
       noSongsInPlaylistError: false,
       playlistNameAlreadyExistsError: false,
-       illegalCharError: false,
+      illegalCharError: false,
     };
 
     this.handlePlaylistNameChange = this.handlePlaylistNameChange.bind(this);

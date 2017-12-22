@@ -94,7 +94,7 @@ class Following extends React.Component {
 
       
             }
-            content={this.props.view === 'following' && `Stop following ${this.props.follow.mySongUsername}` || this.props.view === 'playlist' && `Add/remove ${this.props.follow.mySongUsername}'s MySong to playlist`  }
+            content={this.props.view === 'following' && `Stop following ${this.props.follow.mySongUsername}` || this.props.view === 'playlist' && `Add ${this.props.follow.mySongUsername}'s MySong to playlist`  }
             position="top center"
           />
         </Label>

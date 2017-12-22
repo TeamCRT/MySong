@@ -13,23 +13,6 @@ class MyCurrentSongContainer extends React.Component {
     };
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (!prevState.albumArtworkLink || (prevProps.currentMySong.trackID !== this.props.currentMySong.trackID)) {
-  //     if (this.props.currentMySong.trackID) {
-  //       axios({
-  //         method: 'GET',
-  //         url: `/api/spotifyAPI/albumArtwork?trackID=${this.props.currentMySong.trackID}`,
-  //       })
-  //         .then((response) => {
-  //           this.setState({
-  //             albumArtworkLink: response.data[1].url,
-  //           });
-  //         })
-  //         .catch(err => console.error(err, err));
-  //     }
-  //   }
-  
-
   render() {
     return (
       <div>
@@ -45,7 +28,6 @@ class MyCurrentSongContainer extends React.Component {
             spotifyId={this.props.spotifyId}
             spotifyToken={this.props.spotifyToken}
             onMySongChange={this.props.onMySongChange}
-            currentAlbumArtwork={this.state.albumArtworkLink}
             currentMySong={this.props.currentMySong}
           />
         </Segment>
