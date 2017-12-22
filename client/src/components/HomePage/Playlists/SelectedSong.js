@@ -32,7 +32,7 @@ class SelectedSong extends React.Component {
   }
 
   render() {
-    var color = this.state.hovering ? 'red' : 'green';
+    var color = this.state.hovering ? 'white' : 'grey';
     
     return (
        <div style={{display: 'flex', flexDirection: 'row', background: 'linear-gradient(black, #3e4147)', color: 'white', borderRadius: '10px', width: '100%', minHeight:'93px', marginTop: '20px', textAlign: 'center', padding: '1em 1em', flexWrap:'wrap'}}>
@@ -42,12 +42,30 @@ class SelectedSong extends React.Component {
           <div style={{color:'white', textAlign: 'left'}}>{`by ${this.props.result.currentMySong.trackArtist}`}</div>
         </div>
         <div style={{color: 'white', fontSize: '20px', wordWrap: 'break-word', maxWidth: '150px'}}>{this.props.mySongUsername}</div>
+          <Popup
+                    trigger= {<Icon
+                      key='hello'
+                      style={{ display: 'inline-block', float: 'right', padding: '0em 0.5em' }}
+                      size="large"
+                      name="minus circle"
+                      color={color}
+                      onClick={this.onHandleClick}
+                      onMouseEnter={this.onItemMouseEnter}
+                      onMouseLeave={this.onItemMouseLeave}
+                    />}
+                    content={`Remove ${this.props.mySongUsername}'s MySong from playlist`}
+                    />
+
+
+
+
        </div>
     )
   }
 }
 
 export default SelectedSong;
+
 
 
 

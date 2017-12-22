@@ -11,7 +11,7 @@ class CreatedPlaylist extends React.Component {
     
     return (
 
-      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '90%', maxHeight: '500px', overflow: 'scroll', minWidth: '100%', paddingTop: '.5em', backgroundColor: 'yellow'}}>
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '90%', maxHeight: '650px', overflow: 'scroll', minWidth: '100%', paddingTop: '.5em', backgroundColor: 'white', flexGrow: '1'}}>
        {this.props.followObjectArray.map((result, index) => (
         <SelectedSong 
           result={result}
