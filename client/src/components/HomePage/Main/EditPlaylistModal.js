@@ -11,7 +11,7 @@ class EditPlaylistModal extends Component {
     super(props);
     this.state = {
       newPlaylistName: '',
-      newPlaylist: this.props.playlistSongArr,
+      newPlaylist: '',
       playlistObjectArray: this.props.playlistSongArr,
       open: false,
       noPlaylistNameError: false,
@@ -33,7 +33,7 @@ class EditPlaylistModal extends Component {
     if (prevProps.playlistSongArr !== this.props.playlistSongArr) {
       var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
       this.setState({newPlaylist: playlistArray});
-      this.setState({newPlaylistName: this.props.playlistName});
+      this.setState({newPlaylistName: this.props.currentPlaylistObj.name});
       this.setState({playlistObjectArray: this.props.playlistSongArr});
     }
   }
@@ -41,6 +41,7 @@ class EditPlaylistModal extends Component {
   handlePlaylistNameChange(e) {
     e.preventDefault();
     this.setState({newPlaylistName: e.target.value});
+    console.log('new playlist name is', this.state.newPlaylistName);
   }
 
   handleUpdate() {
@@ -57,7 +58,7 @@ class EditPlaylistModal extends Component {
   handleSave() {
     var userPlaylists = this.props.playlists.map((playlist) => playlist.playlistName);
     var illegalChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    var originalPlaylistName = this.props.playlistName;
+    var originalPlaylistName = this.props.currentPlaylistObj.name;
     var originalPlaylistNameIndex = userPlaylists.indexOf(originalPlaylistName);
     userPlaylists.splice(originalPlaylistNameIndex, 1)
 
@@ -113,7 +114,7 @@ class EditPlaylistModal extends Component {
       var updatePlaylistPayload = {
         newPlaylist: newPlaylist,
         spotifyId: this.props.spotifyId,
-        originalName: this.props.playlistName
+        originalName: this.props.currentPlaylistObj.name
       }
 
       axios({
@@ -151,6 +152,8 @@ class EditPlaylistModal extends Component {
     playlistObjectArray.splice(index, 1);
     this.setState({newPlaylist: songsArray,
       playlistObjectArray: playlistObjectArray});
+
+    console.log('this.props.currentPlaylistObj.name', this.props.currentPlaylistObj.name);
   }
 
   newPlaylistHandleClick(follow) {
@@ -167,6 +170,8 @@ class EditPlaylistModal extends Component {
     if (this.state.newPlaylist.length > 0) {
       this.setState({noSongsInPlaylistError: false});
     }
+
+     console.log('this.props.currentPlaylistObj.name', this.props.currentPlaylistObj.name);
 
   }
 
