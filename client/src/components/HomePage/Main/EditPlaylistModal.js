@@ -12,6 +12,7 @@ class EditPlaylistModal extends Component {
     this.state = {
       newPlaylistName: '',
       newPlaylist: this.props.playlistSongArr,
+      playlistObjectArray: this.props.playlistSongArr,
       open: false,
       noPlaylistNameError: false,
       noSongsInPlaylistError: false,
@@ -33,6 +34,7 @@ class EditPlaylistModal extends Component {
       var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
       this.setState({newPlaylist: playlistArray});
       this.setState({newPlaylistName: this.props.playlistName});
+      this.setState({playlistObjectArray: this.props.playlistSongArr});
     }
   }
 
@@ -143,25 +145,27 @@ class EditPlaylistModal extends Component {
 
   handleMinusClick(result) {
     var songsArray = this.state.newPlaylist;
-    var followObjectArray = this.state.followObjectArray;
+    var playlistObjectArray = this.state.playlistObjectArray;
     var index = songsArray.indexOf(result.spotifyId);
     songsArray.splice(index, 1);
-    followObjectArray.splice(index, 1);
+    playlistObjectArray.splice(index, 1);
     this.setState({newPlaylist: songsArray,
-      followObjectArray: followObjectArray});
+      playlistObjectArray: playlistObjectArray});
   }
 
   newPlaylistHandleClick(follow) {
-    console.log('follow is', follow);
-    console.log('playlistSongArr', this.props.playlistSongArr);
     var songsArray = this.state.newPlaylist;
+    var playlistObjectArray = this.state.playlistObjectArray;
+
     if (!songsArray.includes(follow.spotifyId)) {
       songsArray.push(follow.spotifyId);
-      this.setState({newPlaylist: songsArray})
-    }  else {
-      var index = songsArray.indexOf(follow.spotifyId);
-      songsArray.splice(index, 1);
-      this.setState({newPlaylist: songsArray});
+      playlistObjectArray.push(follow);
+      this.setState({newPlaylist: songsArray,
+        playlistObjectArray: playlistObjectArray});
+    }  
+
+    if (this.state.newPlaylist.length > 0) {
+      this.setState({noSongsInPlaylistError: false});
     }
 
   }
@@ -199,7 +203,7 @@ class EditPlaylistModal extends Component {
               </div>
               <EditPlaylist
                 noSongsInPlaylistError={this.state.noSongsInPlaylistError}
-                currentPlaylistObjArray={this.props.playlistSongArr}
+                playlistObjectArray={this.state.playlistObjectArray}
                 handleMinusClick={this.handleMinusClick}
               />
             </div>
