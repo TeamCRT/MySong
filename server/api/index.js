@@ -18,7 +18,7 @@ router.use('/spotifyAPI/:id', (req, res, next) => {
   currentTimeAndDate = Date.parse(currentTimeAndDate);
   let tokenExpiration = Date.parse(req.session.tokenExpirationDate);
   let compare = currentTimeAndDate - tokenExpiration;
-  if (compare > 3000000) { //3000000
+  if (compare > 3000000) { // 3000000, number of miliseconds in 50 mins
     const refreshToken = req.session.passport.user.spotifyRefreshToken;
     axios({
       method: 'post',
@@ -114,7 +114,7 @@ router.get(
 router.get(
   '/playlists',
   (req, res) => {
-    User.getUserPlaylists(req.query.spotifyUserID)
+    User.getUserPlaylists(req.session.passport.user.spotifyId)
       .then(result => res.send(result))
       .catch(err => res.send(err));
   },
@@ -197,11 +197,8 @@ router.delete('/removeFollow', (req, res) => {
 });
 
 router.delete('/deletePlaylist', (req, res) => {
-  console.log('/deletePlaylist endpoint reached!');  
-  console.log('req.query.playlistName ', req.query.playlistName);  
   User.deletePlaylist(req.session.passport.user.spotifyId, req.query.playlistName)
     .then((response) => {
-      console.log('delete playlist response is: ', response);
       res.send(response);
     })
     .catch((err) => {
@@ -218,12 +215,31 @@ router.get('/currentmysong/:spotifyId', (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.post('/currentMySongWaitTime', (req, res) => {
+  const mySong = req.body;
+  let currentTimeAndDate = new Date();
+  currentTimeAndDate = Date.parse(currentTimeAndDate);
+  if (!mySong.createdAt) {
+    const message = 'no createdAt';
+    res.json({ message });
+  }
+  const mySongExpiration = Date.parse(mySong.createdAt);
+  const gracePeriod = 2000;
+  const waitPeriod = 6000;
+  const timeElapsed = currentTimeAndDate - mySongExpiration;
+  if (timeElapsed > waitPeriod || timeElapsed < gracePeriod) {
+    res.send(false);
+  } else {
+    res.json({ timeElapsed, waitPeriod });
+  }
+});
+
 router.post('/currentmysong', (req, res) => {
   const spotifyId = req.body.spotifyId;
-  const mySong = req.body.mySong;
-
+  let mySong = req.body.mySong;
+  mySong.createdAt = new Date();
   User.changeCurrentSong(spotifyId, mySong)
-    .then(result => res.status(200).json(result))
+    .then(result => res.status(200).json(mySong))
     .catch(err => res.send(err));
 });
 

@@ -44,14 +44,14 @@ class MySongModal extends Component {
     
     this.handleCancel= this.handleCancel.bind(this);
     this.handleSave= this.handleSave.bind(this);
-
+    
+  
     this.handleSongSearch = this.handleSongSearch.bind(this);
     this.handleSongSubmit = this.handleSongSubmit.bind(this);
     this.dataFormat = this.dataFormat.bind(this);
     this.handleSongSelection = this.handleSongSelection.bind(this);
     this.handleSongNoteChange = this.handleSongNoteChange.bind(this);
   }
-
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.currentMySong.trackID !== this.props.currentMySong.trackID ) {
@@ -60,7 +60,6 @@ class MySongModal extends Component {
         trackArtist: this.props.currentMySong.trackArtist,
         trackImage300: this.props.currentMySong.trackImage300,
       };
-
 
       this.setState({trackName: this.props.currentMySong.trackName, 
         trackArtist: this.props.currentMySong.trackArtist,
@@ -72,7 +71,6 @@ class MySongModal extends Component {
         selectedSong: selectedSong});
     }
   }
-
 
   show = dimmer => () => this.setState({ dimmer, open: true })
 
@@ -235,11 +233,12 @@ class MySongModal extends Component {
           .catch(err => console.error(err, err));
   }
 
+  
   render() {
     const { open, dimmer } = this.state
 
     return (
-      <div style={{textAlign:'center'}}>
+      <div className="my-song-modal" style={{textAlign:'center'}}>
         <Button onClick={this.show(true)}>Edit your current MySong</Button>
         <Modal size='large'dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
@@ -274,4 +273,5 @@ class MySongModal extends Component {
   }
 }
 
+ 
 export default MySongModal

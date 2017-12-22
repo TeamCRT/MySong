@@ -31,7 +31,7 @@ class EditPlaylistModal extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.playlistSongArr !== this.props.playlistSongArr) {
+    if (this.props.playlistSongArr && prevProps.playlistSongArr !== this.props.playlistSongArr) {
       var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
       this.setState({newPlaylist: playlistArray,
         newPlaylistName: this.props.currentPlaylistObj.name,

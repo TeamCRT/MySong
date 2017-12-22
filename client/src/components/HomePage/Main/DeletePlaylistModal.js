@@ -41,6 +41,7 @@ class DeletePlaylistModal extends Component {
   close = () => this.setState({ open: false })
 
   render() {
+
     const { open, dimmer } = this.state
 
     return (
@@ -50,8 +51,6 @@ class DeletePlaylistModal extends Component {
           <Modal.Header >Delete Playlist</Modal.Header>
           <Modal.Content style={{fontSize: '30px', textAlign: 'center'}}>
           Are you sure you want to delete this playlist?
-
-
           </Modal.Content>
           <Modal.Actions>
             <Button negative content="No" onClick={this.handleCancel}>

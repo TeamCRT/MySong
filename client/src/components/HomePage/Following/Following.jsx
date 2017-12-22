@@ -1,4 +1,4 @@
-/* eslint-disable no-console, react/prop-types */
+/* eslint-disable no-console */
 import React from 'react';
 import axios from 'axios';
 import { Icon, Label, Popup } from 'semantic-ui-react';
@@ -68,7 +68,7 @@ class Following extends React.Component {
 
     return (
       <div style={{ margin: 'none' }}>
-        <Label style={{ borderRadius: '0px', width: '100%', textAlign: 'center' }} color="red">
+        <Label id="following-label">
           {this.props.follow.mySongUsername}
           <Popup
             trigger={
@@ -98,7 +98,7 @@ class Following extends React.Component {
             position="top center"
           />
         </Label>
-        <Label style={{ display: 'flex', order: '0', borderRadius: '0px', width: '100%', textAlign: 'center' }}>
+        <Label style={{ display: 'flex', order: '0', borderRadius: '0px', width: '100%', textAlign: 'center', marginLeft: 0 }}>
           {this.props.follow.currentMySong.trackName}
           <Popup
             trigger={

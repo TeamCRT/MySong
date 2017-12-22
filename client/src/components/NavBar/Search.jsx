@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 import _ from 'lodash';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Button, Label, Search } from 'semantic-ui-react';
+import { Button, Search } from 'semantic-ui-react';
 
 let source = [
   /* ***********************************************************
@@ -33,14 +34,14 @@ class SearchExampleStandard extends Component {
     this.resultRenderer = this.resultRenderer.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const followingSpotifyIds = [];
     let newOptions = [];
     if (this.props.options && this.props.following.constructor === Array) {
       this.props.following.forEach((user) => {
-        followingSpotifyIds.push(user.spotifyId)
+        followingSpotifyIds.push(user.spotifyId);
       });
-      newOptions = this.props.options.filter((user) => {
+      newOptions = this.props.options.filter((user) => { // eslint-disable-line
         return !followingSpotifyIds.includes(user.spotifyid) && this.props.spotifyId !== user.spotifyid;
       });
     }
@@ -59,17 +60,17 @@ class SearchExampleStandard extends Component {
 
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent();
-
+      console.log('this.state.value', this.state.value);
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
       const isMatch = result => re.test(result.title);
-      let results = _.filter(source, isMatch);
+      const results = _.filter(source, isMatch);
       results.unshift({
-          title: "closeButton"
-        });
+        title: 'closeButton',
+      });
       this.setState({
         isLoading: false,
         following: [],
-        results: results,
+        results,
       });
       return true; // this is only here to satisfy ESLint
     }, 500);
@@ -78,7 +79,7 @@ class SearchExampleStandard extends Component {
   handleFollowClick(e, { spotifyid }) { // eslint-disable-line
     axios.put('/api/addToFollowing', { spotifyId: spotifyid })
       .then(() => {
-        let newFollowing = this.state.following.slice();
+        const newFollowing = this.state.following.slice();
         newFollowing.push(spotifyid);
         this.setState({
           following: newFollowing,
@@ -102,36 +103,37 @@ class SearchExampleStandard extends Component {
     if (title === 'closeButton') {
       return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <Button color={'red'} onClick={() => {this.setState({ openStatus: false })}}>Close Search</Button>
+          <Button color={'red'} onClick={() => {this.setState({ openStatus: false, value: '' }); }}>Close Search</Button>
         </div>
-      )
-
+      );
     }
     return (
       <div>
         {title}
-        <Button disabled={disable} color={color} style={{ float:'right'}} spotifyid={spotifyid} onClick={this.handleFollowClick}>{text}</Button>
+        <Button disabled={disable} color={color} style={{ float: 'right' }} spotifyid={spotifyid} onClick={this.handleFollowClick}>{text}</Button>
       </div>
     );
   }
 
   render() {
-    const { openStatus, isLoading, value, results } = this.state;
+    const {
+      openStatus, isLoading, value, results,
+    } = this.state;
     return (
       <Search
         onFocus={() => {
-          this.setState(
-            {
+          this.setState({
               openStatus: true,
             });
         }}
-        placeholder={'Search for users to follow'}
+        placeholder={'Find users to follow'}
         loading={isLoading}
         onSearchChange={this.handleSearchChange}
         results={results}
         value={value}
         resultRenderer={this.resultRenderer}
         open={openStatus}
+        showNoResults={false}
       />
     );
   }

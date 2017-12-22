@@ -159,7 +159,7 @@ class CreatePlaylistModal extends Component {
     return (
 
       <div>
-        <Button color='red' onClick={this.show(true)}>Create</Button>
+        <Button id="create-playlist-button" color='red' onClick={this.show(true)}>Create</Button>
         <Modal dimmer={true} open={open} onClose={this.close}>
           <Modal.Header>Create a Playlist</Modal.Header>
           <div id='outer' style={{display: 'flex', flexDirection: 'row', height: '560px', width: '900px', backgroundColor:'red'}}>
@@ -174,7 +174,6 @@ class CreatePlaylistModal extends Component {
                 view={this.props.view}
               /> 
             </div>
-
             <div id='right half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%'}}>
               <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', maxHeight: '35px'}}>
                  <div style={{background: 'linear-gradient(0deg, #4f4f51,#939396)', minWidth: '200px', color: 'white', fontSize: '20px', padding: '6px 17px'}}>Playlist Name</div>
@@ -199,5 +198,4 @@ class CreatePlaylistModal extends Component {
     )
   }
 }
-
 export default CreatePlaylistModal

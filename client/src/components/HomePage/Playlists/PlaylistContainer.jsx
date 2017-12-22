@@ -22,25 +22,24 @@ class PlaylistContainer extends React.Component {
     );
   }
 
-  render() {
+ render() {
     return (
-      <div>
-
-        <div>
+      <div id="playlist-container">
+        <div id="my-playlists">My Playlists</div>
+        <div id="playlist-list">
           <Button.Group vertical style={{ width: '100%' }}>
-            <Button disabled >My Playlists</Button>
             {this.props.playlists.map(this.mapFunction)}
-            <CreatePlaylistModal
-              spotifyId={this.props.spotifyId}
-              color="red"
-              following={this.props.following}
-              updatePlaylists={this.props.updatePlaylists}
-              playlists = {this.props.playlists}
-              refreshFollowing={this.props.refreshFollowing}
-              view={this.props.view}
-            />
           </Button.Group>
         </div>
+        <CreatePlaylistModal
+          spotifyId={this.props.spotifyId}
+          color="red"
+          following={this.props.following}
+          updatePlaylists={this.props.updatePlaylists}
+          playlists={this.props.playlists}
+          refreshFollowing={this.props.refreshFollowing}
+          view={this.props.view}
+        />
       </div>
     );
   }
