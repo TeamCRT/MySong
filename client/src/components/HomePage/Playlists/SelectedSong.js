@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Header, Modal, Grid, Input, Icon, Label } from 'semantic-ui-react'
+import { Button, Header, Modal, Grid, Input, Icon, Label, Popup } from 'semantic-ui-react'
 
 class SelectedSong extends React.Component {
   constructor(props) {
@@ -34,11 +34,12 @@ class SelectedSong extends React.Component {
     var color = this.state.hovering ? 'red' : 'green';
     
     return (
-        <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px', maxHeight: '500px',
-                    overflow: 'scroll', overflowX: 'hidden'}}>
+        <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px' 
+                    }}>
                    <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center'}} color='blue'>
                     {this.props.mySongUsername + '\'s MySong'}
-                    <Icon
+                    <Popup
+                    trigger= {<Icon
                       key='hello'
                       style={{ display: 'inline-block', float: 'right' }}
                       size="large"
@@ -47,6 +48,8 @@ class SelectedSong extends React.Component {
                       onClick={this.onHandleClick}
                       onMouseEnter={this.onItemMouseEnter}
                       onMouseLeave={this.onItemMouseLeave}
+                    />}
+                    content={`Remove ${this.props.mySongUsername}'s MySong from playlist`}
                     />
                    </Label>
                    <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center' }} color="yellow">
@@ -58,3 +61,7 @@ class SelectedSong extends React.Component {
 }
 
 export default SelectedSong;
+
+
+
+

@@ -10,7 +10,7 @@ class CreatedPlaylist extends React.Component {
   render() {
     
     return (
-           <div style={{flexGrow: '4', height: '100%'}}>
+           <div style={{flexGrow: '4', maxHeight: '500px', overflow: 'scroll'}}>
                  {this.props.noSongsInPlaylistError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>No songs in playlist</Label>}
                   {this.props.followObjectArray.map((result, index) => (
                   <SelectedSong 
