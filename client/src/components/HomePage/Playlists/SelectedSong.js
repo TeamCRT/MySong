@@ -6,13 +6,12 @@ class SelectedSong extends React.Component {
     super(props);
 
     this.state = {
-      hovering: false
-    }
+      hovering: false,
+    };
 
     this.onHandleClick = this.onHandleClick.bind(this);
     this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
     this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
-    console.log('result is', this.props.result)
   }
 
   onHandleClick() {
