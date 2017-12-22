@@ -12,6 +12,7 @@ class SelectedSong extends React.Component {
     this.onHandleClick = this.onHandleClick.bind(this);
     this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
     this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
+    console.log('result is', this.props.result)
   }
 
   onHandleClick() {
@@ -34,28 +35,13 @@ class SelectedSong extends React.Component {
     var color = this.state.hovering ? 'red' : 'green';
     
     return (
-        <div style={{fontSize: '15px', wordWrap: 'break-word', padding: '5px' 
-                    }}>
-                   <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center'}} color='blue'>
-                    {this.props.mySongUsername + '\'s MySong'}
-                    <Popup
-                    trigger= {<Icon
-                      key='hello'
-                      style={{ display: 'inline-block', float: 'right' }}
-                      size="large"
-                      name="minus circle"
-                      color={color}
-                      onClick={this.onHandleClick}
-                      onMouseEnter={this.onItemMouseEnter}
-                      onMouseLeave={this.onItemMouseLeave}
-                    />}
-                    content={`Remove ${this.props.mySongUsername}'s MySong from playlist`}
-                    />
-                   </Label>
-                   <Label style={{ borderRadius: '0px', width: '80%', textAlign: 'center' }} color="yellow">
-                    {this.props.trackSummary}
-                   </Label>
-      </div>
+       <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'black', color: 'white', borderRadius: '10px', width: '100%', minHeight:'60px', marginTop: '20px', textAlign: 'center', padding: '1em 1em'}}>
+       <img src={this.props.result.currentMySong.trackImage300} height='65' />
+        <div style={{display: 'flex', flexDirection: 'column', marginLeft: '.5em', justifyContent: 'center'}}>
+          <div style={{color:'white', textAlign: 'left', marginBottom: '.4em'}}>{this.props.result.currentMySong.trackName}</div>
+          <div style={{color:'white', textAlign: 'left'}}>{`by ${this.props.result.currentMySong.trackArtist}`}</div>
+        </div>
+       </div>
     )
   }
 }

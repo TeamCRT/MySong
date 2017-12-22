@@ -202,9 +202,14 @@ class CreatePlaylistModal extends Component {
             </div>
 
 
-            <div id='right half' style={{backgroundColor: 'pink', width: '50%', height: '100%'}}>
+            <div id='right half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%', alignItems: 'center'}}>
+              <Input onChange={this.handlePlaylistNameChange} style={{fontSize: '20px'}} focus placeholder='Type playlist name here...' />
+               <CreatedPlaylist 
+                noSongsInPlaylistError={this.state.noSongsInPlaylistError}
+                followObjectArray={this.state.followObjectArray}
+                handleMinusClick={this.handleMinusClick}
+                />
             </div>
-
           </div>
           <Modal.Actions>
             <Button color='black' onClick={this.handleCancel} content="Cancel"/>

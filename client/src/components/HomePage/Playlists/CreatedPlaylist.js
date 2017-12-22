@@ -10,19 +10,21 @@ class CreatedPlaylist extends React.Component {
   render() {
     
     return (
-           <div style={{flexGrow: '4', maxHeight: '500px', overflow: 'scroll'}}>
-                 {this.props.noSongsInPlaylistError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>No songs in playlist</Label>}
-                  {this.props.followObjectArray.map((result, index) => (
-                  <SelectedSong 
-                  result={result}
-                  mySongUsername={result.mySongUsername} 
-                  trackSummary={result.currentMySong.trackSummary}
-                  handleMinusClick={this.props.handleMinusClick} 
-                  />
-                 ))}
-           </div>
+
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '90%', maxHeight: '500px', overflow: 'scroll', minWidth: '100%', paddingTop: '.5em', backgroundColor: 'yellow'}}>
+       {this.props.followObjectArray.map((result, index) => (
+        <SelectedSong 
+          result={result}
+          mySongUsername={result.mySongUsername} 
+          trackSummary={result.currentMySong.trackSummary}
+          handleMinusClick={this.props.handleMinusClick} 
+        />
+        ))}
+      </div>        
     )
   }
 }
 
+
 export default CreatedPlaylist;
+
