@@ -202,8 +202,11 @@ class CreatePlaylistModal extends Component {
             </div>
 
 
-            <div id='right half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%', alignItems: 'center'}}>
-              <Input onChange={this.handlePlaylistNameChange} style={{fontSize: '20px'}} focus placeholder='Type playlist name here...' />
+            <div id='right half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%'}}>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', maxHeight: '35px'}}>
+                 <div style={{backgroundColor: '#474a4f', minWidth: '200px', color: 'white', fontSize: '20px', padding: '6px 17px'}}>Playlist Name</div>
+                 <Input onChange={this.handlePlaylistNameChange} style={{fontSize: '20px', maxWidth: '240px'}} focus placeholder='Type playlist name...' />
+              </div>
                <CreatedPlaylist 
                 noSongsInPlaylistError={this.state.noSongsInPlaylistError}
                 followObjectArray={this.state.followObjectArray}
