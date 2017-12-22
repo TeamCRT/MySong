@@ -35,12 +35,13 @@ class SelectedSong extends React.Component {
     var color = this.state.hovering ? 'red' : 'green';
     
     return (
-       <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'black', color: 'white', borderRadius: '10px', width: '100%', minHeight:'60px', marginTop: '20px', textAlign: 'center', padding: '1em 1em'}}>
+       <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'black', color: 'white', borderRadius: '10px', width: '100%', minHeight:'93px', marginTop: '20px', textAlign: 'center', padding: '1em 1em', flexWrap:'wrap'}}>
        <img src={this.props.result.currentMySong.trackImage300} height='65' />
-        <div style={{display: 'flex', flexDirection: 'column', marginLeft: '.5em', justifyContent: 'center'}}>
+        <div style={{display: 'flex', flexDirection: 'column', marginLeft: '.5em', justifyContent: 'center', flexGrow: '1'}}>
           <div style={{color:'white', textAlign: 'left', marginBottom: '.4em'}}>{this.props.result.currentMySong.trackName}</div>
           <div style={{color:'white', textAlign: 'left'}}>{`by ${this.props.result.currentMySong.trackArtist}`}</div>
         </div>
+        <div style={{color: 'white', fontSize: '20px', wordWrap: 'break-word', maxWidth: '150px'}}>{this.props.mySongUsername}</div>
        </div>
     )
   }
