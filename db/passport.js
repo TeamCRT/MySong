@@ -43,6 +43,7 @@ module.exports = (passport) => {
           trackAlbum: '',
           trackName: '',
           trackArtist: '',
+          trackImage300: '',
           note: '',
         };
         if (profile.displayName) {

@@ -13,19 +13,19 @@ class MySongModal extends Component {
       //Property that closes and opens modal
       open: false,
       //Properties store note text value and results of song search
-      noteData: this.props.currentMySong.note || '',
+      noteData: '',
       searchResults: [],
       //Toggle conditional rendering of components
       showNote: false,
 
       //Properties of selected song
-      trackName: this.props.currentMySong.trackName || '',
-      trackArist: this.props.currentMySong.trackArtist || '',
-      trackAlbum: this.props.currentMySong.trackAlbum || '',
-      trackSummary: this.props.currentMySong.trackSummary || '',
-      trackID: this.props.currentMySong.trackID || '',
+      trackName: '',
+      trackArist: '',
+      trackAlbum: '',
+      trackSummary: '',
+      trackID: '',
       trackImage64: '',
-      trackImage300: this.props.currentAlbumArtwork || '',
+      trackImage300: '',
       
       //Currently selected song in modal
       selectedSong: {
@@ -54,9 +54,22 @@ class MySongModal extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.trackName !== this.props.currentMySong.trackName ) {
+    if (prevProps.currentMySong.trackID !== this.props.currentMySong.trackID ) {
+      var selectedSong = {
+        trackName: this.props.currentMySong.trackName,
+        trackArtist: this.props.currentMySong.trackArtist,
+        trackImage300: this.props.currentMySong.trackImage300,
+      };
+
+
       this.setState({trackName: this.props.currentMySong.trackName, 
-        noteData: this.props.currentMySong.note});
+        trackArtist: this.props.currentMySong.trackArtist,
+        trackAlbum: this.props.currentMySong.trackAlbum,
+        trackSummary: this.props.currentMySong.trackSummary,
+        trackID: this.props.currentMySong.trackID,
+        trackImage300: this.props.currentMySong.trackImage300,
+        noteData: this.props.currentMySong.note,
+        selectedSong: selectedSong});
     }
   }
 
@@ -106,6 +119,7 @@ class MySongModal extends Component {
         trackAlbum: this.state.trackAlbum,
         trackName: this.state.trackName,
         trackArtist: this.state.trackArtist,
+        trackImage300: this.state.trackImage300,
         note: this.state.noteData,
       };
       var mySongPayload = {
@@ -127,11 +141,25 @@ class MySongModal extends Component {
   }
 
   handleCancel = () => {
+    var selectedSong = {
+      trackName: this.props.currentMySong.trackName,
+      trackArtist: this.props.currentMySong.trackArtist,
+      trackImage300: this.props.currentMySong.trackImage300,
+    };
+
     this.setState({
       noNoteError :false,
       noSongSelectedError: false,
       noteTooLongError: false,
-      open: false
+      open: false, 
+      trackName: this.props.currentMySong.trackName, 
+      trackArtist: this.props.currentMySong.trackArtist,
+      trackAlbum: this.props.currentMySong.trackAlbum,
+      trackSummary: this.props.currentMySong.trackSummary,
+      trackID: this.props.currentMySong.trackID,
+      trackImage300: this.props.currentMySong.trackImage300,
+      noteData: this.props.currentMySong.note,
+      selectedSong: selectedSong
     });
   }
 
@@ -143,7 +171,7 @@ class MySongModal extends Component {
 
   //function that shortens lengthy album, artist, and track names for optimal rendering on screen
   dataFormat(input) {
-    var output = input.length > 90 ? input.substring(0,50) + '...' : input;
+    var output = input.length > 50 ? input.substring(0,50) + '...' : input;
     return output;
   }
 
@@ -161,7 +189,8 @@ class MySongModal extends Component {
       trackName: song.track_name,
       trackID: song.track_id, 
       trackAlbum: song.track_album, 
-      trackArtist: song.track_artist, 
+      trackArtist: song.track_artist,
+      trackImage300: song.track_image300
     });
     
   }
@@ -227,7 +256,7 @@ class MySongModal extends Component {
             <div id="bottom-half" style={{backgroundColor: 'black', display: 'flex', flexDirection: 'row', width: '1080px', height:'1000px'}}>
               <SearchResults showError={this.state.showError} handleSongSelection={this.handleSongSelection} searchResults={this.state.searchResults} />
               <div id="bottom-right" style={{backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height:'100%'}}>
-                <CurrentSongSelection currentMySong={this.props.currentMySong} currentAlbumArtwork={this.props.currentAlbumArtwork} selectedSong={this.state.selectedSong} />
+                <CurrentSongSelection selectedSong={this.state.selectedSong} />
                 <CurrentSongNote currentMySong={this.props.currentMySong} handleSongNoteChange={this.handleSongNoteChange} />
               </div>
             </div>
