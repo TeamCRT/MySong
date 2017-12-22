@@ -32,13 +32,6 @@ class CreatePlaylistModal extends Component {
 
   }
 
-  // componentWillUpdate() {
-  //   this.setState({noPlaylistNameError :false});
-  //   this.setState({noSongsInPlaylistError: false});
-  //   this.setState({playlistNameAlreadyExistsError: false});
-  // }
-  //state = { open: false }
-
   handlePlaylistNameChange(e) {
     e.preventDefault();
     this.setState({newPlaylistName: e.target.value, noPlaylistNameError: false});
@@ -193,35 +186,25 @@ class CreatePlaylistModal extends Component {
         <Button color='red' onClick={this.show(true)}>Create</Button>
         <Modal dimmer={true} open={open} onClose={this.close}>
           <Modal.Header>Create a Playlist</Modal.Header>
-          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch'}}>
-            <div style={{padding: '20px 20px', flexGrow: '1', maxWidth: '50%'}}>
-            <FollowingContainer
+          <div id='outer' style={{display: 'flex', flexDirection: 'row', height: '560px', width: '900px', backgroundColor:'red'}}>
+            
+            <div id='left half' style={{display: 'flex', flexDirection: 'column', backgroundColor: '#9ca6b7', width: '50%', height: '100%'}}>
+              <div id='first child' style={{backgroundColor: 'black', color: 'white', height: '10%', fontSize: '20px', textAlign: 'center', padding: '.3em'}}>People You're Following</div>
+              
+              <FollowingContainer
                 spotifyId={this.props.spotifyId}
                 newPlaylistHandleClick = {this.newPlaylistHandleClick}
                 following={this.props.following}
                 refreshFollowing={this.props.refreshFollowing}
                 view={this.props.view}
               /> 
-            </div>
-            <div style={{flexGrow: '2', display: 'flex', flexDirection: 'column', alignItems: 'stretch', maxWidth: '50%'}}>
-
               
-                <div style={{flexGrow: '1', padding: '0px 0px 10px 0px', flexDirection: 'row', display: 'flex'}}>
-                <Input onChange={this.handlePlaylistNameChange} style={{fontSize: '20px'}} focus placeholder='Playlist Name' />
-                {this.state.noPlaylistNameError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Please include playlist name</Label> ||
-                this.state.illegalCharError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Playlist name can not include special characters</Label> ||
-                this.state.playlistNameAlreadyExistsError && <Label style={{padding: '10px 10px'}} basic color='red' pointing='left'>Playlist name already exists</Label>}
-                </div>
-
-                <CreatedPlaylist 
-                style={{flexGrow: '4', height: '100%'}}
-                noSongsInPlaylistError={this.state.noSongsInPlaylistError}
-                followObjectArray={this.state.followObjectArray}
-                handleMinusClick={this.handleMinusClick}
-                />
-          
-
             </div>
+
+
+            <div id='right half' style={{backgroundColor: 'pink', width: '50%', height: '100%'}}>
+            </div>
+
           </div>
           <Modal.Actions>
             <Button color='black' onClick={this.handleCancel} content="Cancel"/>
