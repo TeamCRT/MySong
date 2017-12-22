@@ -28,31 +28,15 @@ class EditPlaylistModal extends Component {
     this.handlePlaylistChange = this.handlePlaylistChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleMinusClick = this.handleMinusClick.bind(this);
-    this.handleTest = this.handleTest.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate is CALLED! - this.props.playlistSongArr', this.props.playlistSongArr);
-    console.log('componentDidUpdate is CALLED - prevProps', prevProps);
     if (prevProps.playlistSongArr !== this.props.playlistSongArr) {
       var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
-      this.setState({newPlaylist: playlistArray});
-      this.setState({newPlaylistName: this.props.currentPlaylistObj.name});
-      this.setState({playlistObjectArray: this.props.playlistSongArr});
+      this.setState({newPlaylist: playlistArray,
+        newPlaylistName: this.props.currentPlaylistObj.name,
+        playlistObjectArray: this.props.playlistSongArr});
     }
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount is CALLED!', this.props.playlistSongArr);
-  }
-
-  handleTest(e) {
-    e.preventDefault();
-    console.log('handleTest being called!');
-    console.log('this.props.playlistSongArr', this.props.playlistSongArr);
-    console.log('this.playlistObjectArray', this.playlistObjectArray);
-    console.log('this.newPlaylist', this.newPlaylist);
-
   }
 
   handlePlaylistNameChange(e) {
@@ -62,17 +46,13 @@ class EditPlaylistModal extends Component {
 
   handleUpdate() {
     var playlistArray = this.props.playlistSongArr.map((result, index)=> result.spotifyId);
-    this.setState({newPlaylist: playlistArray});
-    this.setState({newPlaylistName: this.props.playlistName});
+    this.setState({newPlaylist: playlistArray,
+      newPlaylistName: this.props.playlistName});
   }
 
   handlePlaylistChange() {
     var newPlaylistSongsArray = this.props.playlistSongArr && this.props.playlistSongArr.map((result,index)=>result.spotifyId);
     this.setState({ newPlaylist: newPlaylistSongsArray });
-  }
-
-  storeOriginal() {
-
   }
 
   handleSave() {
@@ -82,29 +62,29 @@ class EditPlaylistModal extends Component {
     var originalPlaylistNameIndex = userPlaylists.indexOf(originalPlaylistName);
     userPlaylists.splice(originalPlaylistNameIndex, 1)
 
-    this.setState({noPlaylistNameError :false});
-    this.setState({noSongsInPlaylistError: false});
-    this.setState({playlistNameAlreadyExistsError: false});
-    this.setState({illegalCharError: false});
+    this.setState({noPlaylistNameError :false,
+      noSongsInPlaylistError: false,
+      playlistNameAlreadyExistsError: false,
+      illegalCharError: false});
     //Error Handling
     if (this.state.newPlaylistName === '' && this.state.newPlaylist.length === 0) {
-      this.setState({noPlaylistNameError :true});
-      this.setState({noSongsInPlaylistError: true});
-      this.setState({playlistNameAlreadyExistsError: false});
+      this.setState({noPlaylistNameError :true,
+        noSongsInPlaylistError: true,
+        playlistNameAlreadyExistsError: false});
       return;
     }
 
     if (this.state.newPlaylist.length === 0) {
-      this.setState({noSongsInPlaylistError: true});
-      this.setState({noPlaylistNameError :false});
-      this.setState({playlistNameAlreadyExistsError: false});
+      this.setState({noSongsInPlaylistError: true,
+        noPlaylistNameError :false,
+        playlistNameAlreadyExistsError: false});
       return;
     }
 
     if (this.state.newPlaylistName === '') {
-      this.setState({noPlaylistNameError :true});
-      this.setState({noSongsInPlaylistError: false});
-      this.setState({playlistNameAlreadyExistsError: false});
+      this.setState({noPlaylistNameError :true,
+        noSongsInPlaylistError: false,
+        playlistNameAlreadyExistsError: false});
       return;
     }
 
@@ -114,16 +94,17 @@ class EditPlaylistModal extends Component {
     }
 
     if (userPlaylists.includes(this.state.newPlaylistName)) {
-      this.setState({playlistNameAlreadyExistsError: true});
-      this.setState({noPlaylistNameError :false});
-      this.setState({noSongsInPlaylistError: false});
+      this.setState({playlistNameAlreadyExistsError: true,
+        noPlaylistNameError :false,
+        noSongsInPlaylistError: false});
       return;
     }
 
     if (this.state.newPlaylist.length !== 0 && this.state.newPlaylistName !== '' && (!userPlaylists.includes(this.state.newPlaylistName))) {
-      this.setState({noPlaylistNameError :false});
-      this.setState({noSongsInPlaylistError: false});
-      this.setState({playlistNameAlreadyExistsError: false});
+      this.setState({noPlaylistNameError :false,
+        noSongsInPlaylistError: false,
+        playlistNameAlreadyExistsError: false});
+
       var newPlaylist = {
          "playlistName" : this.state.newPlaylistName,
          "spotifyPlaylistID" : "testForNow",
@@ -156,33 +137,27 @@ class EditPlaylistModal extends Component {
 
 
   handleCancel() {
-    console.log('HANDLE CANCEL: this.props.playlistSongArr', this.props.playlistSongArr);
-    console.log('HANDLE CANCEL: this.state.originalPlaylist', this.state.originalPlaylist);
     this.props.getAPlaylist();
-    this.setState({newPlaylistName: ''});
-    this.setState({newPlaylist: []});
-    this.setState({playlistObjectArray: this.props.playlistSongArr});
-    this.setState({open:false});
-    this.setState({noPlaylistNameError :false});
-    this.setState({noSongsInPlaylistError: false});
-    this.setState({playlistNameAlreadyExistsError: false});
-    this.setState({illegalCharError: false});
+    this.setState({newPlaylistName: '',
+      newPlaylist: [],
+      playlistObjectArray: this.props.playlistSongArr,
+      open:false,
+      noPlaylistNameError :false,
+      noSongsInPlaylistError: false,
+      playlistNameAlreadyExistsError: false,
+      illegalCharError: false});
   }
 
 
   handleMinusClick(result) {
-    console.log('handleMinusClick called', result);
     var songsArray = this.state.newPlaylist;
     var playlistObjectArray = this.state.playlistObjectArray;
     var index = songsArray.indexOf(result.spotifyId);
     songsArray.splice(index, 1);
     playlistObjectArray.splice(index, 1);
 
-    console.log('songsArray is', songsArray);
-    console.log('playlistObjectArray', playlistObjectArray);
     this.setState({newPlaylist: songsArray,
       playlistObjectArray: playlistObjectArray});
-
   }
 
   newPlaylistHandleClick(follow) {
@@ -199,7 +174,6 @@ class EditPlaylistModal extends Component {
     if (this.state.newPlaylist.length > 0) {
       this.setState({noSongsInPlaylistError: false});
     }
-
 
   }
 
