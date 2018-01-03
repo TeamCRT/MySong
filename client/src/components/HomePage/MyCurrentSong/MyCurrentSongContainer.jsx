@@ -34,6 +34,7 @@ class MyCurrentSongContainer extends React.Component {
   }
 
   setWait(makeWait, waitTime) {
+    console.log('setWait is being called', makeWait, waitTime);
     if (makeWait) {
       this.setState({ wait: true, waitTime });
     } else {
@@ -58,7 +59,7 @@ class MyCurrentSongContainer extends React.Component {
               <div className="song-title">{this.props.currentMySong.trackName}</div>
               <div className="song-artist">{this.props.currentMySong.trackArtist}</div>
               <div className="song-note">Note: {this.props.currentMySong.note}</div>
-              <div style={{fontSize: '15px'}}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
+              <div style={{fontSize: '20px', color: 'red'}}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
             </div>
           </div>
         </div>

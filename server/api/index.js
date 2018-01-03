@@ -216,21 +216,26 @@ router.get('/currentmysong/:spotifyId', (req, res) => {
 });
 
 router.post('/currentMySongWaitTime', (req, res) => {
+  console.log('/currentMySongWaitTime endpoint reached!');
   const mySong = req.body;
+  console.log('mySong:', mySong);
   let currentTimeAndDate = new Date();
   currentTimeAndDate = Date.parse(currentTimeAndDate);
   if (!mySong.createdAt) {
+    console.log('No Created At - my', mySong);
     const message = 'no createdAt';
     res.json({ message });
-  }
-  const mySongExpiration = Date.parse(mySong.createdAt);
-  const gracePeriod = 2000;
-  const waitPeriod = 6000;
-  const timeElapsed = currentTimeAndDate - mySongExpiration;
-  if (timeElapsed > waitPeriod || timeElapsed < gracePeriod) {
-    res.send(false);
   } else {
-    res.json({ timeElapsed, waitPeriod });
+    const mySongExpiration = Date.parse(mySong.createdAt);
+    const gracePeriod = 2000;
+    const waitPeriod = 10000;
+    const timeElapsed = currentTimeAndDate - mySongExpiration;
+    console.log('timeElapsed, waitPeriod: ', timeElapsed + ' ' + waitPeriod);
+    if (timeElapsed > waitPeriod || timeElapsed < gracePeriod) {
+      res.send(false);
+    } else {
+      res.json({ timeElapsed, waitPeriod });
+    }
   }
 });
 

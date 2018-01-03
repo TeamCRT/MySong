@@ -51,6 +51,7 @@ class MySongModal extends Component {
     this.dataFormat = this.dataFormat.bind(this);
     this.handleSongSelection = this.handleSongSelection.bind(this);
     this.handleSongNoteChange = this.handleSongNoteChange.bind(this);
+    this.handleEditMySongClick = this.handleEditMySongClick.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -72,7 +73,33 @@ class MySongModal extends Component {
     }
   }
 
-  show = dimmer => () => this.setState({ dimmer, open: true })
+   handleEditMySongClick() {
+    const createdAt = this.props.currentMySong.createdAt;
+    console.log('createdAt ', createdAt);
+    const mySong = {
+      trackSummary: this.state.trackSummary,
+      trackID: this.state.trackID,
+      trackAlbum: this.state.trackAlbum,
+      trackName: this.state.trackName,
+      trackArtist: this.state.trackArtist,
+      note: this.state.noteData,
+      createdAt,
+    };
+    axios.post('/api/currentMySongWaitTime', mySong)
+      .then((time) => {
+        console.log('time is', time);
+        if (time.data && !time.data.message) {
+          console.log('TIME DATA', time.data);
+          // const timeInMins = Math.ceil(((time.data.waitPeriod - time.data.timeElapsed) / 1000) / 60);
+          const timeInSecs = Math.ceil(((time.data.waitPeriod - time.data.timeElapsed) / 1000));
+          this.props.setWait(true, timeInSecs);
+        } else {
+          this.props.setWait(false);
+          this.setState({open:true});
+        }
+      })
+      .catch( err => console.error(err))
+  };
 
   handleSave () {
     console.log('save button pressed!', this.state.trackName, this.state.noteData);
@@ -110,7 +137,7 @@ class MySongModal extends Component {
       this.setState({noNoteError :false});
       this.setState({noSongSelectedError: false});
       this.setState({noteTooLongError: false});
-
+      let createdAt = this.props.currentMySong.createdAt;
       var mySong = {
         trackSummary: this.state.trackSummary,
         trackID: this.state.trackID,
@@ -119,6 +146,7 @@ class MySongModal extends Component {
         trackArtist: this.state.trackArtist,
         trackImage300: this.state.trackImage300,
         note: this.state.noteData,
+        createdAt, 
       };
       var mySongPayload = {
         mySong: mySong,
@@ -126,14 +154,16 @@ class MySongModal extends Component {
       }
 
       axios.post('/api/currentmysong', mySongPayload)
-        .then((response) => {
-            this.props.onMySongChange(mySongPayload.mySong);
+        .then((updatedMySong) => {
+          if (updatedMySong.data === 'Not enough time has passed') {
+            this.props.setWait(true);
+          } else {
+            this.props.onMySongChange(updatedMySong.data);
+          } 
         })
         .catch((err) => {
           throw err;
         });
-
-
     }
     this.setState({ open: false });
   }
@@ -239,7 +269,7 @@ class MySongModal extends Component {
 
     return (
       <div className="my-song-modal" style={{textAlign:'center'}}>
-        <Button onClick={this.show(true)}>Edit your current MySong</Button>
+        <Button onClick={this.handleEditMySongClick}>Edit your current MySong</Button>
         <Modal size='large'dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Change your MySong</Modal.Header>
 
