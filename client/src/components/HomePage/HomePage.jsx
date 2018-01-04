@@ -31,6 +31,7 @@ class HomePage extends React.Component {
         trackAlbum: '',
         trackName: '',
         trackArtist: '',
+        trackImage300: '',
         note: '',
       },
       currentPlaylistObj: {},

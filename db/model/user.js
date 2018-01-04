@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema({
     trackAlbum: String,
     trackName: String,
     trackArtist: String,
+    trackImage300: String,
     note: String,
     createdAt: Object,
   },

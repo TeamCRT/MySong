@@ -41,23 +41,21 @@ class DeletePlaylistModal extends Component {
   close = () => this.setState({ open: false })
 
   render() {
-    const { open } = this.state
+
+    const { open, dimmer } = this.state
 
     return (
       <div>
-        <Button color='grey' onClick={this.show(true)}>Delete</Button>
-        <Modal dimmer={false} open={open} onClose={this.close}>
-          <Modal.Header>Delete Playlist?</Modal.Header>
-          <Modal.Content image>
-
-
-
+        <Button style={{float: 'right'}} color='grey' onClick={this.show(true)}>Delete</Button>
+        <Modal size='small' dimmer={true} open={open} onClose={this.close}>
+          <Modal.Header >Delete Playlist</Modal.Header>
+          <Modal.Content style={{fontSize: '30px', textAlign: 'center'}}>
+          Are you sure you want to delete this playlist?
           </Modal.Content>
           <Modal.Actions>
-            <Button color='black' onClick={this.handleCancel}>
-              Cancel
+            <Button negative content="No" onClick={this.handleCancel}>
             </Button>
-            <Button positive icon='checkmark' labelPosition='right' content="Delete" onClick={this.handleDelete} />
+            <Button positive icon='checkmark' labelPosition='right' content="Yes" onClick={this.handleDelete} />
           </Modal.Actions>
         </Modal>
       </div>

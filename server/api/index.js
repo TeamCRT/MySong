@@ -216,21 +216,26 @@ router.get('/currentmysong/:spotifyId', (req, res) => {
 });
 
 router.post('/currentMySongWaitTime', (req, res) => {
+  console.log('/currentMySongWaitTime endpoint reached!');
   const mySong = req.body;
+  console.log('mySong:', mySong);
   let currentTimeAndDate = new Date();
   currentTimeAndDate = Date.parse(currentTimeAndDate);
   if (!mySong.createdAt) {
+    console.log('No Created At - my', mySong);
     const message = 'no createdAt';
     res.json({ message });
-  }
-  const mySongExpiration = Date.parse(mySong.createdAt);
-  const gracePeriod = 2000;
-  const waitPeriod = 6000;
-  const timeElapsed = currentTimeAndDate - mySongExpiration;
-  if (timeElapsed > waitPeriod || timeElapsed < gracePeriod) {
-    res.send(false);
   } else {
-    res.json({ timeElapsed, waitPeriod });
+    const mySongExpiration = Date.parse(mySong.createdAt);
+    const gracePeriod = 2000;
+    const waitPeriod = 10000;
+    const timeElapsed = currentTimeAndDate - mySongExpiration;
+    console.log('timeElapsed, waitPeriod: ', timeElapsed + ' ' + waitPeriod);
+    if (timeElapsed > waitPeriod || timeElapsed < gracePeriod) {
+      res.send(false);
+    } else {
+      res.json({ timeElapsed, waitPeriod });
+    }
   }
 });
 
@@ -285,6 +290,7 @@ router.post(
     const URIArray = req.body.songURIs;
     const spotifyUserID = req.body.spotifyUserID;
     const token = req.session.passport.user.spotifyToken;
+    console.log('token is ', token);
     axios({
       method: 'post',
       url: `https://api.spotify.com/v1/users/${spotifyUserID}/playlists`,
@@ -368,8 +374,9 @@ router.get(
 router.get(
   '/spotifyAPI/search',
   (req, res) => {
+    console.log('spotify search for tracks endpoint reached ************************************');
     const token = req.session.passport.user.spotifyToken;
-    axios({
+    axios({ 
       method: 'GET',
       url: `https://api.spotify.com/v1/search?q=${req.query.track}&type=track&market=US&limit=15&offset=0`,
       headers: {

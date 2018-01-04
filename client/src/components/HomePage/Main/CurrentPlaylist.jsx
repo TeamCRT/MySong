@@ -37,6 +37,8 @@ class CurrentPlaylist extends React.Component {
   }
 
   songMapFunction(spotifyUserId) {
+    console.log('CurrentPlaylist is being called: this.state.playlistSongArr is', this.state.playlistSongArr);
+    console.log('spotifyUserId: ', spotifyUserId);
     let songObj;
     this.state.playlistSongArr.forEach((item) => {
       if (item.spotifyId === spotifyUserId) songObj = item;
@@ -77,11 +79,12 @@ class CurrentPlaylist extends React.Component {
           <EditPlaylistModal
             playlists={this.props.playlists}
             updatePlaylists={this.props.updatePlaylists}
-            playlistName={this.props.currentPlaylistObj.name}
+            currentPlaylistObj={this.props.currentPlaylistObj}
             spotifyId={this.props.spotifyUserId}
             playlistSongArr={this.state.playlistSongArr}
             refreshFollowing={this.props.refreshFollowing}
             view={this.props.view}
+            getAPlaylist={this.getAPlaylist.bind(this)}
           />
         </div>
         <div className="save-to-spotify">

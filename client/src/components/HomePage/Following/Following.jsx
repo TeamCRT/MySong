@@ -8,11 +8,15 @@ class Following extends React.Component {
     super(props);
     this.state = {
       isVisible: false,
+      hovering: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleRemoveFollow = this.handleRemoveFollow.bind(this, this.props.follow.spotifyId);
     this.handleTrackClick = this.handleTrackClick.bind(this);
+    this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
+    this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
+
   }
   handleClick() {
     this.setState({
@@ -30,6 +34,17 @@ class Following extends React.Component {
       })
   }
 
+  onItemMouseEnter() {
+    this.setState({
+      hovering: true
+    });
+  }
+
+  onItemMouseLeave() {
+    this.setState({
+      hovering: false
+    })
+  }
 
   handleTrackClick() {
     axios({
@@ -49,6 +64,8 @@ class Following extends React.Component {
   }
 
   render() {
+    var color = this.state.hovering ? 'white' : 'black';
+
     return (
       <div style={{ margin: 'none' }}>
         <Label id="following-label">
@@ -66,15 +83,18 @@ class Following extends React.Component {
               (this.props.view === 'playlist' &&
                 <Icon
                 style={{ display: 'inline-block', float: 'right' }}
+                color={color}
                 size="large"
                 onClick={()=>this.props.newPlaylistHandleClick(this.props.follow)}
-                name="plus"
+                onMouseEnter={this.onItemMouseEnter}
+                onMouseLeave={this.onItemMouseLeave}
+                name="add circle"
               />)
 
 
-
+      
             }
-            content={this.props.view === 'following' && `Stop following ${this.props.follow.mySongUsername}` || this.props.view === 'playlist' && `Add/remove ${this.props.follow.mySongUsername}'s MySong to playlist`  }
+            content={this.props.view === 'following' && `Stop following ${this.props.follow.mySongUsername}` || this.props.view === 'playlist' && `Add ${this.props.follow.mySongUsername}'s MySong to playlist`  }
             position="top center"
           />
         </Label>

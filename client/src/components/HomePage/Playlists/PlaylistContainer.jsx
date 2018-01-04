@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import PlaylistEntry from './PlaylistEntry';
@@ -21,7 +22,7 @@ class PlaylistContainer extends React.Component {
     );
   }
 
-  render() {
+ render() {
     return (
       <div id="playlist-container">
         <div id="my-playlists">My Playlists</div>

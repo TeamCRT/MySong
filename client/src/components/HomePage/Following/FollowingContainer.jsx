@@ -63,7 +63,7 @@ class FollowingContainer extends React.Component {
           <Label style={
             {
               borderRadius: '0px',
-              posistion: 'sticky',
+              position: 'sticky',
               width: '100%',
               textAlign: 'center',
               color: 'black',
@@ -73,7 +73,13 @@ class FollowingContainer extends React.Component {
           >
           Following
           </Label>
-          <div>
+          <div style={
+            {
+              maxHeight: '500px',
+              overflow: 'scroll',
+              overflowX: 'hidden',
+            }}
+          >
             {this.state.following && this.state.following.map(this.mapFollowing.bind(this))}
             {this.state.following === null &&
               (<Label>
