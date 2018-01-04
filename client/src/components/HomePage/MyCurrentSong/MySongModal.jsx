@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input } from 'semantic-ui-react';
+import { Button, Modal, Input, Label } from 'semantic-ui-react';
 import axios from 'axios';
 import SearchResults from './SearchResults';
 import CurrentSongSelection from './CurrentSongSelection';
@@ -289,6 +289,8 @@ class MySongModal extends Component {
                 <CurrentSongNote
                   currentMySong={this.props.currentMySong}
                   handleSongNoteChange={this.handleSongNoteChange}
+                  noNoteError={this.state.noNoteError}
+                  noteTooLongError={this.state.noteTooLongError}
                 />
               </div>
             </div>

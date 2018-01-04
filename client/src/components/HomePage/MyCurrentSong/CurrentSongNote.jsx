@@ -1,11 +1,9 @@
 import React from 'react';
-import { Form, TextArea } from 'semantic-ui-react';
+import { Form, TextArea, Label } from 'semantic-ui-react';
 
 class CurrentSongNote extends React.Component {
   constructor(props) {
     super(props);
-    this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
-    this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
@@ -32,6 +30,8 @@ class CurrentSongNote extends React.Component {
           >
             {this.props.currentMySong.note || ''}
           </TextArea>
+          {this.props.noNoteError && <Label style={{ padding: '10px', fontSize: '20px' }} basic color="red" pointing="up">Please add a note</Label> ||
+          this.props.noteTooLongError && <Label style={{ padding: '10px', fontSize: '20px' }} basic color="red" pointing="up">Note must be less than 180 characters</Label> }
         </Form>
       </div>
     );

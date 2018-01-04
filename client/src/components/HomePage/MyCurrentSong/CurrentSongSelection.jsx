@@ -3,8 +3,6 @@ import React from 'react';
 class CurrentSongSelection extends React.Component {
   constructor(props) {
     super(props);
-    this.onItemMouseEnter = this.onItemMouseEnter.bind(this);
-    this.onItemMouseLeave = this.onItemMouseLeave.bind(this);
   }
 
   render() {
