@@ -285,7 +285,10 @@ class MySongModal extends Component {
                   backgroundColor: 'green', display: 'flex', flexDirection: 'column', width: '50%', height: '100%',
                 }}
               >
-                <CurrentSongSelection selectedSong={this.state.selectedSong} />
+                <CurrentSongSelection
+                  selectedSong={this.state.selectedSong}
+                  noSongSelectedError={this.state.selectedSong.trackName === ''}
+                />
                 <CurrentSongNote
                   currentMySong={this.props.currentMySong}
                   handleSongNoteChange={this.handleSongNoteChange}

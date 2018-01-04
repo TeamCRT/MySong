@@ -1,4 +1,5 @@
 import React from 'react';
+import { Label } from 'semantic-ui-react';
 
 class CurrentSongSelection extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class CurrentSongSelection extends React.Component {
         MySong
         </div>
         <img style={{ padding: '2em 0 0 0' }} src={this.props.selectedSong.trackImage300} alt="album artwork" />
+        {this.props.noSongSelectedError && <Label style={{ padding: '10px', fontSize: '20px' }} basic color="red" pointing="up">Please select a song</Label>}
         <div style={{ fontSize: '40px', padding: '.5em 0 0 0', textAlign: 'center' }}>{this.props.selectedSong.trackName}</div>
         <div style={{ fontSize: '20px', padding: '5px .5px' }}>{this.props.selectedSong.trackArtist}</div>
       </div>
