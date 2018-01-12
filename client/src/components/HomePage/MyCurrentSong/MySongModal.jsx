@@ -153,7 +153,16 @@ class MySongModal extends Component {
         .catch((err) => {
           throw err;
         });
+
+      axios.post('/api/twitter', mySongPayload)
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          throw err;
+        });
     }
+    console.log('new song saved!');
     this.setState({ open: false });
   }
 
