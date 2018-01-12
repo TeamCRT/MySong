@@ -248,6 +248,10 @@ router.post('/currentmysong', (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.post('/twitter', (req, res) => {
+  console.log('/api/twitter endpoint reached!');
+});
+
 router.put('/addToFollowing', (req, res) => {
   const token = req.session.token;
   const decoded = jwt.decode(token, secret);
