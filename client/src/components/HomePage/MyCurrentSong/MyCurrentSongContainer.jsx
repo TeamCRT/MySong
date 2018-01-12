@@ -61,6 +61,20 @@ class MyCurrentSongContainer extends React.Component {
             <div style={{ fontSize: '20px', color: 'red' }}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
           </div>
         </div>
+        <a 
+          style={{
+            float: 'right', 
+            backgroundImage: 'url(https://www.inyoursoup.com/images/signup-with-twitter-button@8x.png)', 
+            padding: '10px 10px 10px 170px', 
+            backgroundSize: 'cover',
+            marginLeft: '20px',
+            height: '40px',
+            width: '200px',
+            marginLeft: '10px',
+            marginBottom: '20px'
+          }}
+          href="/auth/twitter"
+        ></a>
       </div>
     );
   }
