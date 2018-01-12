@@ -3,13 +3,14 @@ const axios = require('axios');
 const User = require('../../db/model/user.js');
 const path = require('path');
 require('dotenv').config({ path: '../../env.env' });
+const keys = require('./keys');
 const jwt = require('jwt-simple');
 const $ = require('jquery');
 // const btoa = require('btoa');
 // const helpers = require('./helpers.js');
 const passport = require('passport');/* http://www.passportjs.org/docs */
 // const redirect = require('./redirect.html');
-
+const Twitter = require('twitter');
 const secret = 'myappisawesome';
 const HOME = 'http://127.0.0.1:3000';
 
@@ -250,6 +251,21 @@ router.post('/currentmysong', (req, res) => {
 
 router.post('/twitter', (req, res) => {
   console.log('/api/twitter endpoint reached!');
+  console.log('twitter consumer secret is', keys.twitter.consumerKey);
+
+  const client = new Twitter({
+    consumer_key: 'Y61TAiKhk8y7n6rroloFzMCcN',
+    consumer_secret: 'U9gDRaWA0IMf4BcGlkxoGJegDnCeAOa2MZtfNeHnipDABWeQsA',
+    access_token_key: '951844182599061507-0eTWGOqkF93lSTGr5WKK7vM5sn3mD7a',
+    access_token_secret: '4osbYKRWF4v8FBAGvTDU7gDHBJoDSA71QctQjOjCZEFlw'
+  });
+
+  client.post('statuses/update', {status: `MySong for the week: ${req.body.mySong.trackSummary}`},  function(error, tweet, response) {
+    if(error) throw error;
+    console.log(tweet);  // Tweet body. 
+    console.log(response);  // Raw response object. 
+  });
+
 });
 
 router.put('/addToFollowing', (req, res) => {
