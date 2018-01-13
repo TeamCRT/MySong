@@ -113,29 +113,18 @@ router.get(
   },
 );
 
-// twitter OAuth using passport
-router.get('/auth/twitter', passport.authorize('twitter-authz'));
-// twitter OAuth callback
+// twitter OAuth authorization using passport
+router.get(
+  '/auth/twitter', 
+  passport.authorize(
+  'twitter-authz',
+  {
+    forceLogin: true,
+    failureRedirect: 'http://127.0.0.1:3000'
+  },
+  ));
 
-User.changeCurrentSong = (spotifyId, mySong) => {
-  return User.update(
-    { spotifyId: spotifyId },
-    {
-      $set: {
-        currentMySong: mySong,
-      }
-    }
-  ).exec()
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      console.log('error is ', err);
-      return err;
-    })
-};
-
-
+// twitter OAuth authorization callback
 router.get('/auth/twitter/callback', passport.authorize('twitter-authz'), (req, res) => {
     console.log('twitter req.account:', req.account);
     const spotifyId = req.session.passport.user.spotifyId;
