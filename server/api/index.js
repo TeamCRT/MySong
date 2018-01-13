@@ -90,6 +90,7 @@ router.get(
     },
   ),
 );
+
 // spotify OAuth callback for authorization process
 router.get(
   '/auth/spotify/callback',
@@ -111,6 +112,13 @@ router.get(
     res.sendFile(path.join(__dirname + '/index.html'));
   },
 );
+
+// twitter OAuth using passport
+router.get('/auth/twitter', passport.authenticate('twitter'));
+// twitter OAuth callback
+router.get('/auth/twitter/callback', passport.authenticate('twitter'), (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
 
 router.get(
   '/playlists',
