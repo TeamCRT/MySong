@@ -33,6 +33,16 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 
+  twitterAccessTokenKey: {
+    type: String,
+    unique: true,
+  },
+
+  twitterAccessTokenSecret: {
+    type: String,
+    unique: true,
+  },
+
   currentMySong: {
     trackSummary: String,
     trackID: String,

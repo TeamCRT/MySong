@@ -73,7 +73,7 @@ class MyCurrentSongContainer extends React.Component {
             marginLeft: '10px',
             marginBottom: '20px'
           }}
-          href="/auth/twitter"
+          href="http://127.0.0.1:3001/api/auth/twitter"
         ></a>
       </div>
     );
