@@ -114,9 +114,10 @@ router.get(
 );
 
 // twitter OAuth using passport
-router.get('/auth/twitter', passport.authenticate('twitter'));
+router.get('/auth/twitter', passport.authorize('twitter-authz'));
 // twitter OAuth callback
-router.get('/auth/twitter/callback', passport.authenticate('twitter'), (req, res) => {
+router.get('/auth/twitter/callback', passport.authorize('twitter-authz'), (req, res) => {
+    console.log('twitter req.account:', req.account);
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 

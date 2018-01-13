@@ -68,17 +68,18 @@ module.exports = (passport) => {
     },
   ));
 
-  passport.use(
+  passport.use('twitter-authz',
     new TwitterStrategy({
         // options for google strategy
         consumerKey: process.env.TWITTER_CONSUMER_KEY,
         consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-        callbackURL: 'http://127.0.0.1:3001/api/auth/spotify/callback',
+        callbackURL: 'http://127.0.0.1:3001/api/auth/twitter/callback',
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
         console.log('twitter authentication successful!');
         console.log('accessToken: ', accessToken);
         console.log('refreshToken: ', refreshToken);
+        return done(null, accessToken);
     })
 );
 
