@@ -307,7 +307,7 @@ router.post('/twitter', (req, res) => {
     access_token_secret: req.session.passport.account.accessTokenSecret
   });
 
-  client.post('statuses/update', {status: `MySong for the week: ${req.body.mySong.trackSummary}`},  function(error, tweet, response) {
+  client.post('statuses/update', {status: `MySong for the week: ${req.body.mySong.trackSummary}, \n${req.body.mySong.note}`},  function(error, tweet, response) {
     if(error) throw error;
     console.log(tweet);  // Tweet body. 
   });
