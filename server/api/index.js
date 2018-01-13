@@ -116,8 +116,47 @@ router.get(
 // twitter OAuth using passport
 router.get('/auth/twitter', passport.authorize('twitter-authz'));
 // twitter OAuth callback
+
+User.changeCurrentSong = (spotifyId, mySong) => {
+  return User.update(
+    { spotifyId: spotifyId },
+    {
+      $set: {
+        currentMySong: mySong,
+      }
+    }
+  ).exec()
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log('error is ', err);
+      return err;
+    })
+};
+
+
 router.get('/auth/twitter/callback', passport.authorize('twitter-authz'), (req, res) => {
     console.log('twitter req.account:', req.account);
+    const spotifyId = req.session.passport.user.spotifyId;
+    console.log('spotify id is:', spotifyId);
+       User.findOne({spotifyId: spotifyId}).then((currentUser) => {
+            if(currentUser.twitterAccessTokenKey){
+                // already have this user
+                console.log('user already has twitterAccessTokenKey: ', currentUser.twitterAccessTokenKey);
+            } else {
+                // if not, create add twitterAccessToken information to user in database
+              User.update(
+                { spotifyId: spotifyId },
+                {
+                  $set: {
+                    twitterAccessTokenKey: req.account.accessTokenKey,
+                    twitterAccessTokenSecret: req.account.accessTokenSecret
+                  }
+                }
+              ).exec()  
+            }
+        });
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 

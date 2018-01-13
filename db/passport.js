@@ -77,9 +77,11 @@ module.exports = (passport) => {
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
         console.log('twitter authentication successful!');
-        console.log('accessToken: ', accessToken);
-        console.log('refreshToken: ', refreshToken);
-        return done(null, accessToken);
+        const twitterIntegration = {
+          accessTokenKey: accessToken,
+          accessTokenSecret: refreshToken,
+        };
+        return done(null, twitterIntegration);
     })
 );
 
