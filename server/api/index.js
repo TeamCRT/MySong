@@ -139,6 +139,7 @@ User.changeCurrentSong = (spotifyId, mySong) => {
 router.get('/auth/twitter/callback', passport.authorize('twitter-authz'), (req, res) => {
     console.log('twitter req.account:', req.account);
     const spotifyId = req.session.passport.user.spotifyId;
+    req.session.passport.account = req.account;
     console.log('spotify id is:', spotifyId);
        User.findOne({spotifyId: spotifyId}).then((currentUser) => {
             if(currentUser.twitterAccessTokenKey){
@@ -299,19 +300,16 @@ router.post('/currentmysong', (req, res) => {
 
 router.post('/twitter', (req, res) => {
   console.log('/api/twitter endpoint reached!');
-  console.log('twitter consumer secret is', keys.twitter.consumerKey);
-
   const client = new Twitter({
-    consumer_key: 'Y61TAiKhk8y7n6rroloFzMCcN',
-    consumer_secret: 'U9gDRaWA0IMf4BcGlkxoGJegDnCeAOa2MZtfNeHnipDABWeQsA',
-    access_token_key: '951844182599061507-0eTWGOqkF93lSTGr5WKK7vM5sn3mD7a',
-    access_token_secret: '4osbYKRWF4v8FBAGvTDU7gDHBJoDSA71QctQjOjCZEFlw'
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token_key: req.session.passport.account.accessTokenKey,
+    access_token_secret: req.session.passport.account.accessTokenSecret
   });
 
   client.post('statuses/update', {status: `MySong for the week: ${req.body.mySong.trackSummary}`},  function(error, tweet, response) {
     if(error) throw error;
     console.log(tweet);  // Tweet body. 
-    console.log(response);  // Raw response object. 
   });
 
 });
