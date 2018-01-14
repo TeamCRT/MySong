@@ -354,6 +354,26 @@ router.get(
   },
 );
 
+router.get(
+  '/twitter-disconnect',
+  (req, res) => {
+    console.log('twitter-disconnect is being called');
+    const spotifyId = req.session.passport.user.spotifyId;
+      User.update(
+        { spotifyId: spotifyId },
+      {
+      $set: {
+        twitterAccessTokenKey: null,
+        twitterAccessTokenSecret: null,
+      }
+    }
+  ).exec()
+    .then((response) => {
+      res.send('Successfully disconnected from twitter');
+    })
+  },
+);
+
 router.post(
   '/spotifyAPI/createPlaylist',
   (req, res) => {
