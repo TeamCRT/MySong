@@ -14,6 +14,7 @@ class MyCurrentSongContainer extends React.Component {
       twitter: '',
     };
     this.setWait = this.setWait.bind(this);
+    this.disconnectTwitter = this.disconnectTwitter.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +55,11 @@ class MyCurrentSongContainer extends React.Component {
     } else {
       this.setState({ wait: false });
     }
+  }
+
+  disconnectTwitter() {
+    console.log('Disconnect from Twitter');
+    
   }
 
   render() {
@@ -102,6 +108,7 @@ class MyCurrentSongContainer extends React.Component {
             marginLeft: '10px',
             marginBottom: '20px'
           }}
+          onClick={this.disconnectTwitter}
         ></a>)}
       </div>
     );
