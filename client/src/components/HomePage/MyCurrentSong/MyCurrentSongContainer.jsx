@@ -108,7 +108,7 @@ class MyCurrentSongContainer extends React.Component {
         {this.state.twitter && (<a 
           style={{
             float: 'right', 
-            backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
+            backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=fbc6aa&ebgc=f00)', 
             padding: '10px 10px 10px 170px', 
             backgroundSize: 'cover',
             marginLeft: '20px',
