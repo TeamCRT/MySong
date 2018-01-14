@@ -80,6 +80,7 @@ class MyCurrentSongContainer extends React.Component {
           onMySongChange={this.props.onMySongChange}
           currentMySong={this.props.currentMySong}
           setWait={this.setWait}
+          twitter={this.state.twitter}
         />
         <div className="current-song-info">
           {this.props.currentMySong.trackImage300 && <img className="current-song-artwork" src={this.props.currentMySong.trackImage300} alt="Album Artwork" />}
