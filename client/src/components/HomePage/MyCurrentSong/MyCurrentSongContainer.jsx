@@ -59,7 +59,15 @@ class MyCurrentSongContainer extends React.Component {
 
   disconnectTwitter() {
     console.log('Disconnect from Twitter');
-    
+    axios({
+          method: 'GET',
+          url: '/api/twitter-disconnect',
+        })
+          .then((response) => {
+            console.log(response);
+            this.setState({twitter: false});
+          })
+          .catch(err => console.error(err, err));
   }
 
   render() {
@@ -82,7 +90,7 @@ class MyCurrentSongContainer extends React.Component {
             <div style={{ fontSize: '20px', color: 'red' }}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
           </div>
         </div>
-        {this.state.twitter && (<a 
+        {!this.state.twitter && (<a 
           style={{
             float: 'right', 
             backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=connect+to+twitter&f=Calibri-Bold&ts=27&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
@@ -96,7 +104,7 @@ class MyCurrentSongContainer extends React.Component {
           }}
           href="http://127.0.0.1:3001/api/auth/twitter"
         ></a>)}
-        {!this.state.twitter && (<a 
+        {this.state.twitter && (<a 
           style={{
             float: 'right', 
             backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
@@ -106,7 +114,8 @@ class MyCurrentSongContainer extends React.Component {
             height: '50px',
             width: '271px',
             marginLeft: '10px',
-            marginBottom: '20px'
+            marginBottom: '20px',
+            cursor: 'pointer'
           }}
           onClick={this.disconnectTwitter}
         ></a>)}
