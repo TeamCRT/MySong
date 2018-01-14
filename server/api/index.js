@@ -339,6 +339,21 @@ router.get(
   },
 );
 
+router.get(
+  '/twitter-check',
+  (req, res) => {
+    console.log('twitter-check is being called');
+    const spotifyId = req.session.passport.user.spotifyId;
+       User.findOne({spotifyId: spotifyId}).then((currentUser) => {
+            if(currentUser.twitterAccessTokenKey){
+              res.send(true);
+            } else {
+              res.send(false);
+            }
+        });
+  },
+);
+
 router.post(
   '/spotifyAPI/createPlaylist',
   (req, res) => {
@@ -449,5 +464,7 @@ router.get(
       });
   },
 );
+
+
 
 module.exports = router;

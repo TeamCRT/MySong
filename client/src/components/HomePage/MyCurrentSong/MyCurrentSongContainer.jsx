@@ -11,8 +11,23 @@ class MyCurrentSongContainer extends React.Component {
       albumArtworkLink: '',
       wait: false,
       waitTime: null,
+      twitter: '',
     };
     this.setWait = this.setWait.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('component mounted!');
+      axios({
+          method: 'GET',
+          url: '/api/twitter-check',
+        })
+          .then((response) => {
+            let isTwitterConnected = response.data;
+            this.setState({twitter: isTwitterConnected});
+            console.log(this.state.twitter);
+          })
+          .catch(err => console.error(err, err));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -41,8 +56,8 @@ class MyCurrentSongContainer extends React.Component {
     }
   }
 
-
   render() {
+    //const twitterConnect = this.state.twitter ? 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)' : ;
     return (
       <div id="current-song">
         <MySongModal
@@ -61,20 +76,33 @@ class MyCurrentSongContainer extends React.Component {
             <div style={{ fontSize: '20px', color: 'red' }}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
           </div>
         </div>
-        <a 
+        {this.state.twitter && (<a 
           style={{
             float: 'right', 
-            backgroundImage: 'url(https://www.inyoursoup.com/images/signup-with-twitter-button@8x.png)', 
+            backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=connect+to+twitter&f=Calibri-Bold&ts=27&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
             padding: '10px 10px 10px 170px', 
             backgroundSize: 'cover',
             marginLeft: '20px',
-            height: '40px',
-            width: '200px',
+            height: '50px',
+            width: '271px',
             marginLeft: '10px',
             marginBottom: '20px'
           }}
           href="http://127.0.0.1:3001/api/auth/twitter"
-        ></a>
+        ></a>)}
+        {!this.state.twitter && (<a 
+          style={{
+            float: 'right', 
+            backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
+            padding: '10px 10px 10px 170px', 
+            backgroundSize: 'cover',
+            marginLeft: '20px',
+            height: '50px',
+            width: '271px',
+            marginLeft: '10px',
+            marginBottom: '20px'
+          }}
+        ></a>)}
       </div>
     );
   }
