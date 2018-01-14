@@ -154,7 +154,7 @@ class MySongModal extends Component {
           throw err;
         });
 
-      axios.post('/api/twitter', mySongPayload)
+      this.props.twitter && axios.post('/api/twitter', mySongPayload)
         .then((result) => {
           console.log(result);
         })

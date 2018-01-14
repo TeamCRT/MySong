@@ -289,18 +289,19 @@ router.post('/currentmysong', (req, res) => {
 
 router.post('/twitter', (req, res) => {
   console.log('/api/twitter endpoint reached!');
-  const client = new Twitter({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    access_token_key: req.session.passport.account.accessTokenKey,
-    access_token_secret: req.session.passport.account.accessTokenSecret
-  });
+  if (req.session.passport.account.accessTokenKey) {
+    const client = new Twitter({
+      consumer_key: process.env.TWITTER_CONSUMER_KEY,
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      access_token_key: req.session.passport.account.accessTokenKey,
+      access_token_secret: req.session.passport.account.accessTokenSecret
+    });
 
-  client.post('statuses/update', {status: `MySong for the week: ${req.body.mySong.trackSummary}, \n${req.body.mySong.note}`},  function(error, tweet, response) {
-    if(error) throw error;
-    console.log(tweet);  // Tweet body. 
-  });
-
+    client.post('statuses/update', {status: `MySong for the week: ${req.body.mySong.trackSummary}, \n${req.body.mySong.note}`},  function(error, tweet, response) {
+      if(error) throw error;
+        console.log('tweet successfully posted!');  // Tweet body. 
+      });
+  }
 });
 
 router.put('/addToFollowing', (req, res) => {
