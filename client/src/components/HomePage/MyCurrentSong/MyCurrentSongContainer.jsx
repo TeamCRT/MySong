@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import MySongModal from './MySongModal';
+import { Button, Popup } from 'semantic-ui-react'
 // import stylesheet from
 
 class MyCurrentSongContainer extends React.Component {
@@ -91,35 +92,49 @@ class MyCurrentSongContainer extends React.Component {
             <div style={{ fontSize: '20px', color: 'red' }}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
           </div>
         </div>
-        {!this.state.twitter && (<a 
-          style={{
-            float: 'right', 
-            backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=connect+to+twitter&f=Calibri-Bold&ts=27&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
-            padding: '10px 10px 10px 170px', 
-            backgroundSize: 'cover',
-            marginLeft: '20px',
-            height: '50px',
-            width: '271px',
-            marginLeft: '10px',
-            marginBottom: '20px'
-          }}
-          href="http://127.0.0.1:3001/api/auth/twitter"
-        ></a>)}
-        {this.state.twitter && (<a 
-          style={{
-            float: 'right', 
-            backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=fbc6aa&ebgc=f00)', 
-            padding: '10px 10px 10px 170px', 
-            backgroundSize: 'cover',
-            marginLeft: '20px',
-            height: '50px',
-            width: '271px',
-            marginLeft: '10px',
-            marginBottom: '20px',
-            cursor: 'pointer'
-          }}
-          onClick={this.disconnectTwitter}
-        ></a>)}
+        {!this.state.twitter && (
+          <Popup
+            trigger={
+              <a 
+                style={{
+                  float: 'right', 
+                  backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=connect+to+twitter&f=Calibri-Bold&ts=27&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
+                  padding: '10px 10px 10px 170px', 
+                  backgroundSize: 'cover',
+                  marginLeft: '20px',
+                  height: '50px',
+                  width: '271px',
+                  marginLeft: '10px',
+                  marginBottom: '20px'
+                }}
+                href="http://127.0.0.1:3001/api/auth/twitter"
+              ></a>
+            }
+            content='Connect your twitter account to have an automatic notification tweet sent out to your followers whenever you change your MySong!'
+          />
+        )}
+        {this.state.twitter && (
+          <Popup
+            trigger={
+              <a 
+                style={{
+                  float: 'right', 
+                   backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=fbc6aa&ebgc=f00)', 
+                   padding: '10px 10px 10px 170px', 
+                   backgroundSize: 'cover',
+                   marginLeft: '20px',
+                   height: '50px',
+                   width: '271px',
+                   marginLeft: '10px',
+                   marginBottom: '20px',
+                   cursor: 'pointer'
+                }}
+                onClick={this.disconnectTwitter}
+              ></a>
+            }
+            content='Disconnect your twitter account. Automatic notification tweets to your followers when you change your MySong will be disabled.'
+          />
+        )}
       </div>
     );
   }
