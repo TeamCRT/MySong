@@ -3,7 +3,6 @@ const axios = require('axios');
 const User = require('../../db/model/user.js');
 const path = require('path');
 require('dotenv').config({ path: '../../env.env' });
-const keys = require('./keys');
 const jwt = require('jwt-simple');
 const $ = require('jquery');
 // const btoa = require('btoa');
