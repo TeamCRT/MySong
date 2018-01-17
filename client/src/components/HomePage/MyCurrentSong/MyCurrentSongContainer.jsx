@@ -110,7 +110,7 @@ class MyCurrentSongContainer extends React.Component {
                 href="http://127.0.0.1:3001/api/auth/twitter"
               ></a>
             }
-            content='Connect your twitter account to have an automatic notification tweet sent out to your followers whenever you change your MySong!'
+            content='Connect your twitter account to have an automatic notification tweet sent to your followers whenever you change your MySong!'
           />
         )}
         {this.state.twitter && (
