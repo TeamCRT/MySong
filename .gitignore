@@ -29,6 +29,7 @@ node_modules/
 bower_components/
 package-lock.json
 env.env
+config/
 
 # Yarn
 yarn.lock
