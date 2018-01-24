@@ -114,20 +114,20 @@ export default class LandingPage extends Component {
              {this.state.activeItem==='about'&&<Container text >
               <h2 style={{ fontFamily:'Rubik', fontSize: '3em', fontWeight: 'normal', color: 'white' }}>Developed By</h2>
               <Grid>
-                <Grid.Row columns={3} style={{paddingTop: '4em', background: 'rgba(0, 0, 0, 0.3)', borderRadius: '20px'}}>
+                <Grid.Row columns={3} style={{paddingTop: '4em', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '20px'}}>
                   <Grid.Column>
                     <Image style={{borderRadius: '200px'}} src='https://avatars3.githubusercontent.com/u/3308433?s=460&v=4' />
                     <Header
                       as='h2'
                       content='Carter Duncan'
                       inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.75em', fontWeight: 'normal' }}
+                      style={{ fontFamily:'Rubik', fontSize: '1.98em', fontWeight: 'normal' }}
                     />
                     <Header
                       as='h1'
                       content='Full Stack Software Engineer'
                       inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.50em', fontWeight: 'normal', background: 'rgba(0, 0, 0, 0.5)' }}
+                      style={{ fontFamily:'Rubik', fontSize: '1.30em', fontWeight: 'normal' }}
                     />
                   </Grid.Column>
                   <Grid.Column>
@@ -136,13 +136,13 @@ export default class LandingPage extends Component {
                       as='h2'
                       content='Ross Salge'
                       inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.75em', fontWeight: 'normal' }}
+                      style={{ fontFamily:'Rubik', fontSize: '2em', fontWeight: 'normal' }}
                     />
                      <Header
                       as='h1'
                       content='Full Stack Software Engineer'
                       inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.50em', fontWeight: 'normal', background: 'rgba(0, 0, 0, 0.5)' }}
+                      style={{ fontFamily:'Rubik', fontSize: '1.30em', fontWeight: 'normal' }}
                     />
                   </Grid.Column>
                   <Grid.Column>
@@ -151,18 +151,24 @@ export default class LandingPage extends Component {
                       as='h2'
                       content='Tim Ninan'
                       inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.75em', fontWeight: 'normal' }}
+                      style={{ fontFamily:'Rubik', fontSize: '2em', fontWeight: 'normal' }}
                     />
                      <Header
                       as='h1'
                       content='Full Stack Software Engineer'
                       inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.50em', fontWeight: 'normal', background: 'rgba(0, 0, 0, 0.5)'}}
+                      style={{ fontFamily:'Rubik', fontSize: '1.30em', fontWeight: 'normal'}}
                     />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
 
+            </Container>}
+
+                {this.state.activeItem==='contact'&&<Container text >
+                  <h2
+                  style={{fontFamily:'Rubik', fontSize: '3em', fontWeight: 'normal', color: 'white', paddingTop: '2em' }}
+                  >Contact us with any questions or feedback at mysongteam@gmail.com</h2>
             </Container>}
 
           </Segment>
