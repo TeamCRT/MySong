@@ -15,11 +15,8 @@ import {
 } from 'semantic-ui-react'
 import piano from './playing-piano-wallpaper.jpg'
 // import guitar from './guitar.jpg'
-import phone from './phone.jpg'
+// import phone from './phone.jpg'
 import headphones from './headphones.jpg'
-import carter from './carterduncan.jpeg'
-import ross from './rosssalge.jpeg'
-import tim from './timninan.jpeg'
 
 // const FixedMenu = () => (
 //   <Menu fixed='top' size='large'>
@@ -42,21 +39,14 @@ import tim from './timninan.jpeg'
 
 export default class LandingPage extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      activeItem: 'home',
-    }
+    super(props)
     this.onClick = () => {
+
       window.location.href = 'http://127.0.0.1:3001/api/auth/spotify/';// eslint-disable-line
-    }
-    //this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleItemClick = (e, { name }) => {
-      this.setState({ activeItem: name });
     }
   }
 
   render() {
-    const { activeItem } = this.state;
     return (
       <div>
         <Visibility
@@ -72,9 +62,9 @@ export default class LandingPage extends Component {
           >
             <Container >
               <Menu inverted pointing secondary size='large'>
-                <Menu.Item as='a' name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>Home</Menu.Item>
-                <Menu.Item as='a'name='about' active={activeItem === 'about'} onClick={this.handleItemClick}>About</Menu.Item>
-                <Menu.Item as='a' name='contact' active={activeItem === 'contact'} onClick={this.handleItemClick}>Contact Us</Menu.Item>
+                <Menu.Item as='a' active>Home</Menu.Item>
+                <Menu.Item as='a'>About</Menu.Item>
+                <Menu.Item as='a'>Contact Us</Menu.Item>
                 <Menu.Item position='right'>
                   <Button as='a' inverted style={{fontSize:'15px'}} onClick={this.onClick}>Log in with Spotify
                     <Icon style={{marginLeft:'0.5em', marginBottom:'5px'}} size='big' color='green' name='spotify' />
@@ -82,8 +72,8 @@ export default class LandingPage extends Component {
                 </Menu.Item>
               </Menu>
             </Container>
-      
-            {this.state.activeItem==='home'&&<Container text >
+
+            <Container text>
               <Header
                 as='h1'
                 content='mysong'
@@ -109,68 +99,7 @@ export default class LandingPage extends Component {
                 style={{ fontFamily:'Rubik', fontSize: '1.75em', fontWeight: 'normal' }}
               />
 
-            </Container>}
-
-             {this.state.activeItem==='about'&&<Container text >
-              <h2 style={{ fontFamily:'Rubik', fontSize: '3em', fontWeight: 'normal', color: 'white' }}>Developed By</h2>
-              <Grid>
-                <Grid.Row columns={3} style={{paddingTop: '4em', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '20px'}}>
-                  <Grid.Column>
-                    <Image style={{borderRadius: '200px'}} src='https://avatars3.githubusercontent.com/u/3308433?s=460&v=4' />
-                    <Header
-                      as='h2'
-                      content='Carter Duncan'
-                      inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.98em', fontWeight: 'normal' }}
-                    />
-                    <Header
-                      as='h1'
-                      content='Full Stack Software Engineer'
-                      inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.30em', fontWeight: 'normal' }}
-                    />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Image style={{borderRadius: '200px'}} src='https://avatars1.githubusercontent.com/u/30704780?s=460&v=4' />
-                    <Header
-                      as='h2'
-                      content='Ross Salge'
-                      inverted
-                      style={{ fontFamily:'Rubik', fontSize: '2em', fontWeight: 'normal' }}
-                    />
-                     <Header
-                      as='h1'
-                      content='Full Stack Software Engineer'
-                      inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.30em', fontWeight: 'normal' }}
-                    />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Image style={{borderRadius: '200px'}} src='https://avatars3.githubusercontent.com/u/29494494?s=460&v=4' />
-                    <Header
-                      as='h2'
-                      content='Tim Ninan'
-                      inverted
-                      style={{ fontFamily:'Rubik', fontSize: '2em', fontWeight: 'normal' }}
-                    />
-                     <Header
-                      as='h1'
-                      content='Full Stack Software Engineer'
-                      inverted
-                      style={{ fontFamily:'Rubik', fontSize: '1.30em', fontWeight: 'normal'}}
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-
-            </Container>}
-
-                {this.state.activeItem==='contact'&&<Container text >
-                  <h2
-                  style={{fontFamily:'Rubik', fontSize: '3em', fontWeight: 'normal', color: 'white', paddingTop: '2em' }}
-                  >Contact us with any questions or feedback at mysongteam@gmail.com</h2>
-            </Container>}
-
+            </Container>
           </Segment>
         </Visibility>
 
