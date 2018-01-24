@@ -39,6 +39,12 @@ import tim from './timninan.jpeg'
 //     </Container>
 //   </Menu>
 // )
+/*
+color palette: 
+#C6ECE1
+#AB6657
+#25131F
+*/
 
 export default class LandingPage extends Component {
   constructor(props) {
