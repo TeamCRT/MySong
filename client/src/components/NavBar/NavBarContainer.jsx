@@ -26,7 +26,7 @@ class NavBarContainer extends React.Component {
             options={this.props.options}
           />
         </div>
-        <div className="logo">MySong.io</div>
+        <div className="logo">MySong</div>
         <div className="user-and-logout">
           <div className="username">{this.props.username}</div>
           <Button id="logout-button" onClick={this.handleLogOut}>Log Out</Button>
