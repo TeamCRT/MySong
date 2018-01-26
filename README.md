@@ -38,7 +38,7 @@ npm install
 ```
 ### To start the app
 ```sh
-npm install
+npm start
 ```
 
 <!-- ### Roadmap
