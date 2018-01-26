@@ -35,9 +35,10 @@ From within the root directory:
 
 ```sh
 npm install
-
-### To start the app
-npm start
+```
+To start the app
+```sh
+npm install
 ```
 
 <!-- ### Roadmap
