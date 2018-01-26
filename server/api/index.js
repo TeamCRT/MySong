@@ -12,6 +12,7 @@ const passport = require('passport');/* http://www.passportjs.org/docs */
 const Twitter = require('twitter');
 const secret = 'myappisawesome';
 const HOME = 'http://127.0.0.1:3000';
+const nodemailer = require('nodemailer');
 
 router.use('/spotifyAPI/:id', (req, res, next) => {
   let currentTimeAndDate = new Date();
@@ -177,6 +178,69 @@ router.get(
           });
       })
       .catch(err => res.send(err));
+  },
+);
+
+router.get(
+  '/email',
+   (req, res) => {
+    console.log('email endpoint is being called', req.session.passport.user.spotifyEmail);
+    var htmlResponse = [];
+    htmlResponse.push('<h1>Your Playlists </h1>');
+    const spotifyId = req.session.passport.user.spotifyId;
+    
+    User.getUserPlaylists(spotifyId)
+      .then( async (response) => {
+        const playlists = response[0].playlists;
+        for (let i = 0; i < playlists.length; i++) {
+          htmlResponse.push(`<h2>${playlists[i].playlistName}</h2>`);
+          await User.getAPlaylist(spotifyId, playlists[i].playlistName)
+            .then( async (result) => {
+              const songsArrayBySpotifyUserID = result[0].playlists[0].songsArrayBySpotifyUserID;
+              await User.populateAPlaylist(songsArrayBySpotifyUserID)
+              .then((response) => {
+            for (let j = 0; j < response.length; j++) {
+              htmlResponse.push(`<h4>${response[j].mySongUsername} : ${response[j].currentMySong.trackSummary}</h4>`);
+              htmlResponse.push(`<img src=${response[j].currentMySong.trackImage300} height=100 width=100></img>`)
+              htmlResponse.push(`<p style=font-style:italic;>"${response[j].currentMySong.note}"</p>`);
+            }
+          })
+          .catch((err) => {
+            res.send(err);
+          });
+      })
+      .catch(err => res.send(err));
+
+    }
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'mysong.notification@gmail.com',
+        pass: 'hratx30teamCRT'
+      }
+    });
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    
+    var mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: req.session.passport.user.spotifyEmail,
+      subject: `Your MySong playlists ${date}`,
+      html: htmlResponse.join('')
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+      console.log('Email sent: ' + info.response);
+      }
+
+    });
+    res.send('Email sent!');
+  });
   },
 );
 
