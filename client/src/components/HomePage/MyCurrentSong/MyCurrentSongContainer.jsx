@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import MySongModal from './MySongModal';
 import { Button, Popup } from 'semantic-ui-react'
+
 // import stylesheet from
 
 class MyCurrentSongContainer extends React.Component {
@@ -16,6 +17,7 @@ class MyCurrentSongContainer extends React.Component {
     };
     this.setWait = this.setWait.bind(this);
     this.disconnectTwitter = this.disconnectTwitter.bind(this);
+    this.emailHandler = this.emailHandler.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +73,15 @@ class MyCurrentSongContainer extends React.Component {
           .catch(err => console.error(err, err));
   }
 
+  emailHandler() {
+    console.log('Email Handler being called!');
+    axios.get(`/api/email`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(err => err);
+  }
+
   render() {
     //const twitterConnect = this.state.twitter ? 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)' : ;
     return (
@@ -92,23 +103,44 @@ class MyCurrentSongContainer extends React.Component {
             <div style={{ fontSize: '20px', color: 'red' }}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
           </div>
         </div>
+        <div style={{display: 'flex', flexDirection:'column'}}>
+        <Popup
+          trigger={
+            <button 
+              style={{
+                width: '140px',
+                height: '40px',
+                margin: '10px 10px 10px 20px',
+                borderRadius: '100px',
+                fontFamily:'Bungee',
+                color: 'white',
+                background: 'radial-gradient(#59304c, #25131f)',
+                cursor: 'pointer'
+              }}
+              onClick={this.emailHandler}
+              >Cryogenize
+            </button>
+          }
+          content='Cryogenize Feature: Really loving the playlists this week? Want to preserve a copy of it for future jam sessions? Click to have all your current playlist information cryogenized and sent to your Spotify email address!'
+        />
         {!this.state.twitter && (
           <Popup
             trigger={
               <a 
                 style={{
-                  float: 'right', 
-                  backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=connect+to+twitter&f=Calibri-Bold&ts=27&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=9ecbf4&ebgc=3291e8)', 
-                  padding: '10px 10px 10px 170px', 
-                  backgroundSize: 'cover',
-                  marginLeft: '20px',
-                  height: '50px',
-                  width: '271px',
-                  marginLeft: '10px',
-                  marginBottom: '20px'
+                  width: '140px',
+                  height: '55px',
+                  margin: '0px 10px 10px 20px',
+                  borderRadius: '200px',
+                  fontFamily:'Bungee',
+                  color: 'white',
+                  background: 'radial-gradient(#54703b, #2b2c2d)',
+                  textAlign: 'center',
+                  paddingTop: '9px',
+                  cursor: 'pointer'
                 }}
                 href="http://127.0.0.1:3001/api/auth/twitter"
-              ></a>
+              >connect to twitter</a>
             }
             content='Connect your twitter account to have an automatic notification tweet sent to your followers whenever you change your MySong!'
           />
@@ -118,23 +150,24 @@ class MyCurrentSongContainer extends React.Component {
             trigger={
               <a 
                 style={{
-                  float: 'right', 
-                   backgroundImage: 'url(https://dabuttonfactory.com/button.png?t=disconnect+from+twitter&f=Calibri-Bold&ts=23&tc=fff&w=271&h=50&c=round&bgt=gradient&bgc=fbc6aa&ebgc=f00)', 
-                   padding: '10px 10px 10px 170px', 
-                   backgroundSize: 'cover',
-                   marginLeft: '20px',
-                   height: '50px',
-                   width: '271px',
-                   marginLeft: '10px',
-                   marginBottom: '20px',
-                   cursor: 'pointer'
+                  width: '140px',
+                  height: '55px',
+                  margin: '0px 10px 10px 20px',
+                  borderRadius: '200px',
+                  fontFamily:'Bungee',
+                  color: 'white',
+                  background: 'radial-gradient(#54575b, #2b2c2d)',
+                  textAlign: 'center',
+                  paddingTop: '9px',
+                  cursor: 'pointer'
                 }}
                 onClick={this.disconnectTwitter}
-              ></a>
+              >disconnect twitter</a>
             }
             content='Disconnect your twitter account. Automatic notification tweets to your followers when you change your MySong will be disabled.'
           />
         )}
+      </div>
       </div>
     );
   }
