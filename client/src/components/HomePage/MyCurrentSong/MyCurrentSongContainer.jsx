@@ -78,6 +78,7 @@ class MyCurrentSongContainer extends React.Component {
     axios.get(`/api/email`)
       .then((response) => {
         console.log(response);
+        alert("YOUR PLAYLISTS HAVE BEEN CRYOGENIZED!");
       })
       .catch(err => err);
   }
