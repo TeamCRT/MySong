@@ -187,7 +187,6 @@ class EditPlaylistModal extends Component {
         <Button color='red' onClick={this.show(true)}>Edit</Button>
         <Modal dimmer={true} open={open} onClose={this.close}>
           <Modal.Header>{`Edit a Playlist`}</Modal.Header>
-          <Button onClick={this.handleTest}/>
           <div id='outer' style={{display: 'flex', flexDirection: 'row', height: '560px', width: '900px', backgroundColor:'red'}}>
       
             <div id='left half' style={{display: 'flex', flexDirection: 'column', backgroundColor: 'white', width: '50%', height: '100%'}}>
