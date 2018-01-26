@@ -225,7 +225,7 @@ router.get(
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
     var mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: 'mysong.notification@gmail.com',
       to: req.session.passport.user.spotifyEmail,
       subject: `Cryogenized your MySong playlists ${date}`,
       html: htmlResponse.join('')
