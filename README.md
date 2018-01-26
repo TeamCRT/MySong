@@ -1,6 +1,6 @@
 # MySong
 
-Share your favorite song
+A Spotify integrated app built in React, Express.js, Node.js, and MongoDB, that provides a meaningful space and user friendly platform for sharing your favorite music and creating playlists of your friends' favorite songs. 
 
 ## Team
 
@@ -35,6 +35,9 @@ From within the root directory:
 
 ```sh
 npm install
+
+### To start the app
+npm start
 ```
 
 <!-- ### Roadmap
