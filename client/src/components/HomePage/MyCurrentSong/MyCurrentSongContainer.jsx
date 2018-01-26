@@ -106,66 +106,39 @@ class MyCurrentSongContainer extends React.Component {
         </div>
         <div style={{display: 'flex', flexDirection:'column'}}>
         <Popup
+          position='right center'
+          style={{'fontFamily': 'Viga'}}
           trigger={
             <button 
-              style={{
-                width: '140px',
-                height: '40px',
-                margin: '10px 10px 10px 20px',
-                borderRadius: '100px',
-                fontFamily:'Bungee',
-                color: 'white',
-                background: 'radial-gradient(#59304c, #25131f)',
-                cursor: 'pointer'
-              }}
+              id='cryogenize'
               onClick={this.emailHandler}
               >Cryogenize
             </button>
           }
-          content='Cryogenize Feature: Really loving the playlists this week? Want to preserve a copy of it for future jam sessions? Click to have all your current playlist information cryogenized and sent to your Spotify email address!'
+          content='Really loving the playlists this week? Preserve a frozen copy for future jam sessions. Click to have all your current playlist information cryogenized and sent to your Spotify email address!'
         />
         {!this.state.twitter && (
           <Popup
+            style={{'fontFamily': 'Viga'}}
+            position='right center'
             trigger={
-              <a 
-                style={{
-                  width: '140px',
-                  height: '55px',
-                  margin: '0px 10px 10px 20px',
-                  borderRadius: '200px',
-                  fontFamily:'Bungee',
-                  color: 'white',
-                  background: 'radial-gradient(#54703b, #2b2c2d)',
-                  textAlign: 'center',
-                  paddingTop: '9px',
-                  cursor: 'pointer'
-                }}
+              <a id='twitter-connect'
                 href="http://127.0.0.1:3001/api/auth/twitter"
               >connect to twitter</a>
             }
-            content='Connect your twitter account to have an automatic notification tweet sent to your followers whenever you change your MySong!'
+            content='Connect your twitter account to enable automatic notification tweets when you change your MySong!'
           />
         )}
         {this.state.twitter && (
           <Popup
+            style={{'fontFamily': 'Viga'}}
+            position='right center'
             trigger={
-              <a 
-                style={{
-                  width: '140px',
-                  height: '55px',
-                  margin: '0px 10px 10px 20px',
-                  borderRadius: '200px',
-                  fontFamily:'Bungee',
-                  color: 'white',
-                  background: 'radial-gradient(#54575b, #2b2c2d)',
-                  textAlign: 'center',
-                  paddingTop: '9px',
-                  cursor: 'pointer'
-                }}
+              <a id='twitter-disconnect'
                 onClick={this.disconnectTwitter}
               >disconnect twitter</a>
             }
-            content='Disconnect your twitter account. Automatic notification tweets to your followers when you change your MySong will be disabled.'
+            content='Disconnect your twitter account. Automatic MySong notification tweets will be disabled.'
           />
         )}
       </div>
