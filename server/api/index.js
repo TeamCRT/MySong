@@ -227,7 +227,7 @@ router.get(
     var mailOptions = {
       from: process.env.EMAIL_USER,
       to: req.session.passport.user.spotifyEmail,
-      subject: `Your MySong playlists ${date}`,
+      subject: `Cryogenized your MySong playlists ${date}`,
       html: htmlResponse.join('')
     };
 
