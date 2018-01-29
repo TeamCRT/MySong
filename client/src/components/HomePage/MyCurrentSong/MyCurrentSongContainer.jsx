@@ -115,7 +115,7 @@ class MyCurrentSongContainer extends React.Component {
               >Cryogenize
             </button>
           }
-          content='Really loving the playlists this week? Preserve a frozen copy for future jam sessions. Click to have all your current playlist information cryogenized and sent to your Spotify email address!'
+          content='Really loving the playlists this week? Preserve a frozen copy for future reference. Click to have all your playlists cryogenized and sent to your Spotify email address!'
         />
         {!this.state.twitter && (
           <Popup
