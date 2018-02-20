@@ -80,7 +80,7 @@ body > * {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 2fr 3fr 1fr;
   border-left: none;
   border-right: none;
   border-top: none; }
