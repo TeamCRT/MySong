@@ -104,7 +104,7 @@ class MyCurrentSongContainer extends React.Component {
             <div style={{ fontSize: '20px', color: 'red' }}>{this.state.wait && (`Wait time remaining: About ${this.state.waitTime} sec(s)`)}</div>
           </div>
         </div>
-        <div style={{display: 'flex', flexDirection:'column'}}>
+        <div style={{display: 'grid', gridColumn: '3', marginRight: 'auto'}}>
         <Popup
           position='right center'
           style={{'fontFamily': 'Viga'}}
